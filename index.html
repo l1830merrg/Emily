@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>艾米莉の日貨鋪 ｜Emily's Shopping Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --muji-red: #7F2122;
+            --muji-beige: #F7F2ED;
+            --muji-text: #333333;
+            --muji-gray: #7F7F7F;
+            --muji-border: #E0E0E0;
+            --line-green: #06C755;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--muji-beige);
+            color: var(--muji-text);
+            scroll-behavior: smooth;
+        }
+
+        input, select, textarea {
+            background-color: #FFFFFF !important;
+            border: 1px solid var(--muji-border) !important;
+            border-radius: 2px !important;
+            padding: 14px !important;
+            font-size: 16px !important;
+        }
+
+        .sidebar { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sidebar-closed { transform: translateX(-100%); }
+
+        .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .submenu.open { max-height: 500px; }
+
+        .floating-btn { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .product-card { background: white; transition: all 0.3s ease; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .muji-checkbox:checked { background-color: var(--muji-red); border-color: var(--muji-red); }
+        .img-nav-btn { opacity: 0; transition: opacity 0.2s ease; }
+        .group:hover .img-nav-btn { opacity: 1; }
+        .dot { transition: all 0.3s ease; }
+
+        .brand-section-header {
+            grid-column: 1 / -1;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--muji-border);
+            padding-bottom: 16px;
+            scroll-margin-top: 80px;
+        }
+        .brand-section-title { font-size: 20px; letter-spacing: 0.15em; font-weight: 500; margin-bottom: 4px; }
+        .brand-section-desc { font-size: 13px; color: #888888; letter-spacing: 0.05em; line-height: 1.6; }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255,255,255,0.9);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="pb-24">
+
+    <!-- 讀取中遮罩 -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="text-center">
+            <div class="inline-block w-8 h-8 border-4 border-gray-200 border-t-red-800 rounded-full animate-spin mb-4"></div>
+            <p class="text-sm tracking-widest text-gray-500 font-medium text-red-900">訂單傳送中，請稍候...</p>
+        </div>
+    </div>
+
+    <!-- 側邊分類選單 -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-white z-50 sidebar sidebar-closed border-r border-gray-100 shadow-2xl overflow-y-auto">
+        <div class="p-8">
+            <div class="flex justify-between items-center mb-8">
+                <span class="text-sm tracking-[0.3em] font-medium uppercase font-bold">目錄</span>
+                <button onclick="toggleSidebar()" class="text-gray-400 hover:text-black">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <nav class="space-y-2">
+                <button onclick="filterCategory('全部')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3 border-b border-gray-50">全部商品</button>
+                <div>
+                    <button onclick="toggleSubmenu()" class="flex justify-between items-center w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3 border-b border-gray-50 font-medium">
+                        <span>茅乃舍 Kayanoya</span>
+                        <svg id="submenu-arrow" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="kayanoya-submenu" class="submenu bg-gray-50/50">
+                        <button onclick="scrollToSection('經典高湯包系列')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-6 border-b border-gray-100">一、經典高湯包系列</button>
+                        <button onclick="scrollToSection('懶人即食系列')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-6 border-b border-gray-100">二、懶人即食系列</button>
+                        <button onclick="scrollToSection('靈魂醬料與調味系列')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-6 border-b border-gray-100">三、靈魂醬料與調味系列</button>
+                        <button onclick="scrollToSection('嬰幼兒系列')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-6 border-b border-gray-100">四、嬰幼兒系列</button>
+                    </div>
+                </div>
+                <button onclick="filterCategory('好市多')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3 border-b border-gray-50">好市多 Costco</button>
+                <button onclick="filterCategory('3 coins')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3 border-b border-gray-50">3 Coins</button>
+                <button onclick="filterCategory('生活雜貨')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3 border-b border-gray-50">其他生活雜貨</button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- 側邊浮動目錄按鈕 -->
+    <button onclick="toggleSidebar()" class="fixed left-0 top-1/2 -translate-y-1/2 z-40 bg-white border border-gray-200 p-3 rounded-r-xl floating-btn hover:bg-gray-50 transition group">
+        <div class="flex flex-col items-center space-y-2">
+            <svg class="w-5 h-5 text-gray-600 group-hover:text-red-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <span class="[writing-mode:vertical-rl] text-[10px] tracking-[0.3em] text-gray-500 font-medium">目錄</span>
+        </div>
+    </button>
+
+    <!-- 頂部標題 -->
+    <header class="bg-white py-12 px-6 text-center border-b border-gray-50">
+        <h1 class="text-2xl font-light tracking-[0.2em] mb-4">艾米莉の日貨鋪 ｜Emily's Shopping Agent</h1>
+        <p id="current-category-label" class="text-xs text-red-800 tracking-widest font-medium uppercase tracking-[0.2em]">全部商品</p>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-20"></div>
+
+        <!-- 結帳區域 -->
+        <section id="checkout-section" class="bg-white max-w-2xl mx-auto p-8 md:p-12 border border-gray-100 shadow-sm rounded-sm">
+            <h3 class="text-lg font-light tracking-[0.3em] mb-10 text-center border-b pb-6">收件與結帳</h3>
+            
+            <form id="orderForm" class="space-y-6">
+                <!-- 代購須知 -->
+                <div class="bg-[#FBFBFB] p-6 border border-gray-100 rounded-sm space-y-6 mb-10">
+                    <h4 class="text-base font-bold tracking-widest text-red-800 flex items-center"><span class="mr-2">📍</span> 代購須知</h4>
+                    <div class="space-y-4 text-[13px] md:text-[14px] leading-relaxed text-gray-600">
+                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1 mr-3 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-5 h-5"><span>1. 我已明白本服務為委任代買，下單後不接受取消。</span></label>
+                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1 mr-3 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-5 h-5"><span>2. 我已確認商品顏色與尺寸且海外代購不適用 7 天鑑賞期。</span></label>
+                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1 mr-3 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-5 h-5"><span>3. 我能接受國際運輸外盒擠壓之風險。</span></label>
+                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1 mr-3 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-5 h-5"><span>4. 我已知悉若遇日本缺貨將會全額退款。</span></label>
+                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1 mr-3 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-5 h-5"><span>5. 我明白收貨必須「全程錄影」以保障自身瑕疵換貨權益。</span></label>
+                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1 mr-3 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-5 h-5"><span>6. 我同意國際運費依實際秤重通知補款，並負擔可能產生的關稅。</span></label>
+                    </div>
+                </div>
+
+                <!-- 購物清單摘要 -->
+                <div id="cart-summary" class="bg-gray-50 p-6 rounded-sm mb-8 hidden">
+                    <h4 class="text-sm md:text-base tracking-widest text-gray-400 mb-4 uppercase font-bold">已選購項目</h4>
+                    <div id="cart-items" class="space-y-4 text-sm md:text-base border-b border-gray-200 pb-4 mb-4"></div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm md:text-base font-medium tracking-widest">總計金額</span>
+                        <span id="grand-total" class="text-xl font-medium">NT$ 0</span>
+                    </div>
+                </div>
+
+                <!-- 收件資料 -->
+                <div class="space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <label class="text-sm md:text-base tracking-widest text-gray-500 uppercase font-medium">訂購人姓名 <span class="text-red-700">*</span></label>
+                            <input type="text" id="input-name" required placeholder="例：林小姐" class="w-full validate-input">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm md:text-base tracking-widest text-gray-500 uppercase font-medium">Line ID <span class="text-red-700">*</span></label>
+                            <input type="text" id="input-line" required placeholder="請輸入您的 Line ID" class="w-full validate-input">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <label class="text-sm md:text-base tracking-widest text-gray-500 uppercase font-medium">Email <span class="text-red-700">*</span></label>
+                            <input type="email" id="input-email" required placeholder="example@email.com" class="w-full validate-input">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm md:text-base tracking-widest text-gray-500 uppercase font-medium">配送方式 <span class="text-red-700">*</span></label>
+                            <select id="input-shipping" required class="w-full validate-input">
+                                <option value="">請選擇配送方式</option>
+                                <option value="面交">面交</option>
+                                <option value="宅配">宅配</option>
+                                <option value="店到店">店到店</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm md:text-base tracking-widest text-gray-500 uppercase font-medium">備註事項 (可選)</label>
+                        <textarea id="input-notes" rows="2" placeholder="如有其他需求請註記於此" class="w-full"></textarea>
+                    </div>
+                </div>
+
+                <div class="pt-4 space-y-6">
+                    <button type="submit" id="submitBtn" disabled class="w-full py-5 bg-[#7F2122] text-white text-xs tracking-[0.4em] font-medium hover:opacity-90 transition disabled:bg-gray-200 disabled:cursor-not-allowed">
+                        確認送出訂單
+                    </button>
+                    <p id="empty-cart-tip" class="text-center text-[10px] text-gray-400 tracking-widest min-h-[1.5em]"></p>
+
+                    <div class="p-5 border-2 border-dashed border-green-500 rounded-sm text-center">
+                        <p class="text-orange-500 text-sm md:text-base font-bold leading-loose">
+                            訂單完成後請加入官方帳號：@824ivcsu<br>
+                            👉 請回傳「訂購人姓名」及「匯款證明」以利對帳
+                        </p>
+                    </div>
+
+                    <div class="flex justify-center">
+                        <a href="https://line.me/R/ti/p/@824ivcsu" target="_blank" class="flex items-center justify-center space-x-3 bg-[#06C755] text-white py-4 px-8 rounded-xl hover:opacity-90 transition shadow-sm w-full md:w-auto">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 10.304c0-4.58-4.69-8.304-10.435-8.304-5.745 0-10.435 3.724-10.435 8.304 0 4.108 3.712 7.548 8.73 8.192.34.073.801.224.919.516.105.259.068.665.033.926-.035.261-.16 1.054-.195 1.343-.058.484-.27 1.895 1.164 1.034 1.433-.861 7.742-4.559 10.559-7.802.001-.001 0 0 0 0 1.93-2.115 3.13-4.256 3.13-6.413zm-16.711 3.253h-1.523c-.227 0-.411-.184-.411-.411v-3.784c0-.227.184-.411.411-.411h1.523c.227 0 .411.184.411.411v3.784c0 .227-.184.411-.411.411zm3.179 0h-1.523c-.227 0-.411-.184-.411-.411v-3.784c0-.227.184-.411.411-.411h1.523c.227 0 .411.184.411.411v3.784c0 .227-.184.411-.411.411zm3.432 0h-1.46c-.221 0-.399-.184-.399-.411v-3.784c0-.227.178-.411.399-.411h1.46c.221 0 .399.184.399.411v3.784c0 .227-.178.411-.399.411zm3.936 0h-1.523c-.227 0-.411-.184-.411-.411v-3.784c0-.227.184-.411.411-.411h1.523c.227 0 .411.184.411.411v3.784c0 .227-.184.411-.411.411z"/></svg>
+                            <span class="font-bold tracking-widest text-sm md:text-base">官方帳號連結在此</span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- 手機版底部資訊條 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 md:hidden z-30 flex justify-between items-center px-8 shadow-md">
+        <div>
+            <span class="text-[9px] text-gray-400 tracking-widest block uppercase">目前總額</span>
+            <span id="mobile-total" class="font-medium text-red-800">NT$ 0</span>
+        </div>
+        <button onclick="document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'})" class="bg-black text-white px-6 py-2 text-[10px] tracking-widest uppercase">結帳</button>
+    </div>
+
+    <!-- 成功提示 (顯示訂單編號) -->
+    <div id="successToast" class="fixed inset-0 z-[110] hidden bg-white/98 flex items-center justify-center backdrop-blur-md p-6 fade-in">
+        <div class="text-center max-w-sm w-full p-10 border border-gray-100 bg-white shadow-2xl rounded-sm">
+            <div class="text-green-600 mb-6">
+                <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <h2 class="text-xl font-medium tracking-[0.3em] mb-4 uppercase text-gray-800">訂單已成功送出</h2>
+            
+            <div class="bg-gray-50 py-6 px-4 mb-8 border border-gray-100">
+                <p class="text-[11px] text-gray-400 tracking-[0.2em] uppercase mb-2">您的訂單編號</p>
+                <p id="display-order-id" class="text-2xl font-bold tracking-wider text-red-900"></p>
+            </div>
+
+            <p class="text-gray-500 text-xs tracking-widest mb-10 leading-relaxed">
+                感謝您的選購！<br>
+                請截圖此畫面或記下編號，並前往 Line 官方帳號回傳您的編號以利對帳。
+            </p>
+            
+            <button onclick="location.reload()" class="bg-black text-white px-10 py-4 text-xs tracking-[0.3em] uppercase w-full font-medium hover:bg-gray-800 transition">返回賣場</button>
+        </div>
+    </div>
+
+    <script>
+        // *** 這是您的 Google Apps Script 網址 ***
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-fdbSXNOaInQkIR3e1dhGw0Ye4hAl2KUMHmTWDpT-mjAlyei95PSK-kpkAdAa9ls1WA/exec"; 
+
+        const KAYANOYA_CATEGORIES = ["經典高湯包系列", "懶人即食系列", "靈魂醬料與調味系列", "嬰幼兒系列"];
+        const KAYANOYA_DESCRIPTIONS = {
+            "經典高湯包系列": "這類產品是品牌的靈魂，特色在於「撕開即用」或「兩分鐘煮出餐廳級高湯」。",
+            "懶人即食系列": "採用冷凍乾燥技術，加熱水即可享用，適合上班族或當作宵夜。",
+            "靈魂醬料與調味系列": "這些是提升料理層次的秘訣，簡單攪拌或沾取就能讓平凡食材變美味。"
+        };
+
+        // ==========================================
+        // 🛍️ 商品資料庫 (在這裡新增或修改商品)
+        // ==========================================
+        const allProducts = [
+            // --- 茅乃舍：一、經典高湯包系列 ---
+            { 
+                id: 1, 
+                brand: "茅乃舍", 
+                subcat: "經典高湯包系列", 
+                name: "茅乃舍經典高湯 (30入)", 
+                price: 727, 
+                desc: "鎮店之寶 No.1，這款正宗的日式高湯由烤飛魚、鰹魚片、圓鯡魚和海帶等粉狀食材製成，並包裝在日式高湯包中。它用途廣泛，可用於製作味噌湯和燉菜等各種菜餚。您也可以撕開包裝袋，將裡面的湯料當作調味料。", 
+                images: [
+                    "https://drive.google.com/file/d/1Qh6FSYBDR75U86xOAj9r62_MKelUvOta/view?usp=drive_link",
+                    "https://drive.google.com/file/d/12zzkoP1AuS13c18ft_c684ZIc_A0wJbV/view?usp=drive_link",
+                    "https://drive.google.com/file/d/1ugt1ShhwcRoJndHcR4fQJn64H9Jc87MT/view?usp=drive_link"
+                ] 
+            },
+                ] 
+            },
+            { 
+                id: 2, 
+                brand: "茅乃舍", 
+                subcat: "經典高湯包系列", 
+                name: "野菜高湯 (24入)", 
+                price: 790, 
+                desc: "五種國產野菜精華，純素可用。", 
+                images: ["https://images.unsplash.com/photo-1594488651083-29118f6d07c4?auto=format&fit=crop&q=80&w=800"] 
+            },
+
+            // --- 茅乃舍：二、懶人即食系列 ---
+            { 
+                id: 3, 
+                brand: "茅乃舍", 
+                subcat: "懶人即食系列", 
+                name: "即食味噌湯-N01", 
+                price: 120, 
+                desc: "只需熱水，三秒享受職人風味。", 
+                images: ["https://images.unsplash.com/photo-1582819509237-d5b75f20ff7c?auto=format&fit=crop&q=80&w=800"] 
+            },
+
+            // --- 茅乃舍：三、靈魂醬料與調味系列 ---
+            { 
+                id: 5, 
+                brand: "茅乃舍", 
+                subcat: "靈魂醬料與調味系列", 
+                name: "手作胡麻醬", 
+                price: 380, 
+                desc: "濃郁芝麻香，拌麵沙拉皆宜。", 
+                images: ["https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&q=80&w=800"] 
+            },
+
+            // --- 茅乃舍：四、嬰幼兒系列 ---
+            { 
+                id: 7, 
+                brand: "茅乃舍", 
+                subcat: "嬰幼兒系列", 
+                name: "寶寶專用無鹽高湯", 
+                price: 650, 
+                desc: "專為嬰幼兒開發，完全無添加鹽分。", 
+                images: ["https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800"] 
+            },
+
+            // --- 好市多 Costco ---
+            { 
+                id: 8, 
+                brand: "好市多", 
+                subcat: "一般", 
+                name: "Kirkland 堅果仁", 
+                price: 680, 
+                desc: "精選優質堅果，大包裝最划算。", 
+                images: ["https://images.unsplash.com/photo-1536627217140-692798e22f25?auto=format&fit=crop&q=80&w=800"] 
+            },
+
+            // --- 3 Coins ---
+            { 
+                id: 9, 
+                brand: "3 coins", 
+                subcat: "一般", 
+                name: "簡約霧面餐盤組", 
+                price: 150, 
+                desc: "日系百元商店質感好物。", 
+                images: ["https://images.unsplash.com/photo-1530607314742-0f9c2d765809?auto=format&fit=crop&q=80&w=800"] 
+            },
+
+            // --- 生活雜貨 ---
+            { 
+                id: 10, 
+                brand: "生活雜貨", 
+                subcat: "一般", 
+                name: "亞麻室內香氛袋", 
+                price: 190, 
+                desc: "淡淡清香，適合放在衣櫥。", 
+                images: ["https://images.unsplash.com/photo-1602928294248-ad96a2448458?auto=format&fit=crop&q=80&w=800"] 
+            }
+            
+            /* 💡 如何新增商品？ 
+               請複製下方這段大括號內容，貼在上面的商品之後，並記得把 id 改成沒人用過的數字。
+               { 
+                   id: 11, 
+                   brand: "品牌名稱", 
+                   subcat: "茅乃舍請填四大系列之一，其餘填一般", 
+                   name: "商品名稱", 
+                   price: 價格數字, 
+                   desc: "商品短描述", 
+                   images: ["圖片網址1", "圖片網址2"] 
+               },
+            */
+        ];
+
+        let cart = {}; let productImgMap = {}; let currentFilter = "全部";
+
+        window.onload = () => {
+            allProducts.forEach(p => productImgMap[p.id] = 0);
+            renderProducts();
+            document.querySelectorAll('.terms-checkbox, .validate-input').forEach(el => {
+                el.addEventListener('change', updateSummary);
+                el.addEventListener('input', updateSummary);
+            });
+        };
+
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('sidebar-closed'); }
+        function toggleSubmenu() {
+            const menu = document.getElementById('kayanoya-submenu');
+            const arrow = document.getElementById('submenu-arrow');
+            menu.classList.toggle('open');
+            arrow.style.transform = menu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function filterCategory(cat) {
+            currentFilter = cat; document.getElementById('current-category-label').textContent = cat;
+            renderProducts(); toggleSidebar(); window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToSection(sectionId) {
+            if (currentFilter !== '茅乃舍') { currentFilter = '茅乃舍'; document.getElementById('current-category-label').textContent = '茅乃舍'; renderProducts(); }
+            toggleSidebar(); setTimeout(() => { const el = document.getElementById(`section-${sectionId}`); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 100);
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid'); grid.innerHTML = '';
+            if (currentFilter === "茅乃舍") {
+                KAYANOYA_CATEGORIES.forEach(subcat => {
+                    const prods = allProducts.filter(p => p.brand === "茅乃舍" && p.subcat === subcat);
+                    if (prods.length > 0) {
+                        const header = document.createElement('div'); header.id = `section-${subcat}`; header.className = 'brand-section-header fade-in';
+                        header.innerHTML = `<h2 class="brand-section-title">${subcat}</h2>` + (KAYANOYA_DESCRIPTIONS[subcat] ? `<p class="brand-section-desc">${KAYANOYA_DESCRIPTIONS[subcat]}</p>` : '');
+                        grid.appendChild(header); prods.forEach(p => grid.appendChild(createProductCard(p)));
+                    }
+                });
+            } else {
+                const filtered = currentFilter === "全部" ? allProducts : allProducts.filter(p => p.brand === currentFilter);
+                filtered.forEach((p) => grid.appendChild(createProductCard(p)));
+            }
+        }
+
+        function createProductCard(p) {
+            const card = document.createElement('div'); card.className = 'product-card p-5 border border-transparent hover:border-gray-100 rounded-sm fade-in';
+            const currentQty = cart[p.id] || 0; const currentImgIdx = productImgMap[p.id]; const hasMultipleImages = p.images.length > 1;
+            card.innerHTML = `<div class="aspect-square bg-gray-50 mb-6 overflow-hidden relative group">
+                <img id="img-${p.id}" src="${p.images[currentImgIdx]}" class="w-full h-full object-cover transition-opacity duration-200">
+                <div class="absolute top-2 left-2 bg-white/80 px-2 py-1 text-[9px] tracking-widest text-gray-500 uppercase">${p.brand}</div>
+                ${hasMultipleImages ? `<button onclick="switchCardImage(${p.id}, -1)" class="img-nav-btn absolute left-0 top-0 bottom-0 px-2 bg-black/5 hover:bg-black/10 text-white flex items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg></button>
+                <button onclick="switchCardImage(${p.id}, 1)" class="img-nav-btn absolute right-0 top-0 bottom-0 px-2 bg-black/5 hover:bg-black/10 text-white flex items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg></button>
+                <div id="dots-${p.id}" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-1.5">${p.images.map((_, i) => `<div class="dot w-1.5 h-1.5 rounded-full ${i === currentImgIdx ? 'bg-white scale-110' : 'bg-white/40'}"></div>`).join('')}</div>` : ''}
+            </div>
+            <div class="space-y-2">
+                <h4 class="text-sm font-medium tracking-wide">${p.name}</h4>
+                <p class="text-[11px] text-gray-400 font-light leading-relaxed">${p.desc}</p>
+                <div class="flex justify-between items-center pt-4">
+                    <span class="text-sm font-medium tracking-tighter text-red-900">NT$ ${p.price}</span>
+                    <select onchange="updateCart(${p.id}, this.value)" class="w-20 py-1.5 text-xs border-gray-200 focus:ring-0">
+                        <option value="0">數量</option>${[1,2,3,4,5,6,7,8,9,10].map(v => `<option value="${v}" ${currentQty == v ? 'selected' : ''}>${v}</option>`).join('')}
+                    </select>
+                </div>
+            </div>`;
+            return card;
+        }
+
+        function switchCardImage(productId, direction) {
+            const product = allProducts.find(p => p.id === productId); const max = product.images.length;
+            let newIdx = (productImgMap[productId] + direction + max) % max; productImgMap[productId] = newIdx;
+            const img = document.getElementById(`img-${productId}`); if (img) { img.style.opacity = '0.5'; setTimeout(() => { img.src = product.images[newIdx]; img.style.opacity = '1'; }, 100); }
+            const dots = document.getElementById(`dots-${productId}`); if (dots) { [...dots.children].forEach((dot, i) => dot.className = `dot w-1.5 h-1.5 rounded-full ${i === newIdx ? 'bg-white scale-110' : 'bg-white/40'}`); }
+        }
+
+        function updateCart(id, qty) { cart[id] = parseInt(qty); if (cart[id] === 0) delete cart[id]; updateSummary(); }
+
+        function updateSummary() {
+            const sum = document.getElementById('cart-summary'), list = document.getElementById('cart-items'), totalDisplay = document.getElementById('grand-total'), mobileTotal = document.getElementById('mobile-total'), submitBtn = document.getElementById('submitBtn'), tip = document.getElementById('empty-cart-tip');
+            const allChecked = [...document.querySelectorAll('.terms-checkbox')].every(cb => cb.checked);
+            const infoComplete = ['input-name', 'input-line', 'input-email', 'input-shipping'].every(id => document.getElementById(id).value.trim() !== "");
+            list.innerHTML = ''; let total = 0, count = 0;
+            for (let id in cart) {
+                const p = allProducts.find(item => item.id == id); const subtotal = p.price * cart[id]; total += subtotal; count++;
+                list.innerHTML += `<div class="flex justify-between tracking-wide text-sm md:text-base"><span class="text-gray-500">${p.name} / ${cart[id]} 個</span><span class="font-medium">NT$ ${subtotal.toLocaleString()}</span></div>`;
+            }
+            sum.classList.toggle('hidden', count === 0);
+            if (count > 0 && allChecked && infoComplete) { submitBtn.disabled = false; tip.textContent = ""; }
+            else { submitBtn.disabled = true; if (count === 0) tip.textContent = ""; else if (!allChecked) tip.textContent = "請勾選所有代購須知條款"; else tip.textContent = "請填寫完整訂購資訊"; }
+            totalDisplay.textContent = `NT$ ${total.toLocaleString()}`; mobileTotal.textContent = `NT$ ${total.toLocaleString()}`;
+        }
+
+        document.getElementById('orderForm').onsubmit = async function(e) {
+            e.preventDefault();
+            if (!SCRIPT_URL) { alert("尚未設定後台連結。"); return; }
+            
+            const orderId = "EM" + Date.now(); 
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            
+            let itemsStr = "";
+            for (let id in cart) {
+                const p = allProducts.find(item => item.id == id);
+                itemsStr += `${p.name} x ${cart[id]}\n`;
+            }
+
+            const data = {
+                orderId: orderId,
+                name: document.getElementById('input-name').value,
+                lineId: document.getElementById('input-line').value,
+                email: document.getElementById('input-email').value,
+                shipping: document.getElementById('input-shipping').value,
+                notes: document.getElementById('input-notes') ? document.getElementById('input-notes').value : "",
+                orderItems: itemsStr,
+                total: document.getElementById('grand-total').textContent
+            };
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    cache: "no-cache",
+                    body: JSON.stringify(data)
+                });
+                
+                document.getElementById('display-order-id').textContent = orderId;
+                document.getElementById('loadingOverlay').style.display = 'none';
+                document.getElementById('successToast').classList.remove('hidden');
+                this.reset(); cart = {}; updateSummary();
+            } catch (err) {
+                document.getElementById('loadingOverlay').style.display = 'none';
+                alert("送出失敗，請檢查網路連結。");
+            }
+        };
+    </script>
+</body>
+</html>
