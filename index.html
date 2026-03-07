@@ -195,7 +195,7 @@
                 </div>
 
                 <div class="pt-4 space-y-6">
-                    <button type="submit" id="submitBtn" disabled class="w-full py-5 bg-[#7F2122] text-white text-xs tracking-[0.4em] font-medium hover:opacity-90 transition disabled:bg-gray-200 disabled:cursor-not-allowed">
+                    <button type="submit" id="submitBtn" disabled class="w-full py-5 bg-[#7F2122] text-white text-xs tracking-[0.4em] font-medium hover:opacity-90 transition disabled:bg-gray-300 disabled:cursor-not-allowed">
                         確認送出訂單
                     </button>
                     <p id="empty-cart-tip" class="text-center text-[10px] text-gray-400 tracking-widest min-h-[1.5em]"></p>
@@ -227,7 +227,7 @@
         <button onclick="document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'})" class="bg-black text-white px-6 py-2 text-[10px] tracking-widest uppercase">結帳</button>
     </div>
 
-    <!-- 成功提示 (顯示訂單編號) -->
+    <!-- 成功提示 -->
     <div id="successToast" class="fixed inset-0 z-[110] hidden bg-white/98 flex items-center justify-center backdrop-blur-md p-6 fade-in">
         <div class="text-center max-w-sm w-full p-10 border border-gray-100 bg-white shadow-2xl rounded-sm">
             <div class="text-green-600 mb-6">
@@ -240,7 +240,7 @@
                 <p id="display-order-id" class="text-2xl font-bold tracking-wider text-red-900"></p>
             </div>
 
-            <p class="text-gray-500 text-xs tracking-widest mb-10 leading-relaxed">
+            <p class="text-gray-500 text-xs tracking-widest mb-10 leading-relaxed text-center">
                 感謝您的選購！<br>
                 請截圖此畫面或記下編號，並前往 Line 官方帳號回傳您的編號以利對帳。
             </p>
@@ -250,7 +250,6 @@
     </div>
 
     <script>
-        // *** 這是您的 Google Apps Script 網址 ***
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-fdbSXNOaInQkIR3e1dhGw0Ye4hAl2KUMHmTWDpT-mjAlyei95PSK-kpkAdAa9ls1WA/exec"; 
 
         const KAYANOYA_CATEGORIES = ["經典高湯包系列", "懶人即食系列", "靈魂醬料與調味系列", "嬰幼兒系列"];
@@ -260,25 +259,15 @@
             "靈魂醬料與調味系列": "這些是提升料理層次的秘訣，簡單攪拌或沾取就能讓平凡食材變美味。"
         };
 
-        // ==========================================
-        // 🛍️ 商品資料庫 (在這裡新增或修改商品)
-        // ==========================================
         const allProducts = [
-            // --- 茅乃舍：一、經典高湯包系列 ---
             { 
                 id: 1, 
                 brand: "茅乃舍", 
                 subcat: "經典高湯包系列", 
                 name: "01.茅乃舍經典高湯 (30入)", 
                 price: 727, 
-                desc: "鎮店之寶 No.1，這款正宗的日式高湯由烤飛魚、鰹魚片、圓鯡魚和海帶等粉狀食材製成，並包裝在日式高湯包中。它用途廣泛，可用於製作味噌湯和燉菜等各種菜餚。您也可以撕開包裝袋，將裡面的湯料當作調味料。", 
-                images: [
-                    "https://drive.google.com/file/d/1Qh6FSYBDR75U86xOAj9r62_MKelUvOta/view?usp=drive_link",
-                    "https://drive.google.com/file/d/12zzkoP1AuS13c18ft_c684ZIc_A0wJbV/view?usp=drive_link",
-                    "https://drive.google.com/file/d/1ugt1ShhwcRoJndHcR4fQJn64H9Jc87MT/view?usp=drive_link"
-                ] 
-            },
-                ] 
+                desc: "鎮店之寶 No.1，正宗日式高湯由烤飛魚、鰹魚片、圓鯡魚和海帶製成，用途廣泛。", 
+                images: ["https://i.postimg.cc/Fz4L4NFN/m39.jpg","https://i.postimg.cc/vTt68kDm/M39_1.jpg","https://i.postimg.cc/yxyS6tWd/M39_2.jpg"] 
             },
             { 
                 id: 2, 
@@ -289,8 +278,6 @@
                 desc: "五種國產野菜精華，純素可用。", 
                 images: ["https://images.unsplash.com/photo-1594488651083-29118f6d07c4?auto=format&fit=crop&q=80&w=800"] 
             },
-
-            // --- 茅乃舍：二、懶人即食系列 ---
             { 
                 id: 3, 
                 brand: "茅乃舍", 
@@ -300,8 +287,6 @@
                 desc: "只需熱水，三秒享受職人風味。", 
                 images: ["https://images.unsplash.com/photo-1582819509237-d5b75f20ff7c?auto=format&fit=crop&q=80&w=800"] 
             },
-
-            // --- 茅乃舍：三、靈魂醬料與調味系列 ---
             { 
                 id: 5, 
                 brand: "茅乃舍", 
@@ -311,8 +296,6 @@
                 desc: "濃郁芝麻香，拌麵沙拉皆宜。", 
                 images: ["https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&q=80&w=800"] 
             },
-
-            // --- 茅乃舍：四、嬰幼兒系列 ---
             { 
                 id: 7, 
                 brand: "茅乃舍", 
@@ -322,8 +305,6 @@
                 desc: "專為嬰幼兒開發，完全無添加鹽分。", 
                 images: ["https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800"] 
             },
-
-            // --- 好市多 Costco ---
             { 
                 id: 8, 
                 brand: "好市多", 
@@ -332,42 +313,7 @@
                 price: 680, 
                 desc: "精選優質堅果，大包裝最划算。", 
                 images: ["https://images.unsplash.com/photo-1536627217140-692798e22f25?auto=format&fit=crop&q=80&w=800"] 
-            },
-
-            // --- 3 Coins ---
-            { 
-                id: 9, 
-                brand: "3 coins", 
-                subcat: "一般", 
-                name: "簡約霧面餐盤組", 
-                price: 150, 
-                desc: "日系百元商店質感好物。", 
-                images: ["https://images.unsplash.com/photo-1530607314742-0f9c2d765809?auto=format&fit=crop&q=80&w=800"] 
-            },
-
-            // --- 生活雜貨 ---
-            { 
-                id: 10, 
-                brand: "生活雜貨", 
-                subcat: "一般", 
-                name: "亞麻室內香氛袋", 
-                price: 190, 
-                desc: "淡淡清香，適合放在衣櫥。", 
-                images: ["https://images.unsplash.com/photo-1602928294248-ad96a2448458?auto=format&fit=crop&q=80&w=800"] 
             }
-            
-            /* 💡 如何新增商品？ 
-               請複製下方這段大括號內容，貼在上面的商品之後，並記得把 id 改成沒人用過的數字。
-               { 
-                   id: 11, 
-                   brand: "品牌名稱", 
-                   subcat: "茅乃舍請填四大系列之一，其餘填一般", 
-                   name: "商品名稱", 
-                   price: 價格數字, 
-                   desc: "商品短描述", 
-                   images: ["圖片網址1", "圖片網址2"] 
-               },
-            */
         ];
 
         let cart = {}; let productImgMap = {}; let currentFilter = "全部";
@@ -465,36 +411,16 @@
 
         document.getElementById('orderForm').onsubmit = async function(e) {
             e.preventDefault();
-            if (!SCRIPT_URL) { alert("尚未設定後台連結。"); return; }
-            
             const orderId = "EM" + Date.now(); 
             document.getElementById('loadingOverlay').style.display = 'flex';
-            
             let itemsStr = "";
             for (let id in cart) {
                 const p = allProducts.find(item => item.id == id);
                 itemsStr += `${p.name} x ${cart[id]}\n`;
             }
-
-            const data = {
-                orderId: orderId,
-                name: document.getElementById('input-name').value,
-                lineId: document.getElementById('input-line').value,
-                email: document.getElementById('input-email').value,
-                shipping: document.getElementById('input-shipping').value,
-                notes: document.getElementById('input-notes') ? document.getElementById('input-notes').value : "",
-                orderItems: itemsStr,
-                total: document.getElementById('grand-total').textContent
-            };
-
+            const data = { orderId, name: document.getElementById('input-name').value, lineId: document.getElementById('input-line').value, email: document.getElementById('input-email').value, shipping: document.getElementById('input-shipping').value, notes: document.getElementById('input-notes').value, orderItems: itemsStr, total: document.getElementById('grand-total').textContent };
             try {
-                await fetch(SCRIPT_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    cache: "no-cache",
-                    body: JSON.stringify(data)
-                });
-                
+                await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", cache: "no-cache", body: JSON.stringify(data) });
                 document.getElementById('display-order-id').textContent = orderId;
                 document.getElementById('loadingOverlay').style.display = 'none';
                 document.getElementById('successToast').classList.remove('hidden');
@@ -506,5 +432,4 @@
         };
     </script>
 </body>
-
 </html>
