@@ -15,6 +15,7 @@
             --muji-gray: #7F7F7F;
             --muji-border: #E0E0E0;
             --line-green: #06C755;
+            --desc-color: #778899;
         }
 
         body {
@@ -28,20 +29,20 @@
             background-color: #FFFFFF !important;
             border: 1px solid var(--muji-border) !important;
             border-radius: 2px !important;
-            padding: 14px !important;
+            padding: 16px !important;
             font-size: 16px !important;
         }
 
         .sidebar { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .sidebar-closed { transform: translateX(-100%); }
 
-        .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .submenu.open { max-height: 500px; }
+        .submenu { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+        .submenu.open { max-height: 1200px; }
 
-        .floating-btn { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .product-card { background: white; transition: all 0.3s ease; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+        .product-card { background: white; transition: all 0.3s ease; }
         .fade-in { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -55,132 +56,215 @@
 
         .brand-section-header {
             grid-column: 1 / -1;
-            margin-top: 40px;
-            margin-bottom: 20px;
+            margin-top: 50px;
+            margin-bottom: 25px;
             border-bottom: 1px solid var(--muji-border);
-            padding-bottom: 16px;
-            scroll-margin-top: 80px;
+            padding-bottom: 20px;
+            scroll-margin-top: 160px;
         }
-        .brand-section-title { font-size: 20px; letter-spacing: 0.15em; font-weight: 500; margin-bottom: 4px; }
-        .brand-section-desc { font-size: 13px; color: #888888; letter-spacing: 0.05em; line-height: 1.6; }
+        .brand-section-title { font-size: 24px; letter-spacing: 0.15em; font-weight: 500; margin-bottom: 8px; color: #1a1a1a; }
+        .brand-section-desc { font-size: 15px; color: var(--desc-color); letter-spacing: 0.05em; line-height: 1.8; font-weight: 400; }
 
         .loading-overlay {
             display: none;
             position: fixed;
             inset: 0;
             background: rgba(255,255,255,0.9);
-            z-index: 100;
+            z-index: 500;
             align-items: center;
             justify-content: center;
+        }
+
+        .nav-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid var(--muji-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 100;
+            min-width: 220px;
+        }
+        .nav-item-container:hover .nav-dropdown {
+            display: block;
         }
     </style>
 </head>
 <body class="pb-24">
 
-    <!-- 讀取中遮罩 -->
+    <!-- 讀取中畫面 -->
     <div id="loadingOverlay" class="loading-overlay">
         <div class="text-center">
-            <div class="inline-block w-8 h-8 border-4 border-gray-200 border-t-red-800 rounded-full animate-spin mb-4"></div>
-            <p class="text-sm tracking-widest text-gray-500 font-medium text-red-900">訂單傳送中，請稍候...</p>
+            <div class="inline-block w-12 h-12 border-4 border-gray-200 border-t-red-800 rounded-full animate-spin mb-4"></div>
+            <p class="text-lg tracking-widest text-gray-500 font-medium text-red-900">訂單傳送中，請稍候...</p>
         </div>
     </div>
 
-    <!-- 側邊分類選單 -->
-    <div id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-white z-50 sidebar sidebar-closed border-r border-gray-100 shadow-2xl overflow-y-auto">
-        <div class="p-8">
-            <div class="flex justify-between items-center mb-8">
-                <span class="text-sm tracking-[0.3em] font-medium uppercase font-bold">目錄</span>
+    <!-- 側邊目錄系統 -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 w-80 bg-white z-50 sidebar sidebar-closed border-r border-gray-100 shadow-2xl overflow-y-auto">
+        <div class="p-8 pb-24">
+            <div class="flex justify-between items-center mb-10">
+                <span class="text-lg tracking-[0.3em] font-bold uppercase">目錄</span>
                 <button onclick="toggleSidebar()" class="text-gray-400 hover:text-black">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             
             <nav class="space-y-2">
-                <button onclick="filterCategory('全部')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3 border-b border-gray-50">全部商品</button>
-                <div>
-                    <button onclick="toggleSubmenu()" class="flex justify-between items-center w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3 border-b border-gray-50 font-medium">
-                        <span>茅乃舍 Kayanoya</span>
-                        <svg id="submenu-arrow" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
+                <button onclick="filterCategory('全部')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 border-b border-gray-50 font-medium">全部商品</button>
+                
+                <!-- 茅乃舍 -->
+                <div class="border-b border-gray-50">
+                    <div class="flex items-center justify-between group">
+                        <button onclick="filterCategory('茅乃舍')" class="flex-grow text-left text-base tracking-widest hover:text-red-800 transition py-4 font-bold">茅乃舍 Kayanoya</button>
+                        <button onclick="toggleSubmenu('kayanoya-submenu', 'k-arrow')" class="p-4 text-gray-400 hover:text-black">
+                            <svg id="k-arrow" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    </div>
                     <div id="kayanoya-submenu" class="submenu bg-gray-50/50">
-                        <button onclick="scrollToSection('經典高湯包系列')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-6 border-b border-gray-100">一、經典高湯包系列</button>
-                        <button onclick="scrollToSection('懶人即食系列')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-6 border-b border-gray-100">二、懶人即食系列</button>
-                        <button onclick="scrollToSection('靈魂醬料與調味系列')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-6 border-b border-gray-100">三、靈魂醬料與調味系列</button>
-                        <button onclick="scrollToSection('嬰幼兒系列')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-6 border-b border-gray-100">四、嬰幼兒系列</button>
+                        <button onclick="scrollToSection('茅乃舍', '經典高湯包系列')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3.5 pl-8 border-b border-gray-100">一、經典高湯包系列</button>
+                        <button onclick="scrollToSection('茅乃舍', '懶人即食系列')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3.5 pl-8 border-b border-gray-100">二、懶人即食系列</button>
+                        <button onclick="scrollToSection('茅乃舍', '靈魂醬料與調味系列')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3.5 pl-8 border-b border-gray-100">三、靈魂醬料與調味系列</button>
+                        <button onclick="scrollToSection('茅乃舍', '嬰幼兒系列')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3.5 pl-8">四、嬰幼兒系列</button>
                     </div>
                 </div>
-                <button onclick="filterCategory('好市多')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3 border-b border-gray-50">好市多 Costco</button>
-                <button onclick="filterCategory('3 coins')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3 border-b border-gray-50">3 Coins</button>
-                <button onclick="filterCategory('生活雜貨')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-3 border-b border-gray-50">其他生活雜貨</button>
+
+                <!-- 好市多 -->
+                <div class="border-b border-gray-50">
+                    <div class="flex items-center justify-between group">
+                        <button onclick="filterCategory('好市多')" class="flex-grow text-left text-base tracking-widest hover:text-red-800 transition py-4 font-bold">好市多 Costco</button>
+                        <button onclick="toggleSubmenu('costco-submenu', 'c-arrow')" class="p-4 text-gray-400 hover:text-black">
+                            <svg id="c-arrow" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    </div>
+                    <div id="costco-submenu" class="submenu bg-gray-50/50">
+                        <div class="border-b border-gray-100">
+                            <div class="flex items-center justify-between group">
+                                <button onclick="scrollToSection('好市多', '食品-食料品')" class="flex-grow text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8 font-medium">食品系列</button>
+                                <button onclick="toggleSubmenu('side-food-submenu', 'sf-arrow')" class="p-4 text-gray-400">
+                                    <svg id="sf-arrow" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </button>
+                            </div>
+                            <div id="side-food-submenu" class="submenu bg-white">
+                                <button onclick="scrollToSection('好市多', '食品-食料品')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 食料品</button>
+                                <button onclick="scrollToSection('好市多', '食品-巧克力')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 巧克力</button>
+                                <button onclick="scrollToSection('好市多', '食品-餅乾曲奇')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 餅乾曲奇</button>
+                                <button onclick="scrollToSection('好市多', '食品-米菓')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 米菓</button>
+                                <button onclick="scrollToSection('好市多', '食品-零食和下酒小點')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 零食和下酒小點</button>
+                                <button onclick="scrollToSection('好市多', '食品-咖啡和茶')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12">· 咖啡和茶</button>
+                            </div>
+                        </div>
+                        <button onclick="scrollToSection('好市多', '生活家電')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8 border-b border-gray-100">生活家電</button>
+                        <button onclick="scrollToSection('好市多', '美容藥品')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8 border-b border-gray-100">美容藥品</button>
+                        <button onclick="scrollToSection('好市多', '嬰幼兒')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8">嬰幼兒系列</button>
+                    </div>
+                </div>
+
+                <button onclick="filterCategory('3 coins')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 border-b border-gray-50 font-medium">3 Coins</button>
+                <button onclick="filterCategory('生活雜貨')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 font-medium">其他生活雜貨</button>
             </nav>
         </div>
     </div>
 
-    <!-- 側邊浮動目錄按鈕 -->
-    <button onclick="toggleSidebar()" class="fixed left-0 top-1/2 -translate-y-1/2 z-40 bg-white border border-gray-200 p-3 rounded-r-xl floating-btn hover:bg-gray-50 transition group">
-        <div class="flex flex-col items-center space-y-2">
-            <svg class="w-5 h-5 text-gray-600 group-hover:text-red-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            <span class="[writing-mode:vertical-rl] text-[10px] tracking-[0.3em] text-gray-500 font-medium">目錄</span>
+    <!-- 浮動按鈕 -->
+    <button onclick="toggleSidebar()" class="fixed left-0 top-1/2 -translate-y-1/2 z-40 bg-white border border-gray-200 p-5 rounded-r-2xl shadow-xl hover:bg-gray-50 transition group">
+        <div class="flex flex-col items-center space-y-3">
+            <svg class="w-7 h-7 text-gray-600 group-hover:text-red-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <span class="[writing-mode:vertical-rl] text-sm tracking-[0.3em] text-gray-500 font-bold uppercase">目錄</span>
         </div>
     </button>
 
-    <!-- 頂部標題 -->
-    <header class="bg-white py-12 px-6 text-center border-b border-gray-50">
-        <h1 class="text-2xl font-light tracking-[0.2em] mb-4">艾米莉の日貨鋪 ｜Emily's Shopping Agent</h1>
-        <p id="current-category-label" class="text-xs text-red-800 tracking-widest font-medium uppercase tracking-[0.2em]">全部商品</p>
+    <header class="bg-white py-20 px-6 text-center border-b border-gray-50">
+        <h1 class="text-4xl font-light tracking-[0.2em] mb-6">艾米莉の日貨鋪 ｜Emily's Shopping Agent</h1>
+        <p id="current-category-label" class="text-base text-red-800 tracking-widest font-bold uppercase tracking-[0.2em]">全部商品</p>
     </header>
 
+    <!-- 好市多快速導覽列 -->
+    <nav id="costco-quick-nav" class="sticky top-0 bg-white/98 backdrop-blur-md z-40 border-b border-gray-100 hidden shadow-md">
+        <div class="max-w-6xl mx-auto px-6 overflow-visible">
+            <div class="flex items-center space-x-12 py-6 whitespace-nowrap text-base tracking-widest uppercase font-bold text-gray-700">
+                <div class="relative nav-item-container flex items-center h-full">
+                    <button class="flex items-center space-x-2 hover:text-red-800 transition">
+                        <span>食品系列</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="nav-dropdown py-4 border-t-4 border-red-800">
+                        <button onclick="scrollToSection('好市多', '食品-食料品')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 食料品</button>
+                        <button onclick="scrollToSection('好市多', '食品-巧克力')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 巧克力</button>
+                        <button onclick="scrollToSection('好市多', '食品-餅乾曲奇')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 餅乾曲奇</button>
+                        <button onclick="scrollToSection('好市多', '食品-米菓')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 米菓</button>
+                        <button onclick="scrollToSection('好市多', '食品-零食和下酒小點')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 零食和下酒小點</button>
+                        <button onclick="scrollToSection('好市多', '食品-咖啡和茶')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 咖啡和茶</button>
+                    </div>
+                </div>
+                <button onclick="scrollToSection('好市多', '生活家電')" class="hover:text-red-800 transition">生活家電</button>
+                <button onclick="scrollToSection('好市多', '美容藥品')" class="hover:text-red-800 transition">美容藥品</button>
+                <button onclick="scrollToSection('好市多', '嬰幼兒')" class="hover:text-red-800 transition">嬰幼兒系列</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 茅乃舍快速導覽列 -->
+    <nav id="kayanoya-quick-nav" class="sticky top-0 bg-white/98 backdrop-blur-md z-40 border-b border-gray-100 hidden shadow-md">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center space-x-12 py-6 whitespace-nowrap text-base tracking-widest uppercase font-bold text-gray-700 overflow-x-auto no-scrollbar">
+                <button onclick="scrollToSection('茅乃舍', '經典高湯包系列')" class="hover:text-red-800 transition">經典高湯包</button>
+                <button onclick="scrollToSection('茅乃舍', '懶人即食系列')" class="hover:text-red-800 transition">懶人即食</button>
+                <button onclick="scrollToSection('茅乃舍', '靈魂醬料與調味系列')" class="hover:text-red-800 transition">靈魂醬料</button>
+                <button onclick="scrollToSection('茅乃舍', '嬰幼兒系列')" class="hover:text-red-800 transition">嬰幼兒系列</button>
+            </div>
+        </div>
+    </nav>
+
     <main class="max-w-6xl mx-auto px-6 py-12">
-        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-20"></div>
+        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 mb-24"></div>
 
         <!-- 結帳區域 -->
-        <section id="checkout-section" class="bg-white max-w-2xl mx-auto p-8 md:p-12 border border-gray-100 shadow-sm rounded-sm">
-            <h3 class="text-lg font-light tracking-[0.3em] mb-10 text-center border-b pb-6">收件與結帳</h3>
+        <section id="checkout-section" class="bg-white max-w-3xl mx-auto p-12 md:p-20 border border-gray-100 shadow-sm rounded-sm">
+            <h3 class="text-2xl font-light tracking-[0.3em] mb-16 text-center border-b pb-10">收件與結帳</h3>
             
-            <form id="orderForm" class="space-y-6">
-                <!-- 代購須知 -->
-                <div class="bg-[#FBFBFB] p-6 border border-gray-100 rounded-sm space-y-6 mb-10">
-                    <h4 class="text-base font-bold tracking-widest text-red-800 flex items-center"><span class="mr-2">📍</span> 代購須知</h4>
-                    <div class="space-y-4 text-[13px] md:text-[14px] leading-relaxed text-gray-600">
-                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1 mr-3 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-5 h-5"><span>1. 我已明白本服務為委任代買，下單後不接受取消。</span></label>
-                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1 mr-3 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-5 h-5"><span>2. 我已確認商品顏色與尺寸且海外代購不適用 7 天鑑賞期。</span></label>
-                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1 mr-3 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-5 h-5"><span>3. 我能接受國際運輸外盒擠壓之風險。</span></label>
-                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1 mr-3 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-5 h-5"><span>4. 我已知悉若遇日本缺貨將會全額退款。</span></label>
-                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1 mr-3 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-5 h-5"><span>5. 我明白收貨必須「全程錄影」以保障自身瑕疵換貨權益。</span></label>
-                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1 mr-3 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-5 h-5"><span>6. 我同意國際運費依實際秤重通知補款，並負擔可能產生的關稅。</span></label>
+            <form id="orderForm" class="space-y-10">
+                <div class="bg-[#FBFBFB] p-10 border border-gray-100 rounded-sm space-y-8 mb-12">
+                    <h4 class="text-xl font-bold tracking-widest text-red-800 flex items-center"><span class="mr-3">📍</span> 代購須知</h4>
+                    <div class="space-y-6 text-base md:text-lg leading-relaxed text-gray-600 font-medium">
+                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1.5 mr-5 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-7 h-7"><span class="flex-1">1. 我已明白本服務為委任代買，下單後不接受取消。</span></label>
+                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1.5 mr-5 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-7 h-7"><span class="flex-1">2. 我已確認商品顏色與尺寸且海外代購不適用 7 天鑑賞期。</span></label>
+                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1.5 mr-5 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-7 h-7"><span class="flex-1">3. 我能接受國際運輸外盒擠壓之風險。</span></label>
+                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1.5 mr-5 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-7 h-7"><span class="flex-1">4. 我已知悉若遇日本缺貨將會全額退款。</span></label>
+                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1.5 mr-5 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-7 h-7"><span class="flex-1">5. 我明白收貨必須「全程錄影」以保障自身瑕疵換貨權益。</span></label>
+                        <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1.5 mr-5 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-7 h-7"><span class="flex-1">6. 我同意國際運費依實際秤重通知補款，並負擔可能產生的關稅。</span></label>
                     </div>
                 </div>
 
-                <!-- 購物清單摘要 -->
-                <div id="cart-summary" class="bg-gray-50 p-6 rounded-sm mb-8 hidden">
-                    <h4 class="text-sm md:text-base tracking-widest text-gray-400 mb-4 uppercase font-bold">已選購項目</h4>
-                    <div id="cart-items" class="space-y-4 text-sm md:text-base border-b border-gray-200 pb-4 mb-4"></div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm md:text-base font-medium tracking-widest">總計金額</span>
-                        <span id="grand-total" class="text-xl font-medium">NT$ 0</span>
+                <div id="cart-summary" class="bg-gray-50 p-10 rounded-sm mb-12 hidden">
+                    <h4 class="text-base tracking-widest text-gray-400 mb-8 uppercase font-bold">已選購項目</h4>
+                    <div id="cart-items" class="space-y-6 text-lg border-b border-gray-200 pb-8 mb-8"></div>
+                    <div class="flex justify-between items-center font-bold">
+                        <span class="text-lg tracking-widest">總計金額</span>
+                        <span id="grand-total" class="text-3xl text-red-900">NT$ 0</span>
                     </div>
                 </div>
 
-                <!-- 收件資料 -->
-                <div class="space-y-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="space-y-2">
-                            <label class="text-sm md:text-base tracking-widest text-gray-500 uppercase font-medium">訂購人姓名 <span class="text-red-700">*</span></label>
-                            <input type="text" id="input-name" required placeholder="例：林小姐" class="w-full validate-input">
+                <div class="space-y-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="space-y-4">
+                            <label class="text-sm tracking-widest text-gray-500 uppercase font-bold">訂購人姓名 <span class="text-red-700">*</span></label>
+                            <input type="text" id="input-name" required placeholder="例：林小姐" class="w-full validate-input font-medium">
                         </div>
-                        <div class="space-y-2">
-                            <label class="text-sm md:text-base tracking-widest text-gray-500 uppercase font-medium">Line ID <span class="text-red-700">*</span></label>
-                            <input type="text" id="input-line" required placeholder="請輸入您的 Line ID" class="w-full validate-input">
+                        <div class="space-y-4">
+                            <label class="text-sm tracking-widest text-gray-500 uppercase font-bold">Line ID <span class="text-red-700">*</span></label>
+                            <input type="text" id="input-line" required placeholder="請輸入您的 Line ID" class="w-full validate-input font-medium">
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="space-y-2">
-                            <label class="text-sm md:text-base tracking-widest text-gray-500 uppercase font-medium">Email <span class="text-red-700">*</span></label>
-                            <input type="email" id="input-email" required placeholder="example@email.com" class="w-full validate-input">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="space-y-4">
+                            <label class="text-sm tracking-widest text-gray-500 uppercase font-bold">Email <span class="text-red-700">*</span></label>
+                            <input type="email" id="input-email" required placeholder="example@email.com" class="w-full validate-input font-medium">
                         </div>
-                        <div class="space-y-2">
-                            <label class="text-sm md:text-base tracking-widest text-gray-500 uppercase font-medium">配送方式 <span class="text-red-700">*</span></label>
-                            <select id="input-shipping" required class="w-full validate-input">
+                        <div class="space-y-4">
+                            <label class="text-sm tracking-widest text-gray-500 uppercase font-bold">配送方式 <span class="text-red-700">*</span></label>
+                            <select id="input-shipping" required class="w-full validate-input font-medium">
                                 <option value="">請選擇配送方式</option>
                                 <option value="面交">面交</option>
                                 <option value="宅配">宅配</option>
@@ -188,29 +272,27 @@
                             </select>
                         </div>
                     </div>
-                    <div class="space-y-2">
-                        <label class="text-sm md:text-base tracking-widest text-gray-500 uppercase font-medium">備註事項 (可選)</label>
-                        <textarea id="input-notes" rows="2" placeholder="如有其他需求請註記於此" class="w-full"></textarea>
+                    <div class="space-y-4">
+                        <label class="text-sm tracking-widest text-gray-500 uppercase font-bold">備註事項 (可選)</label>
+                        <textarea id="input-notes" rows="3" placeholder="如有其他需求請註記於此" class="w-full font-medium"></textarea>
                     </div>
                 </div>
 
-                <div class="pt-4 space-y-6">
-                    <button type="submit" id="submitBtn" disabled class="w-full py-5 bg-[#7F2122] text-white text-xs tracking-[0.4em] font-medium hover:opacity-90 transition disabled:bg-gray-300 disabled:cursor-not-allowed">
+                <div class="pt-8 space-y-10">
+                    <button type="submit" id="submitBtn" disabled class="w-full py-7 bg-[#7F2122] text-white text-base tracking-[0.4em] font-bold hover:opacity-90 transition disabled:bg-gray-200 disabled:cursor-not-allowed uppercase shadow-lg">
                         確認送出訂單
                     </button>
-                    <p id="empty-cart-tip" class="text-center text-[10px] text-gray-400 tracking-widest min-h-[1.5em]"></p>
-
-                    <div class="p-5 border-2 border-dashed border-green-500 rounded-sm text-center">
-                        <p class="text-orange-500 text-sm md:text-base font-bold leading-loose">
+                    <p id="empty-cart-tip" class="text-center text-sm text-gray-400 tracking-widest min-h-[1.5em]"></p>
+                    <div class="p-10 border-2 border-dashed border-green-500 rounded-sm text-center bg-green-50/20">
+                        <p class="text-orange-500 text-lg md:text-xl font-bold leading-loose">
                             訂單完成後請加入官方帳號：@824ivcsu<br>
                             👉 請回傳「訂購人姓名」及「匯款證明」以利對帳
                         </p>
                     </div>
-
                     <div class="flex justify-center">
-                        <a href="https://line.me/R/ti/p/@824ivcsu" target="_blank" class="flex items-center justify-center space-x-3 bg-[#06C755] text-white py-4 px-8 rounded-xl hover:opacity-90 transition shadow-sm w-full md:w-auto">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 10.304c0-4.58-4.69-8.304-10.435-8.304-5.745 0-10.435 3.724-10.435 8.304 0 4.108 3.712 7.548 8.73 8.192.34.073.801.224.919.516.105.259.068.665.033.926-.035.261-.16 1.054-.195 1.343-.058.484-.27 1.895 1.164 1.034 1.433-.861 7.742-4.559 10.559-7.802.001-.001 0 0 0 0 1.93-2.115 3.13-4.256 3.13-6.413zm-16.711 3.253h-1.523c-.227 0-.411-.184-.411-.411v-3.784c0-.227.184-.411.411-.411h1.523c.227 0 .411.184.411.411v3.784c0 .227-.184.411-.411.411zm3.179 0h-1.523c-.227 0-.411-.184-.411-.411v-3.784c0-.227.184-.411.411-.411h1.523c.227 0 .411.184.411.411v3.784c0 .227-.184.411-.411.411zm3.432 0h-1.46c-.221 0-.399-.184-.399-.411v-3.784c0-.227.178-.411.399-.411h1.46c.221 0 .399.184.399.411v3.784c0 .227-.178.411-.399.411zm3.936 0h-1.523c-.227 0-.411-.184-.411-.411v-3.784c0-.227.184-.411.411-.411h1.523c.227 0 .411.184.411.411v3.784c0 .227-.184.411-.411.411z"/></svg>
-                            <span class="font-bold tracking-widest text-sm md:text-base">官方帳號連結在此</span>
+                        <a href="https://line.me/R/ti/p/@824ivcsu" target="_blank" class="flex items-center justify-center space-x-5 bg-[#06C755] text-white py-6 px-12 rounded-2xl hover:opacity-90 transition shadow-xl w-full md:w-auto">
+                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M24 10.304c0-4.58-4.69-8.304-10.435-8.304-5.745 0-10.435 3.724-10.435 8.304 0 4.108 3.712 7.548 8.73 8.192.34.073.801.224.919.516.105.259.068.665.033.926-.035.261-.16 1.054-.195 1.343-.058.484-.27 1.895 1.164 1.034 1.433-.861 7.742-4.559 10.559-7.802.001-.001 0 0 0 0 1.93-2.115 3.13-4.256 3.13-6.413zm-16.711 3.253h-1.523c-.227 0-.411-.184-.411-.411v-3.784c0-.227.184-.411.411-.411h1.523c.227 0 .411.184.411.411v3.784c0 .227-.184.411-.411.411zm3.179 0h-1.523c-.227 0-.411-.184-.411-.411v-3.784c0-.227.184-.411.411-.411h1.523c.227 0 .411.184.411.411v3.784c0 .227-.184.411-.411.411zm3.432 0h-1.46c-.221 0-.399-.184-.399-.411v-3.784c0-.227.178-.411.399-.411h1.46c.221 0 .399.184.399.411v3.784c0 .227-.178.411-.399.411zm3.936 0h-1.523c-.227 0-.411-.184-.411-.411v-3.784c0-.227.184-.411.411-.411h1.523c.227 0 .411.184.411.411v3.784c0 .227-.184.411-.411.411z"/></svg>
+                            <span class="font-bold tracking-widest text-xl md:text-2xl">官方帳號連結在此</span>
                         </a>
                     </div>
                 </div>
@@ -218,34 +300,16 @@
         </section>
     </main>
 
-    <!-- 手機版底部資訊條 -->
-    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 md:hidden z-30 flex justify-between items-center px-8 shadow-md">
-        <div>
-            <span class="text-[9px] text-gray-400 tracking-widest block uppercase">目前總額</span>
-            <span id="mobile-total" class="font-medium text-red-800">NT$ 0</span>
-        </div>
-        <button onclick="document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'})" class="bg-black text-white px-6 py-2 text-[10px] tracking-widest uppercase">結帳</button>
-    </div>
-
-    <!-- 成功提示 -->
-    <div id="successToast" class="fixed inset-0 z-[110] hidden bg-white/98 flex items-center justify-center backdrop-blur-md p-6 fade-in">
-        <div class="text-center max-w-sm w-full p-10 border border-gray-100 bg-white shadow-2xl rounded-sm">
-            <div class="text-green-600 mb-6">
-                <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    <div id="successToast" class="fixed inset-0 z-[510] hidden bg-white/98 flex items-center justify-center backdrop-blur-lg p-6 fade-in">
+        <div class="text-center max-w-md w-full p-14 border border-gray-100 bg-white shadow-2xl rounded-sm">
+            <div class="text-green-600 mb-10"><svg class="w-24 h-24 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+            <h2 class="text-3xl font-medium tracking-[0.3em] mb-8 uppercase text-gray-800">訂單已成功送出</h2>
+            <div class="bg-gray-50 py-10 px-8 mb-12 border border-gray-100">
+                <p class="text-sm text-gray-400 tracking-[0.2em] uppercase mb-4">您的訂單編號</p>
+                <p id="display-order-id" class="text-4xl font-bold tracking-wider text-red-900"></p>
             </div>
-            <h2 class="text-xl font-medium tracking-[0.3em] mb-4 uppercase text-gray-800">訂單已成功送出</h2>
-            
-            <div class="bg-gray-50 py-6 px-4 mb-8 border border-gray-100">
-                <p class="text-[11px] text-gray-400 tracking-[0.2em] uppercase mb-2">您的訂單編號</p>
-                <p id="display-order-id" class="text-2xl font-bold tracking-wider text-red-900"></p>
-            </div>
-
-            <p class="text-gray-500 text-xs tracking-widest mb-10 leading-relaxed text-center">
-                感謝您的選購！<br>
-                請截圖此畫面或記下編號，並前往 Line 官方帳號回傳您的編號以利對帳。
-            </p>
-            
-            <button onclick="location.reload()" class="bg-black text-white px-10 py-4 text-xs tracking-[0.3em] uppercase w-full font-medium hover:bg-gray-800 transition">返回賣場</button>
+            <p class="text-gray-600 text-base tracking-widest mb-14 leading-relaxed text-center font-medium">感謝您的選購！<br>請記下編號，並前往 Line 官方帳號回傳編號以利對帳。</p>
+            <button onclick="location.reload()" class="bg-black text-white px-12 py-5 text-base tracking-[0.3em] uppercase w-full font-bold hover:bg-gray-800 transition shadow-lg">返回賣場</button>
         </div>
     </div>
 
@@ -259,61 +323,51 @@
             "靈魂醬料與調味系列": "這些是提升料理層次的秘訣，簡單攪拌或沾取就能讓平凡食材變美味。"
         };
 
+        const COSTCO_CATEGORIES = ["食品-食料品", "食品-巧克力", "食品-餅乾曲奇", "食品-米菓", "食品-零食和下酒小點", "食品-咖啡和茶", "生活家電", "美容藥品", "嬰幼兒"];
+        const COSTCO_DESCRIPTIONS = {
+            "食品-食料品": "精選高品質進口食材，點亮餐桌的層次風味。",
+            "食品-巧克力": "網羅各國知名巧克力品牌，口感細膩香醇。",
+            "生活家電": "日系高品質耐用電器，讓生活事半功倍。",
+            "美容藥品": "居家必備的人氣良藥與日系美容保養品。"
+        };
+
         const allProducts = [
-            { 
-                id: 1, 
-                brand: "茅乃舍", 
-                subcat: "經典高湯包系列", 
-                name: "01.茅乃舍經典高湯 (30入)", 
-                price: 727, 
-                desc: "鎮店之寶 No.1，正宗日式高湯由烤飛魚、鰹魚片、圓鯡魚和海帶製成，用途廣泛。", 
-                images: ["https://i.postimg.cc/Fz4L4NFN/m39.jpg","https://i.postimg.cc/vTt68kDm/M39_1.jpg","https://i.postimg.cc/yxyS6tWd/M39_2.jpg"] 
-            },
-            { 
-                id: 2, 
-                brand: "茅乃舍", 
-                subcat: "經典高湯包系列", 
-                name: "野菜高湯 (24入)", 
-                price: 790, 
-                desc: "五種國產野菜精華，純素可用。", 
-                images: ["https://images.unsplash.com/photo-1594488651083-29118f6d07c4?auto=format&fit=crop&q=80&w=800"] 
-            },
-            { 
-                id: 3, 
-                brand: "茅乃舍", 
-                subcat: "懶人即食系列", 
-                name: "即食味噌湯-N01", 
-                price: 120, 
-                desc: "只需熱水，三秒享受職人風味。", 
-                images: ["https://images.unsplash.com/photo-1582819509237-d5b75f20ff7c?auto=format&fit=crop&q=80&w=800"] 
-            },
-            { 
-                id: 5, 
-                brand: "茅乃舍", 
-                subcat: "靈魂醬料與調味系列", 
-                name: "手作胡麻醬", 
-                price: 380, 
-                desc: "濃郁芝麻香，拌麵沙拉皆宜。", 
-                images: ["https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&q=80&w=800"] 
-            },
-            { 
-                id: 7, 
-                brand: "茅乃舍", 
-                subcat: "嬰幼兒系列", 
-                name: "寶寶專用無鹽高湯", 
-                price: 650, 
-                desc: "專為嬰幼兒開發，完全無添加鹽分。", 
-                images: ["https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800"] 
-            },
-            { 
-                id: 8, 
-                brand: "好市多", 
-                subcat: "一般", 
-                name: "Kirkland 堅果仁", 
-                price: 680, 
-                desc: "精選優質堅果，大包裝最划算。", 
-                images: ["https://images.unsplash.com/photo-1536627217140-692798e22f25?auto=format&fit=crop&q=80&w=800"] 
-            }
+            // --- 茅乃舍：一、經典高湯包系列 ---
+            { id: 1, brand: "茅乃舍", subcat: "經典高湯包系列", name: "01.茅乃舍經典高湯 (30入)", price: 727, desc: "鎮店之寶 No.1，正宗日式高湯由烤飛魚、鰹魚片、圓鯡魚和海帶製成，用途廣泛。", images: ["https://i.postimg.cc/Fz4L4NFN/m39.jpg","https://i.postimg.cc/vTt68kDm/M39_1.jpg","https://i.postimg.cc/yxyS6tWd/M39_2.jpg"] },
+            { id: 2, brand: "茅乃舍", subcat: "經典高湯包系列", name: "02.茅乃舍經典高湯 (5入)", price: 182, desc: "小包裝，正宗日式高湯由烤飛魚、鰹魚片、圓鯡魚和海帶製成，用途廣泛。", images: ["https://i.postimg.cc/xCRthxYJ/53.jpg","https://i.postimg.cc/hjrp6yg0/53_1.jpg","https://i.postimg.cc/Px4293hb/53_2.jpg"] },
+            { id: 3, brand: "茅乃舍", subcat: "經典高湯包系列", name: "03.蔬菜高湯 (24入)", price: 717, desc: "這款蔬菜高湯精選五種日本國產蔬菜熬煮而成，濃縮了蔬菜的鮮甜滋味。", images: ["https://i.postimg.cc/FsssM7bw/m19.jpg","https://i.postimg.cc/c49400Tm/m19_1.jpg"] },
+            { id: 4, brand: "茅乃舍", subcat: "經典高湯包系列", name: "04.蔬菜高湯 (12入)", price: 414, desc: "萃取洋蔥、大蒜、芹菜等蔬菜精華，深受素食者與小朋友歡迎。", images: ["https://i.postimg.cc/wT6ZFNX4/M04.jpg"] },
+            { id: 5, brand: "茅乃舍", subcat: "經典高湯包系列", name: "05.蔬菜高湯 (5入)", price: 198, desc: "小包裝，輕鬆嘗試的最佳選擇。", images: ["https://i.postimg.cc/jjXJHGRS/M05.jpg"] },
+            { id: 6, brand: "茅乃舍", subcat: "經典高湯包系列", name: "06.椎茸高湯 (20入)", price: 717, desc: "選用日本國產原木栽培香菇，無需隔夜浸泡，當天即可享用。", images: ["https://i.postimg.cc/t4DBTv8W/M06.jpg","https://i.postimg.cc/6pzM3bFc/M06_1.jpg"] },
+            { id: 7, brand: "茅乃舍", subcat: "經典高湯包系列", name: "07.椎茸高湯 (5入)", price: 214, desc: "小包裝。非常推薦用於清湯、燉飯或煮物中。", images: ["https://i.postimg.cc/fWKt64dd/M07.jpg","https://i.postimg.cc/BZgLdWFp/M07_1.jpg"] },
+            { id: 8, brand: "茅乃舍", subcat: "經典高湯包系列", name: "08.雞高湯 (16入)", price: 717, desc: "用煙燻國產雞肉絲製成。將雞肉的鮮味與扇貝的鮮美相結合。", images: ["https://i.postimg.cc/26jGfQ0h/M08.jpg","https://i.postimg.cc/hjCr4XY2/M08_1.jpg","https://i.postimg.cc/MTsDZnLP/M08_2.jpg","https://i.postimg.cc/d1WBQhf6/M08_3.jpg"] },
+            { id: 9, brand: "茅乃舍", subcat: "經典高湯包系列", name: "09.雞高湯 (5入)", price: 253, desc: "用煙燻國產雞肉絲製成。加入薑、蔥等香料蔬菜。", images: ["https://i.postimg.cc/0yQm2s3c/M09.jpg","https://i.postimg.cc/RZFfVB8p/M09_1.jpg","https://i.postimg.cc/FHRcs4qn/M09_2.jpg"] },
+            { id: 10, brand: "茅乃舍", subcat: "經典高湯包系列", name: "10.昆布高湯 (24入)", price: 718, desc: "使用了兩種海帶：甜美的馬昆布和清澈鮮美的利尻昆布。", images: ["https://i.postimg.cc/GhjVnFwW/10.jpg","https://i.postimg.cc/5Nk5zywb/10-1.png"] },
+            { id: 11, brand: "茅乃舍", subcat: "經典高湯包系列", name: "11.昆布高湯 (5入)", price: 718, desc: "小包裝。非常適合用於拌飯、煮豆腐和其他燉煮菜餚。", images: ["https://i.postimg.cc/ydQxGg6H/11.jpg","https://i.postimg.cc/76shRGP4/11-1.jpg"] },
+            { id: 12, brand: "茅乃舍", subcat: "經典高湯包系列", name: "12.特製極味高湯 (12入)", price: 858, desc: "這款精緻美味的基底是經過精心去除血水的鮪魚片、香氣源自乾鰹魚片。", images: ["https://i.postimg.cc/HsH575cs/12.jpg","https://i.postimg.cc/fTZX0Xth/12_1.jpg"] },
+            { id: 13, brand: "茅乃舍", subcat: "經典高湯包系列", name: "13.東京限定-鰹魚高湯包 (12入)", price: 716, desc: "結合了鰹荒節、與宗田鰹節，呈現濃郁卻清爽的江戶風味。", images: ["https://i.postimg.cc/4dsP4MgR/13.jpg"] },
+
+            // --- 茅乃舍：二、懶人即食系列 ---
+            { id: 14, brand: "茅乃舍", subcat: "懶人即食系列", name: "14.海藻味噌湯 (4入)", price: 300, desc: "湯裡用了大量的海藻。只需一口，濃鬱的海洋氣息便會充滿口腔。", images: ["https://i.postimg.cc/CKkZrLXW/M14.jpg"] },
+            { id: 15, brand: "茅乃舍", subcat: "懶人即食系列", name: "15.四種蔬菜味噌湯 (4入)", price: 300, desc: "以蔬菜高湯和味道清淡的米味噌為特色。", images: ["https://i.postimg.cc/qMvjP9J0/M15.jpg"] },
+            { id: 16, brand: "茅乃舍", subcat: "懶人即食系列", name: "16.珍珠菇味噌湯 (4入)", price: 300, desc: "以香菇高湯為底，搭配珍珠菇，用口感柔和的米味噌熬製而成。", images: ["https://i.postimg.cc/B65X8grq/M16.jpg"] },
+            { id: 17, brand: "茅乃舍", subcat: "懶人即食系列", name: "17.蕈菇味噌湯 (4入)", price: 300, desc: "以香菇高湯為底，搭配蕈菇，風味十足。", images: ["https://i.postimg.cc/5056H3hb/17.jpg"] },
+            { id: 18, brand: "茅乃舍", subcat: "懶人即食系列", name: "18.雞湯干貝雜炊調味料 (4入)", price: 300, desc: "結合雞高湯與撕碎的干貝鮮味。 ※此商品不含米飯。", images: ["https://i.postimg.cc/Hx0VJ2qT/18.jpg"] },
+            { id: 19, brand: "茅乃舍", subcat: "懶人即食系列", name: "19.[春天限定] 竹筍油菜花味噌湯 (4入)", price: 349, desc: "以蔬菜高湯為底，搭配竹筍及油菜花，春季限定風味。", images: ["https://i.postimg.cc/k4NBVc0C/19.jpg"] },
+            { id: 20, brand: "茅乃舍", subcat: "懶人即食系列", name: "20.豆皮柴魚高湯 (4入)", price: 314, desc: "使用芳香濃郁的本枯節鰹節熬成高湯，非常適合用於招待。", images: ["https://i.postimg.cc/KjZ4tTb2/M20.jpg"] },
+            { id: 21, brand: "茅乃舍", subcat: "懶人即食系列", name: "21.竹麩海帶芽紅味噌湯 (4入)", price: 300, desc: "以經典高湯為基底，結合香氣濃郁的日本國產紅味噌。", images: ["https://i.postimg.cc/pr2yKjvR/M21.jpg"] },
+            { id: 22, brand: "茅乃舍", subcat: "懶人即食系列", name: "22.減鹽海乃七草味噌湯 (4入)", price: 300, desc: "以柴魚昆布高湯為基底，結合7種海藻，減鹽配方更健康。", images: ["https://i.postimg.cc/brzd1nPq/M22.jpg"] },
+            { id: 23, brand: "茅乃舍", subcat: "懶人即食系列", name: "23.蔬菜蛋花湯 (4入)", price: 316, desc: "蔬菜高湯底，加入了菠菜、卷心菜等食材，清爽暖湯。", images: ["https://i.postimg.cc/HnpjbMmk/M23.jpg"] },
+
+            // --- 茅乃舍：其他系列 ---
+            { id: 24, brand: "茅乃舍", subcat: "靈魂醬料與調味系列", name: "手作胡麻醬", price: 380, desc: "濃郁芝麻香，拌麵沙拉皆宜。", images: ["https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&q=80&w=800"] },
+            { id: 25, brand: "茅乃舍", subcat: "嬰幼兒系列", name: "寶寶專用無鹽高湯", price: 650, desc: "專為嬰幼兒開發，完全無添加鹽分。", images: ["https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800"] },
+
+            // --- 好市多 ---
+            { id: 26, brand: "好市多", subcat: "食品-零食和下酒小點", name: "北海道鮭魚乾", price: 680, desc: "選用北海道秋季鮭魚製成，理想的開胃零食。", images: ["https://i.postimg.cc/VkKq4src/C_IMG_2370.jpg"] },
+            { id: 27, brand: "好市多", subcat: "食品-巧克力", name: "Hershey's 巴西莓夾餡黑巧克力", price: 680, desc: "滑順黑巧克力包覆酸甜巴西莓與藍莓果汁軟餡。", images: ["https://i.postimg.cc/D0Wp3CDg/C_IMG_2411.webp"] },
+            { id: 28, brand: "好市多", subcat: "食品-食料品", name: "Kirkland 特級初榨橄欖油", price: 850, desc: "地中海純淨風味。", images: ["https://images.unsplash.com/photo-1474979266404-7eaacbadcbaf?auto=format&fit=crop&q=80&w=800"] },
+            { id: 29, brand: "好市多", subcat: "生活家電", name: "IRIS 雙氣旋無線吸塵器", price: 2980, desc: "羽量級設計，吸力強勁。", images: ["https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&q=80&w=800"] }
         ];
 
         let cart = {}; let productImgMap = {}; let currentFilter = "全部";
@@ -328,31 +382,52 @@
         };
 
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('sidebar-closed'); }
-        function toggleSubmenu() {
-            const menu = document.getElementById('kayanoya-submenu');
-            const arrow = document.getElementById('submenu-arrow');
+        
+        function toggleSubmenu(id, arrowId) {
+            const menu = document.getElementById(id);
+            const arrow = document.getElementById(arrowId);
+            if (!menu) return;
             menu.classList.toggle('open');
-            arrow.style.transform = menu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+            if (arrow) arrow.style.transform = menu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
         function filterCategory(cat) {
-            currentFilter = cat; document.getElementById('current-category-label').textContent = cat;
-            renderProducts(); toggleSidebar(); window.scrollTo({ top: 0, behavior: 'smooth' });
+            currentFilter = cat; 
+            document.getElementById('current-category-label').textContent = cat;
+            const costcoNav = document.getElementById('costco-quick-nav');
+            const kayanoyaNav = document.getElementById('kayanoya-quick-nav');
+            costcoNav.classList.toggle('hidden', cat !== '好市多');
+            kayanoyaNav.classList.toggle('hidden', cat !== '茅乃舍');
+            renderProducts(); 
+            toggleSidebar(); 
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function scrollToSection(sectionId) {
-            if (currentFilter !== '茅乃舍') { currentFilter = '茅乃舍'; document.getElementById('current-category-label').textContent = '茅乃舍'; renderProducts(); }
-            toggleSidebar(); setTimeout(() => { const el = document.getElementById(`section-${sectionId}`); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 100);
+        function scrollToSection(brand, subcat) {
+            if (currentFilter !== brand) { 
+                currentFilter = brand; 
+                document.getElementById('current-category-label').textContent = brand; 
+                document.getElementById('costco-quick-nav').classList.toggle('hidden', brand !== '好市多');
+                document.getElementById('kayanoya-quick-nav').classList.toggle('hidden', brand !== '茅乃舍');
+                renderProducts(); 
+            }
+            document.getElementById('sidebar').classList.add('sidebar-closed');
+            setTimeout(() => {
+                const el = document.getElementById(`section-${subcat}`);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 250);
         }
 
         function renderProducts() {
             const grid = document.getElementById('product-grid'); grid.innerHTML = '';
-            if (currentFilter === "茅乃舍") {
-                KAYANOYA_CATEGORIES.forEach(subcat => {
-                    const prods = allProducts.filter(p => p.brand === "茅乃舍" && p.subcat === subcat);
+            if (currentFilter === "茅乃舍" || currentFilter === "好市多") {
+                const cats = currentFilter === "茅乃舍" ? KAYANOYA_CATEGORIES : COSTCO_CATEGORIES;
+                const descs = currentFilter === "茅乃舍" ? KAYANOYA_DESCRIPTIONS : COSTCO_DESCRIPTIONS;
+                cats.forEach(sub => {
+                    const prods = allProducts.filter(p => p.brand === currentFilter && p.subcat === sub);
                     if (prods.length > 0) {
-                        const header = document.createElement('div'); header.id = `section-${subcat}`; header.className = 'brand-section-header fade-in';
-                        header.innerHTML = `<h2 class="brand-section-title">${subcat}</h2>` + (KAYANOYA_DESCRIPTIONS[subcat] ? `<p class="brand-section-desc">${KAYANOYA_DESCRIPTIONS[subcat]}</p>` : '');
+                        const header = document.createElement('div'); header.id = `section-${sub}`; header.className = 'brand-section-header fade-in';
+                        header.innerHTML = `<h2 class="brand-section-title uppercase tracking-widest font-bold text-gray-800">${sub}</h2>` + (descs[sub] ? `<p class="brand-section-desc">${descs[sub]}</p>` : '');
                         grid.appendChild(header); prods.forEach(p => grid.appendChild(createProductCard(p)));
                     }
                 });
@@ -363,21 +438,21 @@
         }
 
         function createProductCard(p) {
-            const card = document.createElement('div'); card.className = 'product-card p-5 border border-transparent hover:border-gray-100 rounded-sm fade-in';
+            const card = document.createElement('div'); card.className = 'product-card p-10 border border-transparent hover:border-gray-100 rounded-sm fade-in shadow-sm';
             const currentQty = cart[p.id] || 0; const currentImgIdx = productImgMap[p.id]; const hasMultipleImages = p.images.length > 1;
-            card.innerHTML = `<div class="aspect-square bg-gray-50 mb-6 overflow-hidden relative group">
+            card.innerHTML = `<div class="aspect-square bg-gray-50 mb-8 overflow-hidden relative group">
                 <img id="img-${p.id}" src="${p.images[currentImgIdx]}" class="w-full h-full object-cover transition-opacity duration-200">
-                <div class="absolute top-2 left-2 bg-white/80 px-2 py-1 text-[9px] tracking-widest text-gray-500 uppercase">${p.brand}</div>
-                ${hasMultipleImages ? `<button onclick="switchCardImage(${p.id}, -1)" class="img-nav-btn absolute left-0 top-0 bottom-0 px-2 bg-black/5 hover:bg-black/10 text-white flex items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg></button>
-                <button onclick="switchCardImage(${p.id}, 1)" class="img-nav-btn absolute right-0 top-0 bottom-0 px-2 bg-black/5 hover:bg-black/10 text-white flex items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg></button>
-                <div id="dots-${p.id}" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-1.5">${p.images.map((_, i) => `<div class="dot w-1.5 h-1.5 rounded-full ${i === currentImgIdx ? 'bg-white scale-110' : 'bg-white/40'}"></div>`).join('')}</div>` : ''}
+                <div class="absolute top-4 left-4 bg-white/80 px-4 py-2 text-xs tracking-widest text-gray-500 uppercase font-bold shadow-sm">${p.brand}</div>
+                ${hasMultipleImages ? `<button onclick="switchCardImage(${p.id}, -1)" class="img-nav-btn absolute left-0 top-0 bottom-0 px-4 bg-black/5 hover:bg-black/10 text-white flex items-center"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg></button>
+                <button onclick="switchCardImage(${p.id}, 1)" class="img-nav-btn absolute right-0 top-0 bottom-0 px-4 bg-black/5 hover:bg-black/10 text-white flex items-center"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg></button>
+                <div id="dots-${p.id}" class="absolute bottom-5 left-1/2 -translate-x-1/2 flex space-x-2.5">${p.images.map((_, i) => `<div class="dot w-2.5 h-2.5 rounded-full ${i === currentImgIdx ? 'bg-white scale-125' : 'bg-white/40'}"></div>`).join('')}</div>` : ''}
             </div>
-            <div class="space-y-2">
-                <h4 class="text-sm font-medium tracking-wide">${p.name}</h4>
-                <p class="text-[11px] text-gray-400 font-light leading-relaxed">${p.desc}</p>
-                <div class="flex justify-between items-center pt-4">
-                    <span class="text-sm font-medium tracking-tighter text-red-900">NT$ ${p.price}</span>
-                    <select onchange="updateCart(${p.id}, this.value)" class="w-20 py-1.5 text-xs border-gray-200 focus:ring-0">
+            <div class="space-y-4">
+                <h4 class="text-2xl font-bold tracking-wide text-gray-800">${p.name}</h4>
+                <p class="text-base text-[#778899] font-medium leading-loose">${p.desc}</p>
+                <div class="flex justify-between items-center pt-8 border-t border-gray-100 mt-6">
+                    <span class="text-2xl font-bold tracking-tighter text-red-900">NT$ ${p.price.toLocaleString()}</span>
+                    <select onchange="updateCart(${p.id}, this.value)" class="w-32 py-3 text-lg border-gray-200 focus:ring-0 font-bold bg-white cursor-pointer">
                         <option value="0">數量</option>${[1,2,3,4,5,6,7,8,9,10].map(v => `<option value="${v}" ${currentQty == v ? 'selected' : ''}>${v}</option>`).join('')}
                     </select>
                 </div>
@@ -389,7 +464,7 @@
             const product = allProducts.find(p => p.id === productId); const max = product.images.length;
             let newIdx = (productImgMap[productId] + direction + max) % max; productImgMap[productId] = newIdx;
             const img = document.getElementById(`img-${productId}`); if (img) { img.style.opacity = '0.5'; setTimeout(() => { img.src = product.images[newIdx]; img.style.opacity = '1'; }, 100); }
-            const dots = document.getElementById(`dots-${productId}`); if (dots) { [...dots.children].forEach((dot, i) => dot.className = `dot w-1.5 h-1.5 rounded-full ${i === newIdx ? 'bg-white scale-110' : 'bg-white/40'}`); }
+            const dots = document.getElementById(`dots-${productId}`); if (dots) { [...dots.children].forEach((dot, i) => dot.className = `dot w-2.5 h-2.5 rounded-full ${i === newIdx ? 'bg-white scale-125' : 'bg-white/40'}`); }
         }
 
         function updateCart(id, qty) { cart[id] = parseInt(qty); if (cart[id] === 0) delete cart[id]; updateSummary(); }
@@ -400,8 +475,9 @@
             const infoComplete = ['input-name', 'input-line', 'input-email', 'input-shipping'].every(id => document.getElementById(id).value.trim() !== "");
             list.innerHTML = ''; let total = 0, count = 0;
             for (let id in cart) {
-                const p = allProducts.find(item => item.id == id); const subtotal = p.price * cart[id]; total += subtotal; count++;
-                list.innerHTML += `<div class="flex justify-between tracking-wide text-sm md:text-base"><span class="text-gray-500">${p.name} / ${cart[id]} 個</span><span class="font-medium">NT$ ${subtotal.toLocaleString()}</span></div>`;
+                const p = allProducts.find(item => item.id == id); if(!p) continue;
+                const subtotal = p.price * cart[id]; total += subtotal; count++;
+                list.innerHTML += `<div class="flex justify-between tracking-wide text-xl"><span class="text-gray-600">${p.name} / ${cart[id]} 個</span><span class="font-bold">NT$ ${subtotal.toLocaleString()}</span></div>`;
             }
             sum.classList.toggle('hidden', count === 0);
             if (count > 0 && allChecked && infoComplete) { submitBtn.disabled = false; tip.textContent = ""; }
@@ -411,6 +487,7 @@
 
         document.getElementById('orderForm').onsubmit = async function(e) {
             e.preventDefault();
+            if (!SCRIPT_URL) { alert("尚未設定後台串接位址。"); return; }
             const orderId = "EM" + Date.now(); 
             document.getElementById('loadingOverlay').style.display = 'flex';
             let itemsStr = "";
@@ -427,7 +504,7 @@
                 this.reset(); cart = {}; updateSummary();
             } catch (err) {
                 document.getElementById('loadingOverlay').style.display = 'none';
-                alert("送出失敗，請檢查網路連結。");
+                alert("送出失敗，請檢查網路連線或稍後再試。");
             }
         };
     </script>
