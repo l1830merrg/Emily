@@ -101,7 +101,7 @@
         </div>
     </div>
 
-    <!-- 側邊目錄系統 -->
+    <!-- 側邊目錄 -->
     <div id="sidebar" class="fixed inset-y-0 left-0 w-80 bg-white z-50 sidebar sidebar-closed border-r border-gray-100 shadow-2xl overflow-y-auto">
         <div class="p-8 pb-24">
             <div class="flex justify-between items-center mb-10">
@@ -119,7 +119,7 @@
                     <div class="flex items-center justify-between group">
                         <button onclick="filterCategory('茅乃舍')" class="flex-grow text-left text-base tracking-widest hover:text-red-800 transition py-4 font-bold">茅乃舍 Kayanoya</button>
                         <button onclick="toggleSubmenu('kayanoya-submenu', 'k-arrow')" class="p-4 text-gray-400 hover:text-black">
-                            <svg id="k-arrow" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg id="k-arrow" class="w-5 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
                     </div>
                     <div id="kayanoya-submenu" class="submenu bg-gray-50/50">
@@ -237,6 +237,7 @@
                     </div>
                 </div>
 
+                <!-- 購物摘要 -->
                 <div id="cart-summary" class="bg-gray-50 p-10 rounded-sm mb-12 hidden">
                     <h4 class="text-base tracking-widest text-gray-400 mb-8 uppercase font-bold">已選購項目</h4>
                     <div id="cart-items" class="space-y-6 text-lg border-b border-gray-200 pb-8 mb-8"></div>
@@ -300,6 +301,7 @@
         </section>
     </main>
 
+    <!-- 成功彈窗 -->
     <div id="successToast" class="fixed inset-0 z-[510] hidden bg-white/98 flex items-center justify-center backdrop-blur-lg p-6 fade-in">
         <div class="text-center max-w-md w-full p-14 border border-gray-100 bg-white shadow-2xl rounded-sm">
             <div class="text-green-600 mb-10"><svg class="w-24 h-24 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
@@ -331,43 +333,45 @@
             "美容藥品": "居家必備的人氣良藥與日系美容保養品。"
         };
 
+        // ==========================================
+        // 🛍️ 商品資料庫 (ID 使用 M/C 字串編號)
+        // ==========================================
         const allProducts = [
-            // --- 茅乃舍：一、經典高湯包系列 ---
-            { id: 1, brand: "茅乃舍", subcat: "經典高湯包系列", name: "01.茅乃舍經典高湯 (30入)", price: 727, desc: "鎮店之寶 No.1，正宗日式高湯由烤飛魚、鰹魚片、圓鯡魚和海帶製成，用途廣泛。", images: ["https://i.postimg.cc/Fz4L4NFN/m39.jpg","https://i.postimg.cc/vTt68kDm/M39_1.jpg","https://i.postimg.cc/yxyS6tWd/M39_2.jpg"] },
-            { id: 2, brand: "茅乃舍", subcat: "經典高湯包系列", name: "02.茅乃舍經典高湯 (5入)", price: 182, desc: "小包裝，正宗日式高湯由烤飛魚、鰹魚片、圓鯡魚和海帶製成，用途廣泛。", images: ["https://i.postimg.cc/xCRthxYJ/53.jpg","https://i.postimg.cc/hjrp6yg0/53_1.jpg","https://i.postimg.cc/Px4293hb/53_2.jpg"] },
-            { id: 3, brand: "茅乃舍", subcat: "經典高湯包系列", name: "03.蔬菜高湯 (24入)", price: 717, desc: "這款蔬菜高湯精選五種日本國產蔬菜熬煮而成，濃縮了蔬菜的鮮甜滋味。", images: ["https://i.postimg.cc/FsssM7bw/m19.jpg","https://i.postimg.cc/c49400Tm/m19_1.jpg"] },
-            { id: 4, brand: "茅乃舍", subcat: "經典高湯包系列", name: "04.蔬菜高湯 (12入)", price: 414, desc: "萃取洋蔥、大蒜、芹菜等蔬菜精華，深受素食者與小朋友歡迎。", images: ["https://i.postimg.cc/wT6ZFNX4/M04.jpg"] },
-            { id: 5, brand: "茅乃舍", subcat: "經典高湯包系列", name: "05.蔬菜高湯 (5入)", price: 198, desc: "小包裝，輕鬆嘗試的最佳選擇。", images: ["https://i.postimg.cc/jjXJHGRS/M05.jpg"] },
-            { id: 6, brand: "茅乃舍", subcat: "經典高湯包系列", name: "06.椎茸高湯 (20入)", price: 717, desc: "選用日本國產原木栽培香菇，無需隔夜浸泡，當天即可享用。", images: ["https://i.postimg.cc/t4DBTv8W/M06.jpg","https://i.postimg.cc/6pzM3bFc/M06_1.jpg"] },
-            { id: 7, brand: "茅乃舍", subcat: "經典高湯包系列", name: "07.椎茸高湯 (5入)", price: 214, desc: "小包裝。非常推薦用於清湯、燉飯或煮物中。", images: ["https://i.postimg.cc/fWKt64dd/M07.jpg","https://i.postimg.cc/BZgLdWFp/M07_1.jpg"] },
-            { id: 8, brand: "茅乃舍", subcat: "經典高湯包系列", name: "08.雞高湯 (16入)", price: 717, desc: "用煙燻國產雞肉絲製成。將雞肉的鮮味與扇貝的鮮美相結合。", images: ["https://i.postimg.cc/26jGfQ0h/M08.jpg","https://i.postimg.cc/hjCr4XY2/M08_1.jpg","https://i.postimg.cc/MTsDZnLP/M08_2.jpg","https://i.postimg.cc/d1WBQhf6/M08_3.jpg"] },
-            { id: 9, brand: "茅乃舍", subcat: "經典高湯包系列", name: "09.雞高湯 (5入)", price: 253, desc: "用煙燻國產雞肉絲製成。加入薑、蔥等香料蔬菜。", images: ["https://i.postimg.cc/0yQm2s3c/M09.jpg","https://i.postimg.cc/RZFfVB8p/M09_1.jpg","https://i.postimg.cc/FHRcs4qn/M09_2.jpg"] },
-            { id: 10, brand: "茅乃舍", subcat: "經典高湯包系列", name: "10.昆布高湯 (24入)", price: 718, desc: "使用了兩種海帶：甜美的馬昆布和清澈鮮美的利尻昆布。", images: ["https://i.postimg.cc/GhjVnFwW/10.jpg","https://i.postimg.cc/5Nk5zywb/10-1.png"] },
-            { id: 11, brand: "茅乃舍", subcat: "經典高湯包系列", name: "11.昆布高湯 (5入)", price: 718, desc: "小包裝。非常適合用於拌飯、煮豆腐和其他燉煮菜餚。", images: ["https://i.postimg.cc/ydQxGg6H/11.jpg","https://i.postimg.cc/76shRGP4/11-1.jpg"] },
-            { id: 12, brand: "茅乃舍", subcat: "經典高湯包系列", name: "12.特製極味高湯 (12入)", price: 858, desc: "這款精緻美味的基底是經過精心去除血水的鮪魚片、香氣源自乾鰹魚片。", images: ["https://i.postimg.cc/HsH575cs/12.jpg","https://i.postimg.cc/fTZX0Xth/12_1.jpg"] },
-            { id: 13, brand: "茅乃舍", subcat: "經典高湯包系列", name: "13.東京限定-鰹魚高湯包 (12入)", price: 716, desc: "結合了鰹荒節、與宗田鰹節，呈現濃郁卻清爽的江戶風味。", images: ["https://i.postimg.cc/4dsP4MgR/13.jpg"] },
+            // --- 茅乃舍 (M 系列) ---
+            { id: "M01", brand: "茅乃舍", subcat: "經典高湯包系列", name: "01.茅乃舍經典高湯 (30入)", price: 727, desc: "鎮店之寶 No.1，由烤飛魚、鰹魚片等製成，層次豐富。", images: ["https://i.postimg.cc/Fz4L4NFN/m39.jpg","https://i.postimg.cc/vTt68kDm/M39_1.jpg","https://i.postimg.cc/yxyS6tWd/M39_2.jpg"] },
+            { id: "M02", brand: "茅乃舍", subcat: "經典高湯包系列", name: "02.茅乃舍經典高湯 (5入)", price: 182, desc: "輕巧包裝，正宗日式職人高湯隨手可得。", images: ["https://i.postimg.cc/xCRthxYJ/53.jpg","https://i.postimg.cc/hjrp6yg0/53_1.jpg","https://i.postimg.cc/Px4293hb/53_2.jpg"] },
+            { id: "M03", brand: "茅乃舍", subcat: "經典高湯包系列", name: "03.蔬菜高湯 (24入)", price: 717, desc: "選用五種國產蔬菜熬煮，濃縮鮮甜滋味，素食首選。", images: ["https://i.postimg.cc/FsssM7bw/m19.jpg","https://i.postimg.cc/c49400Tm/m19_1.jpg"] },
+            { id: "M04", brand: "茅乃舍", subcat: "經典高湯包系列", name: "04.蔬菜高湯 (12入)", price: 414, desc: "適合煮西式濃湯或燉飯，深受家長與小朋友歡迎。", images: ["https://i.postimg.cc/wT6ZFNX4/M04.jpg"] },
+            { id: "M05", brand: "茅乃舍", subcat: "經典高湯包系列", name: "05.蔬菜高湯 (5入)", price: 198, desc: "小包裝，輕鬆嘗試的最佳選擇。", images: ["https://i.postimg.cc/jjXJHGRS/M05.jpg"] },
+            { id: "M06", brand: "茅乃舍", subcat: "經典高湯包系列", name: "06.椎茸高湯 (20入)", price: 717, desc: "國產原木栽培香菇與舞茸，香氣極其濃郁。", images: ["https://i.postimg.cc/t4DBTv8W/M06.jpg","https://i.postimg.cc/6pzM3bFc/M06_1.jpg"] },
+            { id: "M07", brand: "茅乃舍", subcat: "經典高湯包系列", name: "07.椎茸高湯 (5入)", price: 214, desc: "非常推薦用於清湯、燉飯或煮物中。", images: ["https://i.postimg.cc/fWKt64dd/M07.jpg"] },
+            { id: "M08", brand: "茅乃舍", subcat: "經典高湯包系列", name: "08.雞高湯 (16入)", price: 717, desc: "煙燻國產雞肉絲結合扇貝，味道溫潤深厚。", images: ["https://i.postimg.cc/26jGfQ0h/M08.jpg"] },
+            { id: "M09", brand: "茅乃舍", subcat: "經典高湯包系列", name: "09.雞高湯 (5入)", price: 253, desc: "小包裝。將雞肉的鮮味發揮到淋漓盡致。", images: ["https://i.postimg.cc/0yQm2s3c/M09.jpg"] },
+            { id: "M10", brand: "茅乃舍", subcat: "經典高湯包系列", name: "10.昆布高湯 (24入)", price: 718, desc: "使用了兩種海帶：甜美的馬昆布和清爽的利尻昆布。", images: ["https://i.postimg.cc/GhjVnFwW/10.jpg"] },
+            { id: "M11", brand: "茅乃舍", subcat: "經典高湯包系列", name: "11.昆布高湯 (5入)", price: 198, desc: "小包裝。非常適合煮豆腐或其他燉煮菜餚。", images: ["https://i.postimg.cc/ydQxGg6H/11.jpg"] },
+            { id: "M12", brand: "茅乃舍", subcat: "經典高湯包系列", name: "12.特製極味高湯 (12入)", price: 858, desc: "去除血水的鮪魚片與利尻海帶，成就頂級高湯。", images: ["https://i.postimg.cc/HsH575cs/12.jpg"] },
+            { id: "M13", brand: "茅乃舍", subcat: "經典高湯包系列", name: "13.東京限定-鰹魚高湯 (12入)", price: 716, desc: "呈現濃郁卻清爽的江戶風味，火鍋必備。", images: ["https://i.postimg.cc/4dsP4MgR/13.jpg"] },
 
-            // --- 茅乃舍：二、懶人即食系列 ---
-            { id: 14, brand: "茅乃舍", subcat: "懶人即食系列", name: "14.海藻味噌湯 (4入)", price: 300, desc: "湯裡用了大量的海藻。只需一口，濃鬱的海洋氣息便會充滿口腔。", images: ["https://i.postimg.cc/CKkZrLXW/M14.jpg"] },
-            { id: 15, brand: "茅乃舍", subcat: "懶人即食系列", name: "15.四種蔬菜味噌湯 (4入)", price: 300, desc: "以蔬菜高湯和味道清淡的米味噌為特色。", images: ["https://i.postimg.cc/qMvjP9J0/M15.jpg"] },
-            { id: 16, brand: "茅乃舍", subcat: "懶人即食系列", name: "16.珍珠菇味噌湯 (4入)", price: 300, desc: "以香菇高湯為底，搭配珍珠菇，用口感柔和的米味噌熬製而成。", images: ["https://i.postimg.cc/B65X8grq/M16.jpg"] },
-            { id: 17, brand: "茅乃舍", subcat: "懶人即食系列", name: "17.蕈菇味噌湯 (4入)", price: 300, desc: "以香菇高湯為底，搭配蕈菇，風味十足。", images: ["https://i.postimg.cc/5056H3hb/17.jpg"] },
-            { id: 18, brand: "茅乃舍", subcat: "懶人即食系列", name: "18.雞湯干貝雜炊調味料 (4入)", price: 300, desc: "結合雞高湯與撕碎的干貝鮮味。 ※此商品不含米飯。", images: ["https://i.postimg.cc/Hx0VJ2qT/18.jpg"] },
-            { id: 19, brand: "茅乃舍", subcat: "懶人即食系列", name: "19.[春天限定] 竹筍油菜花味噌湯 (4入)", price: 349, desc: "以蔬菜高湯為底，搭配竹筍及油菜花，春季限定風味。", images: ["https://i.postimg.cc/k4NBVc0C/19.jpg"] },
-            { id: 20, brand: "茅乃舍", subcat: "懶人即食系列", name: "20.豆皮柴魚高湯 (4入)", price: 314, desc: "使用芳香濃郁的本枯節鰹節熬成高湯，非常適合用於招待。", images: ["https://i.postimg.cc/KjZ4tTb2/M20.jpg"] },
-            { id: 21, brand: "茅乃舍", subcat: "懶人即食系列", name: "21.竹麩海帶芽紅味噌湯 (4入)", price: 300, desc: "以經典高湯為基底，結合香氣濃郁的日本國產紅味噌。", images: ["https://i.postimg.cc/pr2yKjvR/M21.jpg"] },
-            { id: 22, brand: "茅乃舍", subcat: "懶人即食系列", name: "22.減鹽海乃七草味噌湯 (4入)", price: 300, desc: "以柴魚昆布高湯為基底，結合7種海藻，減鹽配方更健康。", images: ["https://i.postimg.cc/brzd1nPq/M22.jpg"] },
-            { id: 23, brand: "茅乃舍", subcat: "懶人即食系列", name: "23.蔬菜蛋花湯 (4入)", price: 316, desc: "蔬菜高湯底，加入了菠菜、卷心菜等食材，清爽暖湯。", images: ["https://i.postimg.cc/HnpjbMmk/M23.jpg"] },
+            // --- 茅乃舍：懶人即食 (M 系列) ---
+            { id: "M14", brand: "茅乃舍", subcat: "懶人即食系列", name: "14.海藻味噌湯 (4入)", price: 300, desc: "乾沙丁魚湯帶出滿滿海藻鮮味，如同置身海洋。", images: ["https://i.postimg.cc/CKkZrLXW/M14.jpg"] },
+            { id: "M15", brand: "茅乃舍", subcat: "懶人即食系列", name: "15.四種蔬菜味噌湯 (4入)", price: 300, desc: "味道清淡的米味噌，完美襯托蔬菜的自然甜味。", images: ["https://i.postimg.cc/qMvjP9J0/M15.jpg"] },
+            { id: "M16", brand: "茅乃舍", subcat: "懶人即食系列", name: "16.珍珠菇味噌湯 (4入)", price: 300, desc: "香菇高湯為底，搭配滑嫩珍珠菇。", images: ["https://i.postimg.cc/B65X8grq/M16.jpg"] },
+            { id: "M17", brand: "茅乃舍", subcat: "懶人即食系列", name: "17.蕈菇味噌湯 (4入)", price: 300, desc: "口感柔和，每一口都能喝到滿滿的蕈菇精華。", images: ["https://i.postimg.cc/5056H3hb/17.jpg"] },
+            { id: "M18", brand: "茅乃舍", subcat: "懶人即食系列", name: "18.雞湯干貝雜炊調味料 (4入)", price: 300, desc: "撕碎的干貝與雞肉鮮味，1分鐘完成雜炊。", images: ["https://i.postimg.cc/Hx0VJ2qT/18.jpg"] },
+            { id: "M20", brand: "茅乃舍", subcat: "懶人即食系列", name: "20.豆皮柴魚高湯 (4入)", price: 314, desc: "本枯節鰹節熬成高湯，柚子皮增添優雅氣息。", images: ["https://i.postimg.cc/KjZ4tTb2/M20.jpg"] },
+            { id: "M21", brand: "茅乃舍", subcat: "懶人即食系列", name: "21.竹麩海帶芽紅味噌湯 (4入)", price: 300, desc: "國產紅味噌與鮮味海帶芽，經典日式口感。", images: ["https://i.postimg.cc/pr2yKjvR/M21.jpg"] },
+            { id: "M22", brand: "茅乃舍", subcat: "懶人即食系列", name: "22.減鹽海乃七草味噌湯 (4入)", price: 300, desc: "減鹽配方更健康，結合7種海藻鮮味。", images: ["https://i.postimg.cc/brzd1nPq/M22.jpg"] },
+            { id: "M23", brand: "茅乃舍", subcat: "懶人即食系列", name: "23.蔬菜蛋花湯 (4入)", price: 316, desc: "菠菜、卷心菜搭配滑嫩雞蛋，清爽系暖湯。", images: ["https://i.postimg.cc/HnpjbMmk/M23.jpg"] },
 
-            // --- 茅乃舍：其他系列 ---
-            { id: 24, brand: "茅乃舍", subcat: "靈魂醬料與調味系列", name: "手作胡麻醬", price: 380, desc: "濃郁芝麻香，拌麵沙拉皆宜。", images: ["https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&q=80&w=800"] },
-            { id: 25, brand: "茅乃舍", subcat: "嬰幼兒系列", name: "寶寶專用無鹽高湯", price: 650, desc: "專為嬰幼兒開發，完全無添加鹽分。", images: ["https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800"] },
+            // --- 茅乃舍：靈魂醬料與嬰幼兒 (M 系列) ---
+            { id: "M24", brand: "茅乃舍", subcat: "靈魂醬料與調味系列", name: "手作胡麻醬", price: 380, desc: "濃郁芝麻香，提升料理層次的秘訣。", images: ["https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&q=80&w=800"] },
+            { id: "M25", brand: "茅乃舍", subcat: "嬰幼兒系列", name: "寶寶專用無鹽高湯", price: 650, desc: "專為嬰幼兒開發，完全無添加鹽分。", images: ["https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800"] },
 
-            // --- 好市多 ---
-            { id: 26, brand: "好市多", subcat: "食品-零食和下酒小點", name: "北海道鮭魚乾", price: 680, desc: "選用北海道秋季鮭魚製成，理想的開胃零食。", images: ["https://i.postimg.cc/VkKq4src/C_IMG_2370.jpg"] },
-            { id: 27, brand: "好市多", subcat: "食品-巧克力", name: "Hershey's 巴西莓夾餡黑巧克力", price: 680, desc: "滑順黑巧克力包覆酸甜巴西莓與藍莓果汁軟餡。", images: ["https://i.postimg.cc/D0Wp3CDg/C_IMG_2411.webp"] },
-            { id: 28, brand: "好市多", subcat: "食品-食料品", name: "Kirkland 特級初榨橄欖油", price: 850, desc: "地中海純淨風味。", images: ["https://images.unsplash.com/photo-1474979266404-7eaacbadcbaf?auto=format&fit=crop&q=80&w=800"] },
-            { id: 29, brand: "好市多", subcat: "生活家電", name: "IRIS 雙氣旋無線吸塵器", price: 2980, desc: "羽量級設計，吸力強勁。", images: ["https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&q=80&w=800"] }
+            // --- 好市多 (C 系列) ---
+            { id: "C01", brand: "好市多", subcat: "食品-零食和下酒小點", name: "北海道鮭魚乾", price: 680, desc: "選用北海道秋季鮭魚製成，極佳的下酒零食。", images: ["https://i.postimg.cc/VkKq4src/C_IMG_2370.jpg"] },
+            { id: "C02", brand: "好市多", subcat: "食品-巧克力", name: "Hershey's 巴西莓夾餡巧克力", price: 680, desc: "滑順黑巧克力包覆酸甜巴西莓與藍莓果汁軟餡。", images: ["https://i.postimg.cc/D0Wp3CDg/C_IMG_2411.webp"] },
+            { id: "C03", brand: "好市多", subcat: "食品-食料品", name: "Kirkland 特級橄欖油", price: 850, desc: "地中海純淨風味。", images: ["https://images.unsplash.com/photo-1474979266404-7eaacbadcbaf?auto=format&fit=crop&q=80&w=800"] },
+            { id: "C04", brand: "好市多", subcat: "生活家電", name: "IRIS 雙氣旋無線吸塵器", price: 2980, desc: "羽量級設計，吸力強勁。", images: ["https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&q=80&w=800"] }
         ];
 
         let cart = {}; let productImgMap = {}; let currentFilter = "全部";
@@ -443,8 +447,9 @@
             card.innerHTML = `<div class="aspect-square bg-gray-50 mb-8 overflow-hidden relative group">
                 <img id="img-${p.id}" src="${p.images[currentImgIdx]}" class="w-full h-full object-cover transition-opacity duration-200">
                 <div class="absolute top-4 left-4 bg-white/80 px-4 py-2 text-xs tracking-widest text-gray-500 uppercase font-bold shadow-sm">${p.brand}</div>
-                ${hasMultipleImages ? `<button onclick="switchCardImage(${p.id}, -1)" class="img-nav-btn absolute left-0 top-0 bottom-0 px-4 bg-black/5 hover:bg-black/10 text-white flex items-center"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg></button>
-                <button onclick="switchCardImage(${p.id}, 1)" class="img-nav-btn absolute right-0 top-0 bottom-0 px-4 bg-black/5 hover:bg-black/10 text-white flex items-center"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg></button>
+                <div class="absolute top-4 right-4 bg-black/60 text-white px-3 py-1 text-[10px] tracking-widest uppercase rounded-sm">${p.id}</div>
+                ${hasMultipleImages ? `<button onclick="switchCardImage('${p.id}', -1)" class="img-nav-btn absolute left-0 top-0 bottom-0 px-4 bg-black/5 hover:bg-black/10 text-white flex items-center"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg></button>
+                <button onclick="switchCardImage('${p.id}', 1)" class="img-nav-btn absolute right-0 top-0 bottom-0 px-4 bg-black/5 hover:bg-black/10 text-white flex items-center"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg></button>
                 <div id="dots-${p.id}" class="absolute bottom-5 left-1/2 -translate-x-1/2 flex space-x-2.5">${p.images.map((_, i) => `<div class="dot w-2.5 h-2.5 rounded-full ${i === currentImgIdx ? 'bg-white scale-125' : 'bg-white/40'}"></div>`).join('')}</div>` : ''}
             </div>
             <div class="space-y-4">
@@ -452,7 +457,7 @@
                 <p class="text-base text-[#778899] font-medium leading-loose">${p.desc}</p>
                 <div class="flex justify-between items-center pt-8 border-t border-gray-100 mt-6">
                     <span class="text-2xl font-bold tracking-tighter text-red-900">NT$ ${p.price.toLocaleString()}</span>
-                    <select onchange="updateCart(${p.id}, this.value)" class="w-32 py-3 text-lg border-gray-200 focus:ring-0 font-bold bg-white cursor-pointer">
+                    <select onchange="updateCart('${p.id}', this.value)" class="w-32 py-3 text-lg border-gray-200 focus:ring-0 font-bold bg-white cursor-pointer">
                         <option value="0">數量</option>${[1,2,3,4,5,6,7,8,9,10].map(v => `<option value="${v}" ${currentQty == v ? 'selected' : ''}>${v}</option>`).join('')}
                     </select>
                 </div>
@@ -504,7 +509,7 @@
                 this.reset(); cart = {}; updateSummary();
             } catch (err) {
                 document.getElementById('loadingOverlay').style.display = 'none';
-                alert("送出失敗，請檢查網路連線或稍後再試。");
+                alert("送出失敗，請檢查網路連線。");
             }
         };
     </script>
