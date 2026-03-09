@@ -89,9 +89,18 @@
         .nav-item-container:hover .nav-dropdown {
             display: block;
         }
+
+        /* 底部結帳導覽列 */
+        .bottom-checkout-bar {
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bottom-checkout-bar.active {
+            transform: translateY(0);
+        }
     </style>
 </head>
-<body class="pb-24">
+<body class="pb-32">
 
     <!-- 讀取中畫面 -->
     <div id="loadingOverlay" class="loading-overlay">
@@ -162,7 +171,13 @@
                 </div>
 
                 <button onclick="filterCategory('3 coins')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 border-b border-gray-50 font-medium">3 Coins</button>
-                <button onclick="filterCategory('生活雜貨')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 font-medium">其他生活雜貨</button>
+                <button onclick="filterCategory('生活雜貨')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 font-medium border-b border-gray-50">其他生活雜貨</button>
+
+                <!-- 側邊欄結帳快捷 -->
+                <button onclick="jumpToCheckout()" class="block w-full text-left text-base tracking-widest text-red-800 hover:bg-red-50 transition py-6 mt-4 font-bold border-t border-gray-100 flex items-center justify-between group">
+                    <span>收件與結帳</span>
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </button>
             </nav>
         </div>
     </div>
@@ -180,7 +195,7 @@
         <p id="current-category-label" class="text-base text-red-800 tracking-widest font-bold uppercase tracking-[0.2em]">全部商品</p>
     </header>
 
-    <!-- 好市多快速導覽列 -->
+    <!-- 快速導覽列 (與 JS 連動) -->
     <nav id="costco-quick-nav" class="sticky top-0 bg-white/98 backdrop-blur-md z-40 border-b border-gray-100 hidden shadow-md">
         <div class="max-w-6xl mx-auto px-6 overflow-visible">
             <div class="flex items-center space-x-12 py-6 whitespace-nowrap text-base tracking-widest uppercase font-bold text-gray-700">
@@ -205,7 +220,6 @@
         </div>
     </nav>
 
-    <!-- 茅乃舍快速導覽列 -->
     <nav id="kayanoya-quick-nav" class="sticky top-0 bg-white/98 backdrop-blur-md z-40 border-b border-gray-100 hidden shadow-md">
         <div class="max-w-6xl mx-auto px-6">
             <div class="flex items-center space-x-12 py-6 whitespace-nowrap text-base tracking-widest uppercase font-bold text-gray-700 overflow-x-auto no-scrollbar">
@@ -221,12 +235,12 @@
         <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 mb-24"></div>
 
         <!-- 結帳區域 -->
-        <section id="checkout-section" class="bg-white max-w-3xl mx-auto p-12 md:p-20 border border-gray-100 shadow-sm rounded-sm">
+        <section id="checkout-section" class="bg-white max-w-3xl mx-auto p-12 md:p-20 border border-gray-100 shadow-sm rounded-sm scroll-mt-24">
             <h3 class="text-2xl font-light tracking-[0.3em] mb-16 text-center border-b pb-10">收件與結帳</h3>
             
             <form id="orderForm" class="space-y-10">
                 <div class="bg-[#FBFBFB] p-10 border border-gray-100 rounded-sm space-y-8 mb-12">
-                    <h4 class="text-xl font-bold tracking-widest text-red-800 flex items-center"><span class="mr-3">📍</span> 代購須知</h4>
+                    <h4 class="text-xl font-bold tracking-widest text-red-800 flex items-center"><span class="mr-3">📍</span> 代購須知 [詳閱後全部打勾]</h4>
                     <div class="space-y-6 text-base md:text-lg leading-relaxed text-gray-600 font-medium">
                         <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1.5 mr-5 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-7 h-7"><span class="flex-1">1. 我已明白本服務為委任代買，下單後不接受取消。</span></label>
                         <label class="flex items-start cursor-pointer group"><input type="checkbox" class="terms-checkbox mt-1.5 mr-5 muji-checkbox rounded-none border-gray-300 text-red-800 focus:ring-0 w-7 h-7"><span class="flex-1">2. 我已確認商品顏色與尺寸且海外代購不適用 7 天鑑賞期。</span></label>
@@ -237,7 +251,6 @@
                     </div>
                 </div>
 
-                <!-- 購物摘要 -->
                 <div id="cart-summary" class="bg-gray-50 p-10 rounded-sm mb-12 hidden">
                     <h4 class="text-base tracking-widest text-gray-400 mb-8 uppercase font-bold">已選購項目</h4>
                     <div id="cart-items" class="space-y-6 text-lg border-b border-gray-200 pb-8 mb-8"></div>
@@ -287,19 +300,25 @@
                     <div class="p-10 border-2 border-dashed border-green-500 rounded-sm text-center bg-green-50/20">
                         <p class="text-orange-500 text-lg md:text-xl font-bold leading-loose">
                             訂單完成後請加入官方帳號：@824ivcsu<br>
-                            👉 請回傳「訂購人姓名」及「匯款證明」以利對帳
+                            👉 請回傳「訂單編號或姓名」及「匯款證明」以利對帳
                         </p>
-                    </div>
-                    <div class="flex justify-center">
-                        <a href="https://line.me/R/ti/p/@824ivcsu" target="_blank" class="flex items-center justify-center space-x-5 bg-[#06C755] text-white py-6 px-12 rounded-2xl hover:opacity-90 transition shadow-xl w-full md:w-auto">
-                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M24 10.304c0-4.58-4.69-8.304-10.435-8.304-5.745 0-10.435 3.724-10.435 8.304 0 4.108 3.712 7.548 8.73 8.192.34.073.801.224.919.516.105.259.068.665.033.926-.035.261-.16 1.054-.195 1.343-.058.484-.27 1.895 1.164 1.034 1.433-.861 7.742-4.559 10.559-7.802.001-.001 0 0 0 0 1.93-2.115 3.13-4.256 3.13-6.413zm-16.711 3.253h-1.523c-.227 0-.411-.184-.411-.411v-3.784c0-.227.184-.411.411-.411h1.523c.227 0 .411.184.411.411v3.784c0 .227-.184.411-.411.411zm3.179 0h-1.523c-.227 0-.411-.184-.411-.411v-3.784c0-.227.184-.411.411-.411h1.523c.227 0 .411.184.411.411v3.784c0 .227-.184.411-.411.411zm3.432 0h-1.46c-.221 0-.399-.184-.399-.411v-3.784c0-.227.178-.411.399-.411h1.46c.221 0 .399.184.399.411v3.784c0 .227-.178.411-.399.411zm3.936 0h-1.523c-.227 0-.411-.184-.411-.411v-3.784c0-.227.184-.411.411-.411h1.523c.227 0 .411.184.411.411v3.784c0 .227-.184.411-.411.411z"/></svg>
-                            <span class="font-bold tracking-widest text-xl md:text-2xl">官方帳號連結在此</span>
-                        </a>
                     </div>
                 </div>
             </form>
         </section>
     </main>
+
+    <!-- 固定底部結帳欄 -->
+    <div id="bottom-bar" class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-[0_-10px_30px_rgba(0,0,0,0.08)] z-40 bottom-checkout-bar py-4 px-6 md:px-12 flex items-center justify-between">
+        <div class="flex flex-col">
+            <span class="text-[10px] text-gray-400 tracking-widest font-bold uppercase mb-1">目前購物總計</span>
+            <span id="bottom-total-display" class="text-xl md:text-2xl font-bold text-red-900 tracking-tighter">NT$ 0</span>
+        </div>
+        <button onclick="jumpToCheckout()" class="bg-red-800 text-white px-8 md:px-12 py-3.5 rounded-sm text-sm tracking-[0.2em] font-bold hover:bg-red-900 transition flex items-center shadow-lg">
+            <span>前往結帳</span>
+            <svg class="w-4 h-4 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </button>
+    </div>
 
     <!-- 成功彈窗 -->
     <div id="successToast" class="fixed inset-0 z-[510] hidden bg-white/98 flex items-center justify-center backdrop-blur-lg p-6 fade-in">
@@ -328,16 +347,11 @@
         const COSTCO_CATEGORIES = ["食品-食料品", "食品-巧克力", "食品-餅乾曲奇", "食品-米菓", "食品-零食和下酒小點", "食品-咖啡和茶", "生活家電", "美容藥品", "嬰幼兒"];
         const COSTCO_DESCRIPTIONS = {
             "食品-食料品": "精選高品質進口食材，點亮餐桌的層次風味。",
-            "食品-巧克力": "網羅各國知名巧克力品牌，口感細膩香醇。",
-            "生活家電": "日系高品質耐用電器，讓生活事半功倍。",
-            "美容藥品": "居家必備的人氣良藥與日系美容保養品。"
+            "食品-巧克力": "網羅各國知名巧克力品牌，口感細膩香醇。"
         };
 
-        // ==========================================
-        // 🛍️ 商品資料庫 (ID 使用 M/C 字串編號)
-        // ==========================================
         const allProducts = [
-            // --- 茅乃舍 (M 系列) ---
+            // --- 茅乃舍：經典高湯 (M01 - M13) ---
             { id: "M01", brand: "茅乃舍", subcat: "經典高湯包系列", name: "01.茅乃舍經典高湯 (30入)", price: 727, desc: "鎮店之寶 No.1，由烤飛魚、鰹魚片等製成，層次豐富。", images: ["https://i.postimg.cc/Fz4L4NFN/m39.jpg","https://i.postimg.cc/vTt68kDm/M39_1.jpg","https://i.postimg.cc/yxyS6tWd/M39_2.jpg"] },
             { id: "M02", brand: "茅乃舍", subcat: "經典高湯包系列", name: "02.茅乃舍經典高湯 (5入)", price: 182, desc: "輕巧包裝，正宗日式職人高湯隨手可得。", images: ["https://i.postimg.cc/xCRthxYJ/53.jpg","https://i.postimg.cc/hjrp6yg0/53_1.jpg","https://i.postimg.cc/Px4293hb/53_2.jpg"] },
             { id: "M03", brand: "茅乃舍", subcat: "經典高湯包系列", name: "03.蔬菜高湯 (24入)", price: 717, desc: "選用五種國產蔬菜熬煮，濃縮鮮甜滋味，素食首選。", images: ["https://i.postimg.cc/FsssM7bw/m19.jpg","https://i.postimg.cc/c49400Tm/m19_1.jpg"] },
@@ -346,13 +360,13 @@
             { id: "M06", brand: "茅乃舍", subcat: "經典高湯包系列", name: "06.椎茸高湯 (20入)", price: 717, desc: "國產原木栽培香菇與舞茸，香氣極其濃郁。", images: ["https://i.postimg.cc/t4DBTv8W/M06.jpg","https://i.postimg.cc/6pzM3bFc/M06_1.jpg"] },
             { id: "M07", brand: "茅乃舍", subcat: "經典高湯包系列", name: "07.椎茸高湯 (5入)", price: 214, desc: "非常推薦用於清湯、燉飯或煮物中。", images: ["https://i.postimg.cc/fWKt64dd/M07.jpg"] },
             { id: "M08", brand: "茅乃舍", subcat: "經典高湯包系列", name: "08.雞高湯 (16入)", price: 717, desc: "煙燻國產雞肉絲結合扇貝，味道溫潤深厚。", images: ["https://i.postimg.cc/26jGfQ0h/M08.jpg"] },
-            { id: "M09", brand: "茅乃舍", subcat: "經典高湯包系列", name: "09.雞高湯 (5入)", price: 253, desc: "小包裝。將雞肉的鮮味發揮到淋漓盡致。", images: ["https://i.postimg.cc/0yQm2s3c/M09.jpg"] },
+            { id: "M09", brand: "茅乃舍", subcat: "經典高湯包系列", name: "09.雞高湯 (5入)", price: 253, desc: "將雞肉的鮮味發揮到淋漓盡致。", images: ["https://i.postimg.cc/0yQm2s3c/M09.jpg"] },
             { id: "M10", brand: "茅乃舍", subcat: "經典高湯包系列", name: "10.昆布高湯 (24入)", price: 718, desc: "使用了兩種海帶：甜美的馬昆布和清爽的利尻昆布。", images: ["https://i.postimg.cc/GhjVnFwW/10.jpg"] },
-            { id: "M11", brand: "茅乃舍", subcat: "經典高湯包系列", name: "11.昆布高湯 (5入)", price: 198, desc: "小包裝。非常適合煮豆腐或其他燉煮菜餚。", images: ["https://i.postimg.cc/ydQxGg6H/11.jpg"] },
+            { id: "M11", brand: "茅乃舍", subcat: "經典高湯包系列", name: "11.昆布高湯 (5入)", price: 198, desc: "非常適合煮豆腐或其他燉煮菜餚。", images: ["https://i.postimg.cc/ydQxGg6H/11.jpg"] },
             { id: "M12", brand: "茅乃舍", subcat: "經典高湯包系列", name: "12.特製極味高湯 (12入)", price: 858, desc: "去除血水的鮪魚片與利尻海帶，成就頂級高湯。", images: ["https://i.postimg.cc/HsH575cs/12.jpg"] },
             { id: "M13", brand: "茅乃舍", subcat: "經典高湯包系列", name: "13.東京限定-鰹魚高湯 (12入)", price: 716, desc: "呈現濃郁卻清爽的江戶風味，火鍋必備。", images: ["https://i.postimg.cc/4dsP4MgR/13.jpg"] },
 
-            // --- 茅乃舍：懶人即食 (M 系列) ---
+            // --- 茅乃舍：即食湯品 (M14 - M26) ---
             { id: "M14", brand: "茅乃舍", subcat: "懶人即食系列", name: "14.海藻味噌湯 (4入)", price: 300, desc: "乾沙丁魚湯帶出滿滿海藻鮮味，如同置身海洋。", images: ["https://i.postimg.cc/CKkZrLXW/M14.jpg"] },
             { id: "M15", brand: "茅乃舍", subcat: "懶人即食系列", name: "15.四種蔬菜味噌湯 (4入)", price: 300, desc: "味道清淡的米味噌，完美襯托蔬菜的自然甜味。", images: ["https://i.postimg.cc/qMvjP9J0/M15.jpg"] },
             { id: "M16", brand: "茅乃舍", subcat: "懶人即食系列", name: "16.珍珠菇味噌湯 (4入)", price: 300, desc: "香菇高湯為底，搭配滑嫩珍珠菇。", images: ["https://i.postimg.cc/B65X8grq/M16.jpg"] },
@@ -362,20 +376,21 @@
             { id: "M21", brand: "茅乃舍", subcat: "懶人即食系列", name: "21.竹麩海帶芽紅味噌湯 (4入)", price: 300, desc: "國產紅味噌與鮮味海帶芽，經典日式口感。", images: ["https://i.postimg.cc/pr2yKjvR/M21.jpg"] },
             { id: "M22", brand: "茅乃舍", subcat: "懶人即食系列", name: "22.減鹽海乃七草味噌湯 (4入)", price: 300, desc: "減鹽配方更健康，結合7種海藻鮮味。", images: ["https://i.postimg.cc/brzd1nPq/M22.jpg"] },
             { id: "M23", brand: "茅乃舍", subcat: "懶人即食系列", name: "23.蔬菜蛋花湯 (4入)", price: 316, desc: "菠菜、卷心菜搭配滑嫩雞蛋，清爽系暖湯。", images: ["https://i.postimg.cc/HnpjbMmk/M23.jpg"] },
-            { id: "M24", brand: "茅乃舍", subcat: "懶人即食系列", name: "24.減鹽海藻味噌湯 (4入)", price: 316, desc: "日本國產味噌搭配柴魚昆布高湯，融入7種天然海藻，滋味鮮美濃郁。", images: ["https://i.postimg.cc/XqVX95WW/M24.jpg"] },
-            { id: "M25", brand: "茅乃舍", subcat: "懶人即食系列", name: "25.蕈菇洋蔥湯 (4入)", price: 316, desc: "選蔬菜高湯配搭4種菇類與炒洋蔥，湯頭清澈但味道濃郁。", images: ["https://i.postimg.cc/L4PzV7WX/M25.jpg"] },
-            { id: "M26", brand: "茅乃舍", subcat: "懶人即食系列", name: "26.[東京限定] 小松菜油豆腐味噌湯 (4入)", price: 351, desc: "，結合了甜味較重的「江戶甘味噌」與國產米味噌，湯頭醇厚，含有豐富的 小松菜 與 油豆腐（油揚豆腐），口感層次分明。", images: ["https://i.postimg.cc/C5Fdb80d/M26.jpg"] },
+            { id: "M24", brand: "茅乃舍", subcat: "懶人即食系列", name: "24.減鹽海藻味噌湯 (4入)", price: 316, desc: "融入7種天然海藻，滋味鮮美濃郁。", images: ["https://i.postimg.cc/XqVX95WW/M24.jpg"] },
+            { id: "M25", brand: "茅乃舍", subcat: "懶人即食系列", name: "25.蕈菇洋蔥湯 (4入)", price: 316, desc: "選蔬菜高湯配搭4種菇類與炒洋蔥，味道濃郁。", images: ["https://i.postimg.cc/L4PzV7WX/M25.jpg"] },
+            { id: "M26", brand: "茅乃舍", subcat: "懶人即食系列", name: "26.[東京限定] 小松菜油豆腐味噌湯 (4入)", price: 351, desc: "江戶甘味噌與國產米味噌，湯頭醇厚。", images: ["https://i.postimg.cc/C5Fdb80d/M26.jpg"] },
+            { id: "M27", brand: "茅乃舍", subcat: "懶人即食系列", name: "27.高湯粉絲 醬油口味 (一人份)", price: 239, desc: "是一款主打低卡、健康且充滿高湯鮮味的即時料理包。這款產品最大的特色在於粉絲並非一般綠豆製成，而是選用日本國產食材製作，並強調「用高湯煮麵」的入味口感。", images: ["https://i.postimg.cc/C5Fdb80k/M27.jpg"] },
+            { id: "M28", brand: "茅乃舍", subcat: "懶人即食系列", name: "28.高湯粉絲 辛味噌口味 (一人份)", price: 239, desc: "頭融合了茅乃舍招牌的沙丁魚高湯與特製味噌醬，辛辣感溫潤不刺鼻，具有深度且濃郁的豆醬香氣。", images: ["https://i.postimg.cc/KjZ4tTbM/M28.jpg"] },
 
-
-            // --- 茅乃舍：靈魂醬料與嬰幼兒 (M 系列) ---
-            { id: "M30", brand: "茅乃舍", subcat: "靈魂醬料與調味系列", name: "手作胡麻醬", price: 380, desc: "濃郁芝麻香，提升料理層次的秘訣。", images: ["https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&q=80&w=800"] },
-            { id: "M25", brand: "茅乃舍", subcat: "嬰幼兒系列", name: "寶寶專用無鹽高湯", price: 650, desc: "專為嬰幼兒開發，完全無添加鹽分。", images: ["https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800"] },
+            // --- 茅乃舍：其他 (M30+) ---
+            { id: "M30", brand: "茅乃舍", subcat: "靈魂醬料與調味系列", name: "手作胡麻醬", price: 380, desc: "濃郁芝麻香，提升料理層次的秘訣。", images: ["https://i.postimg.cc/KjZ4tTb2/M20.jpg"] },
+            { id: "M31", brand: "茅乃舍", subcat: "嬰幼兒系列", name: "寶寶專用無鹽高湯", price: 650, desc: "專為嬰幼兒開發，完全無添加鹽分。", images: ["https://i.postimg.cc/Px4293hb/53_2.jpg"] },
 
             // --- 好市多 (C 系列) ---
             { id: "C01", brand: "好市多", subcat: "食品-零食和下酒小點", name: "北海道鮭魚乾", price: 680, desc: "選用北海道秋季鮭魚製成，極佳的下酒零食。", images: ["https://i.postimg.cc/VkKq4src/C_IMG_2370.jpg"] },
             { id: "C02", brand: "好市多", subcat: "食品-巧克力", name: "Hershey's 巴西莓夾餡巧克力", price: 680, desc: "滑順黑巧克力包覆酸甜巴西莓與藍莓果汁軟餡。", images: ["https://i.postimg.cc/D0Wp3CDg/C_IMG_2411.webp"] },
-            { id: "C03", brand: "好市多", subcat: "食品-食料品", name: "Kirkland 特級橄欖油", price: 850, desc: "地中海純淨風味。", images: ["https://images.unsplash.com/photo-1474979266404-7eaacbadcbaf?auto=format&fit=crop&q=80&w=800"] },
-            { id: "C04", brand: "好市多", subcat: "生活家電", name: "IRIS 雙氣旋無線吸塵器", price: 2980, desc: "羽量級設計，吸力強勁。", images: ["https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&q=80&w=800"] }
+            { id: "C03", brand: "好市多", subcat: "食品-食料品", name: "Kirkland 特級橄欖油", price: 850, desc: "地中海純淨風味。", images: ["https://i.postimg.cc/Fz4L4NFN/m39.jpg"] },
+            { id: "C04", brand: "好市多", subcat: "生活家電", name: "IRIS 雙氣旋無線吸塵器", price: 2980, desc: "羽量級設計，吸力強勁。", images: ["https://i.postimg.cc/wT6ZFNX4/M04.jpg"] }
         ];
 
         let cart = {}; let productImgMap = {}; let currentFilter = "全部";
@@ -409,6 +424,15 @@
             renderProducts(); 
             toggleSidebar(); 
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function jumpToCheckout() {
+            const sidebar = document.getElementById('sidebar');
+            if (!sidebar.classList.contains('sidebar-closed')) sidebar.classList.add('sidebar-closed');
+            setTimeout(() => {
+                const el = document.getElementById('checkout-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
         }
 
         function scrollToSection(brand, subcat) {
@@ -479,24 +503,37 @@
         function updateCart(id, qty) { cart[id] = parseInt(qty); if (cart[id] === 0) delete cart[id]; updateSummary(); }
 
         function updateSummary() {
-            const sum = document.getElementById('cart-summary'), list = document.getElementById('cart-items'), totalDisplay = document.getElementById('grand-total'), mobileTotal = document.getElementById('mobile-total'), submitBtn = document.getElementById('submitBtn'), tip = document.getElementById('empty-cart-tip');
+            const sum = document.getElementById('cart-summary'), 
+                  list = document.getElementById('cart-items'), 
+                  totalDisplay = document.getElementById('grand-total'), 
+                  bottomTotal = document.getElementById('bottom-total-display'),
+                  bottomBar = document.getElementById('bottom-bar'),
+                  submitBtn = document.getElementById('submitBtn'), 
+                  tip = document.getElementById('empty-cart-tip');
+            
             const allChecked = [...document.querySelectorAll('.terms-checkbox')].every(cb => cb.checked);
             const infoComplete = ['input-name', 'input-line', 'input-email', 'input-shipping'].every(id => document.getElementById(id).value.trim() !== "");
+            
             list.innerHTML = ''; let total = 0, count = 0;
             for (let id in cart) {
                 const p = allProducts.find(item => item.id == id); if(!p) continue;
                 const subtotal = p.price * cart[id]; total += subtotal; count++;
                 list.innerHTML += `<div class="flex justify-between tracking-wide text-xl"><span class="text-gray-600">${p.name} / ${cart[id]} 個</span><span class="font-bold">NT$ ${subtotal.toLocaleString()}</span></div>`;
             }
+
             sum.classList.toggle('hidden', count === 0);
+            if (count > 0) bottomBar.classList.add('active');
+            else bottomBar.classList.remove('active');
+
             if (count > 0 && allChecked && infoComplete) { submitBtn.disabled = false; tip.textContent = ""; }
             else { submitBtn.disabled = true; if (count === 0) tip.textContent = ""; else if (!allChecked) tip.textContent = "請勾選所有代購須知條款"; else tip.textContent = "請填寫完整訂購資訊"; }
-            totalDisplay.textContent = `NT$ ${total.toLocaleString()}`; mobileTotal.textContent = `NT$ ${total.toLocaleString()}`;
+            
+            totalDisplay.textContent = `NT$ ${total.toLocaleString()}`;
+            bottomTotal.textContent = `NT$ ${total.toLocaleString()}`;
         }
 
         document.getElementById('orderForm').onsubmit = async function(e) {
             e.preventDefault();
-            if (!SCRIPT_URL) { alert("尚未設定後台串接位址。"); return; }
             const orderId = "EM" + Date.now(); 
             document.getElementById('loadingOverlay').style.display = 'flex';
             let itemsStr = "";
