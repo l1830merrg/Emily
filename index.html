@@ -180,7 +180,7 @@
                 </div>
 
                 <button onclick="filterCategory('3 coins')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 border-b border-gray-50 font-medium">3 Coins</button>
-<button onclick="filterCategory('UNIQLO')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 border-b border-gray-50 font-medium">UNIQLO</button>
+                <button onclick="filterCategory('UNIQLO')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 border-b border-gray-50 font-medium">UNIQLO</button>
                 <button onclick="filterCategory('生活雜貨')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 border-b border-gray-50 font-medium">其他生活雜貨</button>
 
                 <!-- 側邊欄下方結帳 -->
@@ -341,27 +341,53 @@
 
         const allProducts = [
             // --- 茅乃舍 (M 系列) ---
-            { id: "M01", brand: "茅乃舍", subcat: "經典高湯包系列", name: "01.經典高湯 (30入)", price: 727, desc: "鎮店之寶 No.1，由烤飛魚、鰹魚片等製成。", images: ["https://i.postimg.cc/Fz4L4NFN/m39.jpg","https://i.postimg.cc/vTt68kDm/M39_1.jpg","https://i.postimg.cc/yxyS6tWd/M39_2.jpg"] },
-            { id: "M02", brand: "茅乃舍", subcat: "經典高湯包系列", name: "02.經典高湯 (5入)", price: 182, desc: "輕巧包裝，正宗日式職人高湯隨手可得。", images: ["https://i.postimg.cc/xCRthxYJ/53.jpg","https://i.postimg.cc/hjrp6yg0/53_1.jpg"] },
-            { id: "M03", brand: "茅乃舍", subcat: "經典高湯包系列", name: "03.蔬菜高湯 (24入)", price: 717, desc: "選用五種國產蔬菜熬煮，濃縮鮮甜滋味。", images: ["https://i.postimg.cc/FsssM7bw/m19.jpg","https://i.postimg.cc/c49400Tm/m19_1.jpg"] },
-            { id: "M04", brand: "茅乃舍", subcat: "經典高湯包系列", name: "04.蔬菜高湯 (12入)", price: 414, desc: "適合煮西式濃湯或燉飯，深受家長歡迎。", images: ["https://i.postimg.cc/wT6ZFNX4/M04.jpg"] },
-            { id: "M06", brand: "茅乃舍", subcat: "經典高湯包系列", name: "06.椎茸高湯 (20入)", price: 717, desc: "國產原木栽培香菇與舞茸，香氣極其濃郁。", images: ["https://i.postimg.cc/t4DBTv8W/M06.jpg"] },
+            { id: "M01", brand: "茅乃舍", subcat: "經典高湯包系列", name: "01.茅乃舍經典高湯 (30入)", price: 727, desc: "鎮店之寶 No.1，由烤飛魚、鰹魚片等製成，層次豐富。", images: ["https://i.postimg.cc/Fz4L4NFN/m39.jpg","https://i.postimg.cc/vTt68kDm/M39_1.jpg","https://i.postimg.cc/yxyS6tWd/M39_2.jpg"] },
+            { id: "M02", brand: "茅乃舍", subcat: "經典高湯包系列", name: "02.茅乃舍經典高湯 (5入)", price: 182, desc: "輕巧包裝，正宗日式職人高湯隨手可得。", images: ["https://i.postimg.cc/xCRthxYJ/53.jpg","https://i.postimg.cc/hjrp6yg0/53_1.jpg","https://i.postimg.cc/Px4293hb/53_2.jpg"] },
+            { id: "M03", brand: "茅乃舍", subcat: "經典高湯包系列", name: "03.蔬菜高湯 (24入)", price: 717, desc: "選用五種國產蔬菜熬煮，濃縮鮮甜滋味，素食首選。", images: ["https://i.postimg.cc/FsssM7bw/m19.jpg","https://i.postimg.cc/c49400Tm/m19_1.jpg"] },
+            { id: "M04", brand: "茅乃舍", subcat: "經典高湯包系列", name: "04.蔬菜高湯 (12入)", price: 414, desc: "適合煮西式濃湯或燉飯，深受家長與小朋友歡迎。", images: ["https://i.postimg.cc/wT6ZFNX4/M04.jpg"] },
+            { id: "M05", brand: "茅乃舍", subcat: "經典高湯包系列", name: "05.蔬菜高湯 (5入)", price: 198, desc: "小包裝，輕鬆嘗試的最佳選擇。", images: ["https://i.postimg.cc/jjXJHGRS/M05.jpg"] },
+            { id: "M06", brand: "茅乃舍", subcat: "經典高湯包系列", name: "06.椎茸高湯 (20入)", price: 717, desc: "國產原木栽培香菇與舞茸，香氣極其濃郁。", images: ["https://i.postimg.cc/t4DBTv8W/M06.jpg","https://i.postimg.cc/6pzM3bFc/M06_1.jpg"] },
+            { id: "M07", brand: "茅乃舍", subcat: "經典高湯包系列", name: "07.椎茸高湯 (5入)", price: 214, desc: "非常推薦用於清湯、燉飯或煮物中。", images: ["https://i.postimg.cc/fWKt64dd/M07.jpg"] },
             { id: "M08", brand: "茅乃舍", subcat: "經典高湯包系列", name: "08.雞高湯 (16入)", price: 717, desc: "煙燻國產雞肉絲結合扇貝，味道溫潤深厚。", images: ["https://i.postimg.cc/26jGfQ0h/M08.jpg"] },
-            { id: "M10", brand: "茅乃舍", subcat: "經典高湯包系列", name: "10.昆布高湯 (24入)", price: 718, desc: "使用了甜美的馬昆布和清爽的利尻昆布。", images: ["https://i.postimg.cc/GhjVnFwW/10.jpg"] },
-            { id: "M14", brand: "茅乃舍", subcat: "懶人即食系列", name: "14.海藻味噌湯 (4入)", price: 300, desc: "乾沙丁魚湯帶出滿滿海藻鮮味。", images: ["https://i.postimg.cc/CKkZrLXW/M14.jpg"] },
-            { id: "M15", brand: "茅乃舍", subcat: "懶人即食系列", name: "15.四種蔬菜味噌湯 (4入)", price: 300, desc: "味道清淡，完美襯托蔬菜甜味。", images: ["https://i.postimg.cc/qMvjP9J0/M15.jpg"] },
-            { id: "M20", brand: "茅乃舍", subcat: "懶人即食系列", name: "20.豆皮柴魚高湯 (4入)", price: 314, desc: "鰹節熬成高湯，柚子皮增添優雅氣息。", images: ["https://i.postimg.cc/KjZ4tTb2/M20.jpg"] },
+            { id: "M09", brand: "茅乃舍", subcat: "經典高湯包系列", name: "09.雞高湯 (5入)", price: 253, desc: "將雞肉的鮮味發揮到淋漓盡致。", images: ["https://i.postimg.cc/0yQm2s3c/M09.jpg"] },
+            { id: "M10", brand: "茅乃舍", subcat: "經典高湯包系列", name: "10.昆布高湯 (24入)", price: 718, desc: "使用了兩種海帶：甜美的馬昆布和清爽的利尻昆布。", images: ["https://i.postimg.cc/GhjVnFwW/10.jpg"] },
+            { id: "M11", brand: "茅乃舍", subcat: "經典高湯包系列", name: "11.昆布高湯 (5入)", price: 198, desc: "非常適合煮豆腐或其他燉煮菜餚。", images: ["https://i.postimg.cc/ydQxGg6H/11.jpg"] },
+            { id: "M12", brand: "茅乃舍", subcat: "經典高湯包系列", name: "12.特製極味高湯 (12入)", price: 858, desc: "去除血水的鮪魚片與利尻海帶，成就頂級高湯。", images: ["https://i.postimg.cc/HsH575cs/12.jpg"] },
+            { id: "M13", brand: "茅乃舍", subcat: "經典高湯包系列", name: "13.東京限定-鰹魚高湯 (12入)", price: 716, desc: "呈現濃郁卻清爽的江戶風味，火鍋必備。", images: ["https://i.postimg.cc/4dsP4MgR/13.jpg"] },
+
+            // --- 茅乃舍：即食湯品 (M14 - M35) ---
+            { id: "M14", brand: "茅乃舍", subcat: "懶人即食系列", name: "14.海藻味噌湯 (4入)", price: 300, desc: "乾沙丁魚湯帶出滿滿海藻鮮味，如同置身海洋。", images: ["https://i.postimg.cc/CKkZrLXW/M14.jpg"] },
+            { id: "M15", brand: "茅乃舍", subcat: "懶人即食系列", name: "15.四種蔬菜味噌湯 (4入)", price: 300, desc: "味道清淡的米味噌，完美襯托蔬菜的自然甜味。", images: ["https://i.postimg.cc/qMvjP9J0/M15.jpg"] },
+            { id: "M16", brand: "茅乃舍", subcat: "懶人即食系列", name: "16.珍珠菇味噌湯 (4入)", price: 300, desc: "香菇高湯為底，搭配滑嫩珍珠菇。", images: ["https://i.postimg.cc/B65X8grq/M16.jpg"] },
+            { id: "M17", brand: "茅乃舍", subcat: "懶人即食系列", name: "17.蕈菇味噌湯 (4入)", price: 300, desc: "口感柔和，每一口都能喝到滿滿的蕈菇精華。", images: ["https://i.postimg.cc/5056H3hb/17.jpg"] },
+            { id: "M18", brand: "茅乃舍", subcat: "懶人即食系列", name: "18.雞湯干貝雜炊調味料 (4入)", price: 300, desc: "撕碎的干貝與雞肉鮮味，1分鐘完成雜炊。", images: ["https://i.postimg.cc/Hx0VJ2qT/18.jpg"] },
+            { id: "M20", brand: "茅乃舍", subcat: "懶人即食系列", name: "20.豆皮柴魚高湯 (4入)", price: 314, desc: "本枯節鰹節熬成高湯，柚子皮增添優雅氣息。", images: ["https://i.postimg.cc/KjZ4tTb2/M20.jpg"] },
+            { id: "M21", brand: "茅乃舍", subcat: "懶人即食系列", name: "21.竹麩海帶芽紅味噌湯 (4入)", price: 300, desc: "國產紅味噌與鮮味海帶芽，經典日式口感。", images: ["https://i.postimg.cc/pr2yKjvR/M21.jpg"] },
+            { id: "M22", brand: "茅乃舍", subcat: "懶人即食系列", name: "22.減鹽海乃七草味噌湯 (4入)", price: 300, desc: "減鹽配方更健康，結合7種海藻鮮味。", images: ["https://i.postimg.cc/brzd1nPq/M22.jpg"] },
+            { id: "M23", brand: "茅乃舍", subcat: "懶人即食系列", name: "23.蔬菜蛋花湯 (4入)", price: 316, desc: "菠菜、卷心菜搭配滑嫩雞蛋，清爽系暖湯。", images: ["https://i.postimg.cc/HnpjbMmk/M23.jpg"] },
             { id: "M24", brand: "茅乃舍", subcat: "懶人即食系列", name: "24.減鹽海藻味噌湯 (4入)", price: 316, desc: "融入7種天然海藻，滋味鮮美濃郁。", images: ["https://i.postimg.cc/XqVX95WW/M24.jpg"] },
-            { id: "M30", brand: "茅乃舍", subcat: "靈魂醬料與調味系列", name: "手作胡麻醬", price: 380, desc: "濃郁芝麻香，提升料理層次的秘訣。", images: ["https://i.postimg.cc/KjZ4tTb2/M20.jpg"] },
-            { id: "M31", brand: "茅乃舍", subcat: "嬰幼兒系列", name: "寶寶專用無鹽高湯", price: 650, desc: "專為嬰幼兒開發，完全無添加鹽分。", images: ["https://i.postimg.cc/Px4293hb/53_2.jpg"] },
+            { id: "M25", brand: "茅乃舍", subcat: "懶人即食系列", name: "25.蕈菇洋蔥湯 (4入)", price: 316, desc: "選蔬菜高湯配搭4種菇類與炒洋蔥，味道濃郁。", images: ["https://i.postimg.cc/L4PzV7WX/M25.jpg"] },
+            { id: "M26", brand: "茅乃舍", subcat: "懶人即食系列", name: "26.[東京限定] 小松菜油豆腐味噌湯 (4入)", price: 351, desc: "江戶甘味噌與國產米味噌，湯頭醇厚。", images: ["https://i.postimg.cc/C5Fdb80d/M26.jpg"] },
+            { id: "M27", brand: "茅乃舍", subcat: "懶人即食系列", name: "27.高湯粉絲 醬油口味 (一人份)", price: 239, desc: "是一款主打低卡、健康且充滿高湯鮮味的即時料理包。這款產品最大的特色在於粉絲並非一般綠豆製成，而是選用日本國產食材製作，並強調「用高湯煮麵」的入味口感。", images: ["https://i.postimg.cc/C5Fdb80k/M27.jpg"] },
+            { id: "M28", brand: "茅乃舍", subcat: "懶人即食系列", name: "28.高湯粉絲 辛味噌口味 (一人份)", price: 239, desc: "融合了茅乃舍招牌的沙丁魚高湯與特製味噌醬，辛辣感溫潤不刺鼻，具有深度且濃郁的豆醬香氣。", images: ["https://i.postimg.cc/KjZ4tTbM/M28.jpg"] },
+            { id: "M29", brand: "茅乃舍", subcat: "懶人即食系列", name: "29.茶碗蒸料理包 (4入)", price: 301, desc: "使用茅乃舍招牌的鰹魚、昆布、香菇與發酵調味料作為基底，含有腐竹、香菇、鴨兒芹等經典配料，風味層次豐富。", images: ["https://i.postimg.cc/L8S4y4H1/M29.jpg"] },
+            { id: "M30", brand: "茅乃舍", subcat: "懶人即食系列", name: "30.玉子燒用料理包 (4入)", price: 239, desc: "鰹魚高湯與昆布為基底，帶有自然的鮮甜與醬油香氣，特別添加了國產山藥粉，能讓煎出來的蛋捲口感更加蓬鬆細緻。", images: ["https://i.postimg.cc/fyByCbWS/M30.jpg"] },
+            { id: "M31", brand: "茅乃舍", subcat: "懶人即食系列", name: "31.[東京限定] 厚燒玉子燒 (5入)", price: 225, desc: "鰹東京限定款具有更顯著的甘甜味與濃郁醬香，重現東京築地名店那種厚實且甜而不膩的口感，這款不同於一般款採用液體醬汁包，能更均勻快速地與蛋液融合。", images: ["https://i.postimg.cc/6q9TCZKG/M31.jpg"] },
+
+            // --- 茅乃舍：其他 (M35+) ---
+            { id: "M36", brand: "茅乃舍", subcat: "靈魂醬料與調味系列", name: "36.低鹽高湯醬油 (200ml)", price: 383, desc: "採用低鹽的茅野屋高湯和天然釀造的醬油熬製而成，因此鹹味較淡。", images: ["https://i.postimg.cc/C1Wg10Pn/M36.png","https://i.postimg.cc/jCBdYNVC/M36-1.jpg","https://i.postimg.cc/fk1TQX4L/M36-2.jpg"] },
+            { id: "M36", brand: "茅乃舍", subcat: "靈魂醬料與調味系列", name: "37.手作胡麻醬", price: 380, desc: "濃郁芝麻香，提升料理層次的秘訣。", images: ["https://i.postimg.cc/KjZ4tTb2/M20.jpg"] },
+
+            { id: "M50", brand: "茅乃舍", subcat: "嬰幼兒系列", name: "50.洋風高湯包 (5入)", price: 209, desc: "配料僅包括國產洋蔥、南瓜、捲心菜和玉米，使其帶有淡淡的蔬菜甜味。適合5個月以上的嬰兒食用。", images: ["https://i.postimg.cc/9Mh1bNnT/M50.jpg"] },
+            { id: "M51", brand: "茅乃舍", subcat: "嬰幼兒系列", name: "51.和風高湯包 (5入)", price: 209, desc: "選用國產鰹魚片、海帶、香菇和烤飛魚，口感溫和醇厚，適合7個月左右的嬰兒食用。", images: ["https://i.postimg.cc/RFBGdbDt/M51.jpg"] },            
 
             // --- 好市多 (C 系列) ---
-            { id: "C01", brand: "好市多", subcat: "食品-零食和下酒小點", name: "北海道鮭魚乾", price: 680, desc: "選用北海道秋季鮭魚製成，極佳下酒菜。", images: ["https://i.postimg.cc/VkKq4src/C_IMG_2370.jpg"] },
-            { id: "C02", brand: "好市多", subcat: "食品-巧克力", name: "巴西莓夾餡巧克力", price: 680, desc: "黑巧克力包覆酸甜巴西莓與藍莓果汁。", images: ["https://i.postimg.cc/D0Wp3CDg/C_IMG_2411.webp"] },
-            { id: "C03", brand: "好市多", subcat: "食品-食料品", name: "Kirkland 特級橄欖油", price: 850, desc: "地中海純淨風味。", images: ["https://i.postimg.cc/Fz4L4NFN/m39.jpg"] },
-            { id: "C04", brand: "好市多", subcat: "生活家電", name: "IRIS 雙氣旋吸塵器", price: 2980, desc: "羽量級設計，吸力強勁。", images: ["https://i.postimg.cc/wT6ZFNX4/M04.jpg"] }
+            { id: "C01", brand: "好市多", subcat: "食品-零食和下酒小點", name: "1.北海道鮭魚乾", price: 565, desc: "選用北海道秋季鮭魚製成，極佳的下酒零食。", images: ["https://i.postimg.cc/VkKq4src/C_IMG_2370.jpg"] },
+            { id: "C02", brand: "好市多", subcat: "食品-零食和下酒小點", name: "2.北海燒帆立貝", price: 365, desc: "調味過的整顆大粒干貝，包含干貝唇，為獨立分裝方便食用。", images: ["https://i.postimg.cc/ZqL1wdP6/C_02.webp"] },
+            { id: "C20", brand: "好市多", subcat: "食品-巧克力", name: "Hershey's 巴西莓夾餡巧克力", price: 680, desc: "滑順黑巧克力包覆酸甜巴西莓與藍莓果汁軟餡。", images: ["https://i.postimg.cc/D0Wp3CDg/C_IMG_2411.webp"] },
+            { id: "C30", brand: "好市多", subcat: "食品-食料品", name: "Kirkland 特級橄欖油", price: 850, desc: "地中海純淨風味。", images: ["https://i.postimg.cc/Fz4L4NFN/m39.jpg"] },
+            { id: "C40", brand: "好市多", subcat: "生活家電", name: "IRIS 雙氣旋無線吸塵器", price: 2980, desc: "羽量級設計，吸力強勁。", images: ["https://i.postimg.cc/wT6ZFNX4/M04.jpg"] }
         ];
-
         let cart = {}; let productImgMap = {}; let currentFilter = "全部";
 
         window.onload = () => {
