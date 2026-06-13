@@ -167,8 +167,7 @@
                             <div id="side-food-submenu" class="submenu bg-white">
                                 <button onclick="scrollToSection('好市多', '食品-食料品')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 食料品</button>
                                 <button onclick="scrollToSection('好市多', '食品-巧克力')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 巧克力</button>
-                                <button onclick="scrollToSection('好市多', '食品-餅乾曲奇')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 餅乾曲奇</button>
-                                <button onclick="scrollToSection('好市多', '食品-米菓')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 米菓</button>
+                                <button onclick="scrollToSection('好市多', '食品-餅乾曲奇米菓')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 餅乾曲奇米菓</button>
                                 <button onclick="scrollToSection('好市多', '食品-零食和下酒小點')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 零食和下酒小點</button>
                                 <button onclick="scrollToSection('好市多', '食品-咖啡和茶')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12">· 咖啡和茶</button>
                             </div>
@@ -217,8 +216,7 @@
                     <div class="nav-dropdown py-4 border-t-4 border-red-800">
                         <button onclick="scrollToSection('好市多', '食品-食料品')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 食料品</button>
                         <button onclick="scrollToSection('好市多', '食品-巧克力')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 巧克力</button>
-                        <button onclick="scrollToSection('好市多', '食品-餅乾曲奇')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 餅乾曲奇</button>
-                        <button onclick="scrollToSection('好市多', '食品-米菓')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 米菓</button>
+                        <button onclick="scrollToSection('好市多', '食品-餅乾曲奇米菓')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 餅乾曲奇米菓</button>
                         <button onclick="scrollToSection('好市多', '食品-零食和下酒小點')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 零食和下酒小點</button>
                         <button onclick="scrollToSection('好市多', '食品-咖啡和茶')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 咖啡和茶</button>
                     </div>
@@ -333,7 +331,7 @@
             "嬰幼兒系列": "專為嬰幼兒開發，完全無添加鹽分，守護寶寶健康。"
         };
 
-        const COSTCO_CATEGORIES = ["食品-食料品", "食品-巧克力", "食品-餅乾曲奇", "食品-米菓", "食品-零食和下酒小點", "食品-咖啡和茶", "生活家電", "美容藥品", "嬰幼兒"];
+        const COSTCO_CATEGORIES = ["食品-食料品", "食品-巧克力", "食品-餅乾曲奇米菓", "食品-零食和下酒小點", "食品-咖啡和茶", "生活家電", "美容藥品", "嬰幼兒"];
         const COSTCO_DESCRIPTIONS = {
             "食品-食料品": "精選高品質進口食材，點亮餐桌的層次風味。",
             "食品-巧克力": "網羅各國知名巧克力品牌，口感細膩香醇。"
@@ -381,12 +379,34 @@
             { id: "M50", brand: "茅乃舍", subcat: "嬰幼兒系列", name: "50.洋風高湯包 (5入)", price: 209, desc: "配料僅包括國產洋蔥、南瓜、捲心菜和玉米，使其帶有淡淡的蔬菜甜味。適合5個月以上的嬰兒食用。", images: ["https://i.postimg.cc/9Mh1bNnT/M50.jpg"] },
             { id: "M51", brand: "茅乃舍", subcat: "嬰幼兒系列", name: "51.和風高湯包 (5入)", price: 209, desc: "選用國產鰹魚片、海帶、香菇和烤飛魚，口感溫和醇厚，適合7個月左右的嬰兒食用。", images: ["https://i.postimg.cc/RFBGdbDt/M51.jpg"] },            
 
-            // --- 好市多 (C 系列) ---
-            { id: "C01", brand: "好市多", subcat: "食品-零食和下酒小點", name: "1.北海道鮭魚乾", price: 565, desc: "選用北海道秋季鮭魚製成，極佳的下酒零食。", images: ["https://i.postimg.cc/VkKq4src/C_IMG_2370.jpg"] },
-            { id: "C02", brand: "好市多", subcat: "食品-零食和下酒小點", name: "2.北海燒帆立貝", price: 365, desc: "調味過的整顆大粒干貝，包含干貝唇，為獨立分裝方便食用。", images: ["https://i.postimg.cc/ZqL1wdP6/C_02.webp"] },
+            // --- 日本好市多 (C 系列) ---
+            { id: "C01", brand: "好市多", subcat: "食品-零食和下酒小點", name: "北海道鮭魚乾", price: 702, desc: "選用北海道秋季鮭魚製成，極佳的下酒零食。", images: ["https://i.postimg.cc/VkKq4src/CF501.jpg"] },
+            { id: "C02", brand: "好市多", subcat: "食品-零食和下酒小點", name: "北海燒帆立貝", price: 365, desc: "調味過的整顆大粒干貝，包含干貝唇，為獨立分裝方便食用。", images: ["https://i.postimg.cc/ZqL1wdP6/CF502.webp"] },
+            { id: "C03", brand: "好市多", subcat: "食品-零食和下酒小點", name: "NUTS FIRST 控糖綜合堅果", price: 421, desc: "每袋包含14 小包，混和六種堅果與水果：杏仁、核桃、無花果、黑大豆、南瓜籽與蔓越莓。", images: ["https://i.postimg.cc/Dz5MrKFc/CF503.webp","https://i.postimg.cc/N0bz6wYk/CF503-1.webp"] },
+            { id: "C04", brand: "好市多", subcat: "食品-零食和下酒小點", name: "有鹽綜合堅果", price: 525, desc: "每袋包含25 小包，混和均衡混合了杏仁、腰果、花生、核桃，經過烘焙並添加適量鹽巴，提升風味。", images: ["https://i.postimg.cc/JhypkH60/CF504.webp","https://i.postimg.cc/Bv8mKPY6/CF504-1.webp"] },
+            { id: "C05", brand: "好市多", subcat: "食品-零食和下酒小點", name: "杏仁小魚乾 x 腰果", price: 580, desc: "口感酥脆不刺口，帶有微甜的醬油香氣，杏仁條、腰果，搭配鹹香的小魚乾，味道層次分明", images: ["https://i.postimg.cc/cL4g1r0V/CF506.webp","https://i.postimg.cc/bwNDYsp7/CF506-1.webp"] },
+
+
+
+
+
+
             { id: "C20", brand: "好市多", subcat: "食品-巧克力", name: "Hershey's 巴西莓夾餡巧克力", price: 680, desc: "滑順黑巧克力包覆酸甜巴西莓與藍莓果汁軟餡。", images: ["https://i.postimg.cc/D0Wp3CDg/C_IMG_2411.webp"] },
-            { id: "C30", brand: "好市多", subcat: "食品-食料品", name: "Kirkland 特級橄欖油", price: 850, desc: "地中海純淨風味。", images: ["https://i.postimg.cc/Fz4L4NFN/m39.jpg"] },
-            { id: "C40", brand: "好市多", subcat: "生活家電", name: "IRIS 雙氣旋無線吸塵器", price: 2980, desc: "羽量級設計，吸力強勁。", images: ["https://i.postimg.cc/wT6ZFNX4/M04.jpg"] }
+
+
+
+
+
+            { id: "C30", brand: "好市多", subcat: "食品-食料品", name: "洋蔥湯包(10入)", price: 563, desc: "使用三種處理方式的洋蔥（慢炒、脆炸、洋蔥醬），並添加法國發酵奶油及帕瑪森起司，沖泡熱水即可享用。", images: ["https://i.postimg.cc/pX1L7V4J/CF101.webp","https://i.postimg.cc/YqyCV2Zf/IMG-2463.webp"] },
+            { id: "C31", brand: "好市多", subcat: "食品-食料品", name: "HIKARI味噌6種春雨 (30入，6種口味各5入)", price: 645, desc: "韓式辛辣風、濃郁擔擔風、醬油清爽風、鮮美海鮮風、辛香咖哩風、雞汁野菜風，只要加入熱水等待 3 分鐘，Q彈的綠豆春雨配上濃郁湯頭，輕鬆解決一餐。", images: ["https://i.postimg.cc/XYRhzQFV/LINE-NOTE-260614-1.jpg","https://i.postimg.cc/cLpjbXYx/LINE-NOTE-260614-2.jpg"] },
+
+
+            { id: "C50", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "關口釀造 醬油仙貝85枚入", price: 662, desc: "非硬梆梆的口感，而是酥脆感。表面刷上厚薄均勻的醬油，經過烘烤後產生微微的醬油香，鹹甜度適中", images: ["https://i.postimg.cc/CKXQbwpj/C-IMG-2452.webp","https://i.postimg.cc/YSZsQtBY/C-IMG-2453.webp"] },
+
+
+
+
+            { id: "C70", brand: "好市多", subcat: "生活家電", name: "IRIS 雙氣旋無線吸塵器", price: 2980, desc: "羽量級設計，吸力強勁。", images: ["https://i.postimg.cc/wT6ZFNX4/M04.jpg"] }
         ];
         let cart = {}; let productImgMap = {}; let currentFilter = "全部";
 
@@ -460,25 +480,48 @@
             }
         }
 
-        function createProductCard(p) {
+function createProductCard(p) {
             const card = document.createElement('div'); 
-            card.className = 'product-card p-3 md:p-10 border border-transparent hover:border-gray-100 rounded-sm fade-in shadow-sm';
+            card.className = 'product-card p-3 md:p-10 border border-transparent hover:border-gray-100 rounded-sm fade-in shadow-sm relative';
             const currentQty = cart[p.id] || 0; const currentImgIdx = productImgMap[p.id]; const hasMultipleImages = p.images.length > 1;
+            
+            // 銷售狀態半透明遮罩
+            const statusOverlay = p.status ? `
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center z-10 backdrop-blur-[1px]">
+                    <span class="text-white text-xs md:text-lg font-bold tracking-widest border border-white px-2 py-1 md:px-4 md:py-2 uppercase rounded-sm">
+                        ${p.status === 'sold_out' ? '已售完' : '已停售'}
+                    </span>
+                </div>
+            ` : '';
+
+            // 判斷銷售狀態，若已售完/已停售則置換數量選單為純文字提示
+            const quantityAction = p.status ? `
+                <span class="w-full md:w-32 text-center py-2 md:py-3 text-sm md:text-lg font-bold text-gray-400 bg-gray-100 border border-gray-200 block">
+                    ${p.status === 'sold_out' ? '已售完' : '已停售'}
+                </span>
+            ` : `
+                <select onchange="updateCart('${p.id}', this.value)" class="w-full md:w-32 py-2 md:py-3 text-sm md:text-lg border-gray-200 focus:ring-0 font-bold bg-white cursor-pointer rounded-none">
+                    <option value="0">數量</option>
+                    ${[1,2,3,4,5,6,7,8,9,10].map(v => `<option value="${v}" ${currentQty == v ? 'selected' : ''}>${v}</option>`).join('')}
+                </select>
+            `;
+
             card.innerHTML = `<div class="aspect-square bg-gray-50 mb-4 md:mb-8 overflow-hidden relative group">
                 <img id="img-${p.id}" src="${p.images[currentImgIdx]}" class="w-full h-full object-cover transition-opacity duration-200">
                 <div class="absolute top-2 left-2 md:top-4 md:left-4 bg-white/80 px-2 py-1 text-[8px] md:text-xs tracking-widest text-gray-500 font-bold uppercase shadow-sm">${p.brand}</div>
-                ${hasMultipleImages ? `<button onclick="switchCardImage('${p.id}', -1)" class="img-nav-btn absolute left-0 top-0 bottom-0 px-2 bg-black/5 text-white flex items-center"><svg class="w-6 h-6 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg></button>
-                <button onclick="switchCardImage('${p.id}', 1)" class="img-nav-btn absolute right-0 top-0 bottom-0 px-2 bg-black/5 text-white flex items-center"><svg class="w-6 h-6 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg></button>
-                <div id="dots-${p.id}" class="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-1.5">${p.images.map((_, i) => `<div class="dot w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-full ${i === currentImgIdx ? 'bg-white' : 'bg-white/40'}"></div>`).join('')}</div>` : ''}
+                ${statusOverlay}
+                ${hasMultipleImages && !p.status ? `
+                    <button onclick="switchCardImage('${p.id}', -1)" class="img-nav-btn absolute left-0 top-0 bottom-0 px-2 bg-black/5 text-white flex items-center z-20"><svg class="w-6 h-6 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg></button>
+                    <button onclick="switchCardImage('${p.id}', 1)" class="img-nav-btn absolute right-0 top-0 bottom-0 px-2 bg-black/5 text-white flex items-center z-20"><svg class="w-6 h-6 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg></button>
+                    <div id="dots-${p.id}" class="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-1.5 z-20">${p.images.map((_, i) => `<div class="dot w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-full ${i === currentImgIdx ? 'bg-white' : 'bg-white/40'}"></div>`).join('')}</div>
+                ` : ''}
             </div>
             <div class="space-y-2 md:space-y-4">
                 <h4 class="text-xs md:text-xl font-bold tracking-wide text-gray-800 line-clamp-2 min-h-[2.8em]">${p.name}</h4>
                 <p class="hidden md:block text-sm text-[#778899] font-medium leading-relaxed line-clamp-2">${p.desc}</p>
                 <div class="flex flex-col md:flex-row md:justify-between md:items-center pt-2 md:pt-8 border-t border-gray-100 space-y-3 md:space-y-0">
                     <span class="text-sm md:text-2xl font-bold text-red-900">NT$ ${p.price.toLocaleString()}</span>
-                    <select onchange="updateCart('${p.id}', this.value)" class="w-full md:w-32 py-2 md:py-3 text-sm md:text-lg border-gray-200 focus:ring-0 font-bold bg-white cursor-pointer rounded-none">
-                        <option value="0">數量</option>${[1,2,3,4,5,6,7,8,9,10].map(v => `<option value="${v}" ${currentQty == v ? 'selected' : ''}>${v}</option>`).join('')}
-                    </select>
+                    ${quantityAction}
                 </div>
             </div>`;
             return card;
@@ -492,6 +535,7 @@
         }
 
         function updateCart(id, qty) { cart[id] = parseInt(qty); if (cart[id] === 0) delete cart[id]; updateSummary(); }
+
 
         function updateSummary() {
             const sum = document.getElementById('cart-summary'), list = document.getElementById('cart-items'), totalDisplay = document.getElementById('grand-total'), bottomTotal = document.getElementById('bottom-total-display'), bottomBar = document.getElementById('bottom-bar'), submitBtn = document.getElementById('submitBtn'), tip = document.getElementById('empty-cart-tip');
