@@ -173,7 +173,7 @@
                             </div>
                         </div>
                         <button onclick="scrollToSection('好市多', '生活家電')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8 border-b border-gray-100">生活家電</button>
-                        <button onclick="scrollToSection('好市多', '美容藥品')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8 border-b border-gray-100">美容藥品</button>
+                        <button onclick="scrollToSection('好市多', '美容保健')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8 border-b border-gray-100">美容保健</button>
                         <button onclick="scrollToSection('好市多', '嬰幼兒')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8">嬰幼兒系列</button>
                     </div>
                 </div>
@@ -222,7 +222,7 @@
                     </div>
                 </div>
                 <button onclick="scrollToSection('好市多', '生活家電')" class="hover:text-red-800 transition">生活家電</button>
-                <button onclick="scrollToSection('好市多', '美容藥品')" class="hover:text-red-800 transition">美容藥品</button>
+                <button onclick="scrollToSection('好市多', '美容保健')" class="hover:text-red-800 transition">美容保健</button>
                 <button onclick="scrollToSection('好市多', '嬰幼兒')" class="hover:text-red-800 transition">嬰幼兒系列</button>
             </div>
         </div>
@@ -331,7 +331,7 @@
             "嬰幼兒系列": "專為嬰幼兒開發，完全無添加鹽分，守護寶寶健康。"
         };
 
-        const COSTCO_CATEGORIES = ["食品-食料品", "食品-巧克力", "食品-餅乾曲奇米菓", "食品-零食和下酒小點", "食品-咖啡和茶", "生活家電", "美容藥品", "嬰幼兒"];
+        const COSTCO_CATEGORIES = ["食品-食料品", "食品-巧克力", "食品-餅乾曲奇米菓", "食品-零食和下酒小點", "食品-咖啡和茶", "生活家電", "美容保健", "嬰幼兒"];
         const COSTCO_DESCRIPTIONS = {
             "食品-食料品": "精選高品質進口食材，點亮餐桌的層次風味。",
             "食品-巧克力": "網羅各國知名巧克力品牌，口感細膩香醇。"
@@ -385,28 +385,97 @@
             { id: "C03", brand: "好市多", subcat: "食品-零食和下酒小點", name: "NUTS FIRST 控糖綜合堅果", price: 421, desc: "每袋包含14 小包，混和六種堅果與水果：杏仁、核桃、無花果、黑大豆、南瓜籽與蔓越莓。", images: ["https://i.postimg.cc/Dz5MrKFc/CF503.webp","https://i.postimg.cc/N0bz6wYk/CF503-1.webp"] },
             { id: "C04", brand: "好市多", subcat: "食品-零食和下酒小點", name: "有鹽綜合堅果", price: 525, desc: "每袋包含25 小包，混和均衡混合了杏仁、腰果、花生、核桃，經過烘焙並添加適量鹽巴，提升風味。", images: ["https://i.postimg.cc/JhypkH60/CF504.webp","https://i.postimg.cc/Bv8mKPY6/CF504-1.webp"] },
             { id: "C05", brand: "好市多", subcat: "食品-零食和下酒小點", name: "杏仁小魚乾 x 腰果", price: 580, desc: "口感酥脆不刺口，帶有微甜的醬油香氣，杏仁條、腰果，搭配鹹香的小魚乾，味道層次分明", images: ["https://i.postimg.cc/cL4g1r0V/CF506.webp","https://i.postimg.cc/bwNDYsp7/CF506-1.webp"] },
+            { id: "C06", brand: "好市多", subcat: "食品-零食和下酒小點", name: "熟成起司鱈魚條 & 燻製起司 8入", price: 485, desc: "一袋裡面包含了最經典的「鱈魚起司條」與香氣濃郁的「燻製起司」，交換著吃完全不會膩。", images: ["https://i.postimg.cc/XYp5cpmq/CF509.webp"] },
+            { id: "C07", brand: "好市多", subcat: "食品-零食和下酒小點", name: "紀州梅 x 枕崎柴魚 風味秋葵乾 11入", price: 550, desc: "採用日本最出名的 「紀州產梅子」 的酸甜，搭配「枕崎產柴魚」的鮮味。這種組合是純正的日本風味，層次感比一般市售秋葵乾高出一截。", images: ["https://i.postimg.cc/ZYvqJ228/C-IMG-2429.webp","https://i.postimg.cc/h4QGK668/C-IMG-2430.webp"] },
 
 
 
 
 
-
-            { id: "C20", brand: "好市多", subcat: "食品-巧克力", name: "Hershey's 巴西莓夾餡巧克力", price: 680, desc: "滑順黑巧克力包覆酸甜巴西莓與藍莓果汁軟餡。", images: ["https://i.postimg.cc/D0Wp3CDg/C_IMG_2411.webp"] },
+            { id: "C20", brand: "好市多", subcat: "食品-巧克力", name: "Hershey's 巴西莓夾餡巧克力", price: 992, desc: "滑順黑巧克力包覆酸甜巴西莓與藍莓果汁軟餡。", images: ["https://i.postimg.cc/D0Wp3CDg/C_IMG_2411.webp"] },
+            { id: "C20", brand: "好市多", subcat: "食品-巧克力", name: "巧克力次郎Choco Jiro 巧克力餅乾 27袋", price: 642, desc: "巧克力裡面竟然還有牛奶夾心，配上脆脆的餅乾底，甜而不膩。", images: ["https://i.postimg.cc/4Nq5K9Lt/0614-52.jpg","https://i.postimg.cc/vHkz1Vqn/0614-53.jpg"] },
 
 
 
 
 
             { id: "C30", brand: "好市多", subcat: "食品-食料品", name: "洋蔥湯包(10入)", price: 563, desc: "使用三種處理方式的洋蔥（慢炒、脆炸、洋蔥醬），並添加法國發酵奶油及帕瑪森起司，沖泡熱水即可享用。", images: ["https://i.postimg.cc/pX1L7V4J/CF101.webp","https://i.postimg.cc/YqyCV2Zf/IMG-2463.webp"] },
-            { id: "C31", brand: "好市多", subcat: "食品-食料品", name: "HIKARI味噌6種春雨 (30入，6種口味各5入)", price: 645, desc: "韓式辛辣風、濃郁擔擔風、醬油清爽風、鮮美海鮮風、辛香咖哩風、雞汁野菜風，只要加入熱水等待 3 分鐘，Q彈的綠豆春雨配上濃郁湯頭，輕鬆解決一餐。", images: ["https://i.postimg.cc/XYRhzQFV/LINE-NOTE-260614-1.jpg","https://i.postimg.cc/cLpjbXYx/LINE-NOTE-260614-2.jpg"] },
+            { id: "C31", brand: "好市多", subcat: "食品-食料品", name: "HIKARI味噌6種春雨 (30入，6種口味各5入)", price: 645, desc: "內含 3 種口味，每種各 9 份", images: ["https://i.postimg.cc/XYRhzQFV/LINE-NOTE-260614-1.jpg","https://i.postimg.cc/cLpjbXYx/LINE-NOTE-260614-2.jpg"] },
+            { id: "C32", brand: "好市多", subcat: "食品-食料品", name: "日清 碗裝迷你拉麵綜合箱 27食入", price: 1005, desc: "內含3種口味，每種各9份，Cup Noodle 經典原味、柚子風味烏龍麵、元祖雞拉麵", images: ["https://i.postimg.cc/DwMRSz44/60614-1.jpg","https://i.postimg.cc/XYztrvBy/60614-3.jpg"],status: "sold_out" },
+            { id: "C33", brand: "好市多", subcat: "食品-食料品", name: "一蘭拉麵：Premium 雙口味 5食入/盒", price: 764, desc: "內含2種口味，經典博多細麵 (3入)+稀有「釜醬汁」風味 (2入)，內含： 麵塊、液體湯包、赤紅秘製粉。", images: ["https://i.postimg.cc/8s8jkGdr/260614-4.jpg","https://i.postimg.cc/Z0kCYmPd/60614-5.jpg","https://i.postimg.cc/0rgb5vGS/60614-6.jpg"] },
+            { id: "C34", brand: "好市多", subcat: "食品-食料品", name: "明太子老店限定-明太子美乃滋", price: 335, desc: "結合了美乃滋的香濃與明太子的微辣鮮甜，不管是沾、拌、烤，只要一秒鐘就能讓普通食材變身日本居酒屋料理。", images: ["https://i.postimg.cc/tC1MLjM9/260614-7.jpg","https://i.postimg.cc/yYwbKbw2/260614-8.jpg"] },
+            { id: "C35", brand: "好市多", subcat: "食品-食料品", name: "日清 歐風牛肉咖哩飯 6入", price: 718, desc: "只要加入熱水等待 5 分鐘，攪拌 30 秒，稀稀的湯就會瞬間變成濃稠、充滿香氣的美味咖哩飯！", images: ["https://i.postimg.cc/VLyhQTQn/260614-9.jpg","https://i.postimg.cc/Fst65q5S/60614-10.jpg","https://i.postimg.cc/RVrY585f/0614-11.jpg"] },
+            { id: "C36", brand: "好市多", subcat: "食品-食料品", name: "日本三陸產 頂級乾燥切片海帶芽", price: 685, desc: "純天然海鮮乾燥製成，切成一口大小，只要放入水中浸泡約 3~5 分鐘，體積會迅速膨脹約 10~12 倍，隨時都能變出一道菜。", images: ["https://i.postimg.cc/SKk3fCdg/C-IMG-2464.webp","https://i.postimg.cc/YSMZzYRs/IMG-2465.webp","https://i.postimg.cc/d0wpjr6H/IMG-2466.webp"] },
+            { id: "C37", brand: "好市多", subcat: "食品-食料品", name: "永谷園 經典松茸風味清湯 約50入", price: 359, desc: "淡淡的松茸香氣配上鰹魚底韻，每一包都附有海苔絲、日式麩以及乾三葉草，非常適合作為佐餐湯品", images: ["https://i.postimg.cc/VvqHtNM6/C-IMG-2468.webp","https://i.postimg.cc/gjVBh0Rj/IMG-2467.webp"] },
+            { id: "C38", brand: "好市多", subcat: "食品-食料品", name: "掘西辛香料調味粉 250g", price: 537, desc: "20種以上香料調和： 以鹽、大蒜、黑胡椒為基底，結合了陳皮、醬油粉、月桂葉、芫荽、羅勒等 20 多種辛香料與調味料，層次感豐富到不可思議。", images: ["https://i.postimg.cc/66S89rYR/0614-16.jpg","https://i.postimg.cc/3r6kKXnm/0614-17.jpg"] },
+            { id: "C39", brand: "好市多", subcat: "食品-食料品", name: "義大利岩底 歐風清湯萬能鹽 390g", price: 382, desc: "使用來自義大利西西里島的純淨岩鹽，鹹味溫潤不刺鼻，結合了番茄、洋蔥、胡蘿蔔等蔬菜粉末，加上奧勒岡、羅勒、黑胡椒等多種香料，味道帶有濃郁的 法式清湯香氣。", images: ["https://i.postimg.cc/jq4YdtxT/0614-18.jpg","https://i.postimg.cc/FFVXsNrm/0614-19.jpg","https://i.postimg.cc/kMvPXqJm/0614-20.jpg"] },
+            { id: "C40", brand: "好市多", subcat: "食品-食料品", name: "BLUE CHIP 5種野菜綜合乾燥蔬菜 350g", price: 389, desc: "採用特殊的乾燥技術，鎖住蔬菜的甜味與營養。內含高麗菜、洋蔥、青江菜、紅蘿蔔、青蔥。這五種蔬菜組合起來就是湯頭甜味的來源。", images:["https://i.postimg.cc/Gt2KCF3n/0614-21.jpg","https://i.postimg.cc/90MbhdX5/0614-22.jpg"] },
+            { id: "C41", brand: "好市多", subcat: "食品-食料品", name: "日本敘敘苑 特製燒肉醬 2瓶", price: 1156, desc: "日本必吃的敘敘苑，這瓶就是他們店裡的靈魂！不管是拌飯、炒肉、還是當沾醬，隨便淋上去就是高級感。", images:["https://i.postimg.cc/sgfVhMMG/0614-48.jpg"] },
+            { id: "C41", brand: "好市多", subcat: "食品-食料品", name: "永谷園 大人的香鬆", price: 420, desc: "5種口味各 20袋，鮭魚青菜、燒明太子、海苔雞蛋、芥末、經典柴魚，不管是做小飯糰帶便當、配粥、還是拌麵都超合適。", images:["https://i.postimg.cc/wTwBF58b/0614-54.jpg"] },
+
 
 
             { id: "C50", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "關口釀造 醬油仙貝85枚入", price: 662, desc: "非硬梆梆的口感，而是酥脆感。表面刷上厚薄均勻的醬油，經過烘烤後產生微微的醬油香，鹹甜度適中", images: ["https://i.postimg.cc/CKXQbwpj/C-IMG-2452.webp","https://i.postimg.cc/YSZsQtBY/C-IMG-2453.webp"] },
+            { id: "C51", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "關口釀造 辛香咖哩仙貝 約20小袋 ", price: 510, desc: "打開袋子就能聞到濃郁的咖哩辛香。入口後，仙貝的米香先散開，接著是微微的辣度與咖哩的鹹香在舌尖引爆。", images: ["https://i.postimg.cc/Y9svqm1v/C-IMG-2449.webp","https://i.postimg.cc/Hxhrs7Qj/C-IMG-2450.webp"] },
+            { id: "C52", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "鹽奶油地瓜片 10袋入 ", price: 608, desc: "使用 100% 日本產地瓜直接切片，厚度比一般洋芋片厚，咬起來更有存在感且非常酥脆，口感層次分明。", images: ["https://i.postimg.cc/9MW3kxSs/C-IMG-2436.webp","https://i.postimg.cc/MTWkLs4N/C-IMG-2437.webp"] },
+            { id: "C53", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "天乃屋 歌舞伎揚 約15袋 ", price: 839, desc: "咬下去會有清脆的聲音，緊接著散發出濃濃的米香與秘製醬油的鮮甜。", images: ["https://i.postimg.cc/nL2vtk0t/C-IMG-2460.webp","https://i.postimg.cc/43PzT5Bg/C-IMG-2461.webp"] },
+            { id: "C54", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "旨鹽風味香脆蝦餅 2入", price: 477, desc: "使用沖繩特產的鹽調味，鹹甜比例恰到好處，襯托出濃郁的蝦子鮮甜，口感比一般的蝦條更紮實、更酥脆。", images: ["https://i.postimg.cc/MH0J3CZh/C-IMG-2444.webp"] },
+            { id: "C55", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "UHA味覺糖 鹽奶油地瓜棒 5袋", price: 622, desc: "奶油香味不是只灑在表面，而是感覺滲進了地瓜片的纖維裡，咬下去是那種扎實的「咔滋、咔滋」聲。", images: ["https://i.postimg.cc/LXNRxNdY/0614-31.jpg","https://i.postimg.cc/FRDmTDtJ/0614-33.jpg"] },
+            { id: "C56", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "天乃屋 糯麥高纖仙貝 72枚", price: 717, desc: "整顆穀物的顆粒感，可以看到整顆糯麥的形狀，咬起來非常有層次，越嚼越香，帶有日式醬油的清甜感。12枚 × 6袋", images: ["https://i.postimg.cc/JhCXbcCv/0614-36.jpg","https://i.postimg.cc/QMZ7pkZv/0614-37.jpg"] },
+            { id: "C57", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "萬歲山椒辣味仙貝 24袋", price: 780, desc: "添加了大量的山椒粉。吃下去第一口是鮮甜，隨之而來的是強烈且爽快的「麻感」", images: ["https://i.postimg.cc/V6dbw7q9/0614-38.jpg","https://i.postimg.cc/VsttLDVY/C-IMG-2451.webp"] },
+ { id: "C57", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "瀨戶內檸檬炸魷魚餅 20袋入", price: 773, desc: "清爽的檸檬香氣搭配酥脆魷魚，完全不油膩", images: ["https://i.postimg.cc/hvKY5dWQ/0614-49.jpg","https://i.postimg.cc/brq5BtcG/0614-50.jpg","https://i.postimg.cc/RhvYDH5n/0614-51.jpg"] },
 
 
 
 
-            { id: "C70", brand: "好市多", subcat: "生活家電", name: "IRIS 雙氣旋無線吸塵器", price: 2980, desc: "羽量級設計，吸力強勁。", images: ["https://i.postimg.cc/wT6ZFNX4/M04.jpg"] }
+
+
+
+
+            { id: "C60", brand: "好市多", subcat: "食品-咖啡和茶", name: "日東紅茶 宇治抹茶歐蕾 60入", price: 725, desc: "即沖即飲，冷熱皆宜，粉末極細，不僅能熱沖，夏天直接加入冷牛奶或冰水攪拌也能輕鬆化開，隨時享用冰抹茶。", images: ["https://i.postimg.cc/mDv78jTK/0614-26.jpg","https://i.postimg.cc/76FSm9qp/0614-27.jpg"] },
+            { id: "C60", brand: "好市多", subcat: "食品-咖啡和茶", name: "雀巢 宇治抹茶濃縮液膠囊 50入", price: 556, desc: "使用 100% 宇治抹茶，味道香濃不苦澀。 1顆膠囊搭配 150ml牛奶，冰熱皆可！", images: ["https://i.postimg.cc/FzKMKLP6/0614-55.jpg","https://i.postimg.cc/PJqgqw6R/0614-56.jpg"],status: "sold_out" },
+
+
+
+
+
+
+            { id: "C80", brand: "好市多", subcat: "生活家電", name: "Toffy 微波專用多功能烤盤 2台/盒-綠色", price: 1550, desc: "「1 台 5 役」超強多功能： 妳只需要微波爐，就能完成：烤、蒸、煮、焙、加熱。", images: ["https://i.postimg.cc/qMpMXh9y/0614-28.jpg","https://i.postimg.cc/wT9TcySJ/0614-29.jpg"] },            
+            { id: "C81", brand: "好市多", subcat: "生活家電", name: "Toffy 微波專用多功能烤盤 2台/盒-粉色", price: 1550, desc: "「1 台 5 役」超強多功能： 妳只需要微波爐，就能完成：烤、蒸、煮、焙、加熱。", images: ["https://i.postimg.cc/SNmN72wZ/0614-30.jpg"] },
+
+
+
+
+            { id: "C100", brand: "好市多", subcat: "美容保健", name: "鐵&葉酸 補血美顏營養軟糖 110日份", price: 988, desc: "每日2粒，即可補充 12mg的鐵及 400μg的葉酸，採用濃郁的巴西莓風味，完全沒有一般鐵劑討厭的金屬鐵鏽味，口感Q彈。", images: ["https://i.postimg.cc/FKcZZFzx/0614-14.jpg","https://i.postimg.cc/nL7kkVrK/0614-15.jpg"] },
+            { id: "C101", brand: "好市多", subcat: "美容保健", name: "合利他命 EX PLUS：日本國民級強效活性 B群 270錠", price: 1799, desc: "結合了維生素 B1、B6、B12，專門針對末梢神經修復。添加維生素E，改善血液循環，幫助緊繃的肌肉放鬆。", images: ["https://i.postimg.cc/Mpj1ByWr/0614-23.jpg"] },
+            { id: "C102", brand: "好市多", subcat: "美容保健", name: "EVE A錠 90 錠", price: 380, desc: "針對生理痛、頭痛效果特別顯著，也能緩解牙痛、關節痛與感冒發燒。提醒對阿斯匹靈過敏者、氣喘病史者或是預產期 12 週內的孕婦應避免使用。", images: ["https://i.postimg.cc/1RVgJDnB/0614-24.jpg"] },
+            { id: "C103", brand: "好市多", subcat: "美容保健", name: "The Guard整腸錠 alpha 3+ 550 錠", price: 1157, desc: "「胃 + 腸」的全方位保健，改善脹氣、軟便與便秘： 專門針對容易腹脹、消化不良或排便不順，能有效抑制腸道內異常發酵產生的氣體。", images: ["https://i.postimg.cc/sgLd6GZy/0614-25.jpg"] },
+            { id: "C104", brand: "好市多", subcat: "美容保健", name: "維他命 C 營養補充軟糖 100日份", price: 988, desc: "外層有酸甜的檸檬粉，口感Ｑ彈有勁，完全沒有維他命錠劑的藥味。10小袋 獨立包裝", images: ["https://i.postimg.cc/VNvxWM97/0614-34.jpg","https://i.postimg.cc/KYj6DL7D/0614-35.jpg"] },
+            { id: "C105", brand: "好市多", subcat: "美容保健", name: "Suisai 酵素洗顏粉 黃金版", price: 1619, desc: "對乾性肌開發的高級版，添加了金黃美容油（向日葵油與酪梨油）。洗完臉不會繃，反而有種潤澤感。", images: ["https://i.postimg.cc/Gh53wcMX/0614-44.jpg"] },
+            { id: "C106", brand: "好市多", subcat: "美容保健", name: "Suisai酵素洗顏粉 經典藍 74顆入", price: 1382, desc: "基礎熱銷款。主打蛋白質分解酵素，能洗掉毛孔裡的髒汙。", images: ["https://i.postimg.cc/X7zNSV2z/0614-45.jpg"] },
+            { id: "C107", brand: "好市多", subcat: "美容保健", name: "Suisai酵素洗顏粉 酷黑版 74顆入", price: 1382, desc: "加入了「炭」與「泥」成分。比起經典藍，吸附油脂的能力更強，洗完會有明顯的清爽感。", images: ["https://i.postimg.cc/QxyNGX64/0614-46.jpg"] },
+            { id: "C108", brand: "好市多", subcat: "美容保健", name: "花王Megrhythm 蒸氣溫熱眼罩 36枚入", price: 1127, desc: "三款味道各12枚， 戴上後會迅速產生約 40°C 的微細蒸氣，持續約20分鐘，溫熱感能放鬆眼周肌肉", images: ["https://i.postimg.cc/xCpjfnfT/0614-47.jpg"] },
+
+
+
+
+
+
+
+            { id: "C120", brand: "好市多", subcat: "嬰幼兒", name: "兒童電動牙刷-庫洛米", price: 375, desc: " 每分鐘 7,000 次的細微震動，能比手動牙刷更有效地清除牙垢，同時保護小朋友的牙齦", images: ["https://i.postimg.cc/MTf8tQV2/0614-12.jpg"] },
+            { id: "C121", brand: "好市多", subcat: "嬰幼兒", name: "兒童電動牙刷-動物方城市", price: 375, desc: " 每分鐘 7,000 次的細微震動，能比手動牙刷更有效地清除牙垢，同時保護小朋友的牙齦", images: ["https://i.postimg.cc/vBxdXV9J/0614-13.jpg"] },
+            { id: "C122", brand: "好市多", subcat: "嬰幼兒", name: "Calbee：1歲以上零食 蔬菜口味小薯條 ", price: 790, desc: "12串組/共48小袋，非油炸、低負擔： 採用特殊的烘烤技術，完全不使用油，且鹽分極低，非常適合牙齒與腸胃還在發育階段的小朋友。", images: ["https://i.postimg.cc/sf6xxBh4/C-IMG-2401.webp","https://i.postimg.cc/VsGvvSCF/C-IMG-2402.webp"] },
+            { id: "C123", brand: "好市多", subcat: "嬰幼兒", name: "櫻花牌 15色消光水彩組", price: 378, desc: "採用軟管設計，力氣較小的幼兒也能輕鬆擠出，且蓋子好開好扣，顯色飽滿、不反光", images: ["https://i.postimg.cc/VL1LBGS8/0614-39.jpg","https://i.postimg.cc/65w5Lj7J/0614-40.jpg","https://i.postimg.cc/TYGYq7yv/0614-41.jpg"] },
+            { id: "C124", brand: "好市多", subcat: "嬰幼兒", name: "櫻花牌 24色粗軸粉蠟筆", price: 250, desc: "筆身較厚實，小朋友練習抓握，不容易折斷，耐用度極高。兼具蠟筆的定型力與粉彩的混色效果。顏色非常滑順，不需要費力就能畫出鮮艷色彩。", images: ["https://i.postimg.cc/qB1Zjgqk/0614-42.jpg","https://i.postimg.cc/J7pdPt0z/0614-43.jpg"] },
+            { id: "C125", brand: "好市多", subcat: "嬰幼兒", name: "迪士尼公主 夢幻波士頓包 × 豪華美妝組 冰雪奇緣", price: 1504, desc: "內容物超豐富，從水性指甲油、護唇膏到可愛髮飾通通有。", images: ["https://i.postimg.cc/t4LntdW2/0614-57.jpg","https://i.postimg.cc/QdRKkg1S/0614-60.jpg"] },
+            { id: "C126", brand: "好市多", subcat: "嬰幼兒", name: "迪士尼公主 夢幻波士頓包 × 豪華美妝組 小美人魚", price: 1504, desc: "內容物超豐富，從水性指甲油、護唇膏到可愛髮飾通通有。", images: ["https://i.postimg.cc/t4LntdW2/0614-57.jpg","https://i.postimg.cc/jSGnQ6Pc/0614-59.jpg"] },            
+            { id: "C127", brand: "好市多", subcat: "嬰幼兒", name: "迪士尼公主 夢幻波士頓包 × 豪華美妝組 長髮公主", price: 1504, desc: "內容物超豐富，從水性指甲油、護唇膏到可愛髮飾通通有。", images: ["https://i.postimg.cc/t4LntdW2/0614-57.jpg","https://i.postimg.cc/g2fLqy8D/0614-58.jpg"] },
+
+
+
+
+
+
         ];
         let cart = {}; let productImgMap = {}; let currentFilter = "全部";
 
