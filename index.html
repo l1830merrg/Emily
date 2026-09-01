@@ -115,7 +115,7 @@
     <div id="loadingOverlay" class="loading-overlay">
         <div class="text-center">
             <div class="inline-block w-12 h-12 border-4 border-gray-200 border-t-red-800 rounded-full animate-spin mb-4"></div>
-            <p class="text-lg tracking-widest text-gray-500 font-medium text-red-900">訂單傳送中，請稍候...</p>
+            <p id="loading-text" class="text-lg tracking-widest text-gray-500 font-medium text-red-900">訂單傳送中，請稍候...</p>
         </div>
     </div>
 
@@ -148,10 +148,10 @@
                     </div>
                 </div>
 
-                <!-- 好市多 -->
+                <!-- 日本日本好市多 -->
                 <div class="border-b border-gray-50">
                     <div class="flex items-center justify-between group">
-                        <button onclick="filterCategory('好市多')" class="flex-grow text-left text-base tracking-widest hover:text-red-800 transition py-4 font-bold">好市多 Costco</button>
+                        <button onclick="filterCategory('日本日本好市多')" class="flex-grow text-left text-base tracking-widest hover:text-red-800 transition py-4 font-bold">日本日本好市多 Costco</button>
                         <button onclick="toggleSubmenu('costco-submenu', 'c-arrow')" class="p-4 text-gray-400 hover:text-black">
                             <svg id="c-arrow" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
@@ -159,28 +159,38 @@
                     <div id="costco-submenu" class="submenu bg-gray-50/50">
                         <div class="border-b border-gray-100">
                             <div class="flex items-center justify-between group">
-                                <button onclick="scrollToSection('好市多', '食品-食料品')" class="flex-grow text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8 font-medium">食品系列</button>
+                                <button onclick="scrollToSection('日本日本好市多', '食品-食料品')" class="flex-grow text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8 font-medium">食品系列</button>
                                 <button onclick="toggleSubmenu('side-food-submenu', 'sf-arrow')" class="p-4 text-gray-400">
                                     <svg id="sf-arrow" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                                 </button>
                             </div>
                             <div id="side-food-submenu" class="submenu bg-white">
-                                <button onclick="scrollToSection('好市多', '食品-食料品')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 食料品</button>
-                                <button onclick="scrollToSection('好市多', '食品-巧克力')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 巧克力</button>
-                                <button onclick="scrollToSection('好市多', '食品-餅乾曲奇米菓')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 餅乾曲奇米菓</button>
-                                <button onclick="scrollToSection('好市多', '食品-零食和下酒小點')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 零食和下酒小點</button>
-                                <button onclick="scrollToSection('好市多', '食品-咖啡和茶')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12">· 咖啡和茶</button>
+                                <button onclick="scrollToSection('日本日本好市多', '食品-食料品')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 食料品</button>
+                                <button onclick="scrollToSection('日本日本好市多', '食品-巧克力')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 巧克力</button>
+                                <button onclick="scrollToSection('日本日本好市多', '食品-餅乾曲奇')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 餅乾曲奇</button>
+                                <button onclick="scrollToSection('日本日本好市多', '食品-米菓')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 米菓</button>
+                                <button onclick="scrollToSection('日本日本好市多', '食品-零食和下酒小點')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12 border-b border-gray-50">· 零食和下酒小點</button>
+                                <button onclick="scrollToSection('日本日本好市多', '食品-咖啡和茶')" class="block w-full text-left text-xs tracking-widest hover:text-red-800 transition py-3 pl-12">· 咖啡和茶</button>
                             </div>
                         </div>
-                        <button onclick="scrollToSection('好市多', '生活家電')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8 border-b border-gray-100">生活家電</button>
-                        <button onclick="scrollToSection('好市多', '美容保健')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8 border-b border-gray-100">美容保健</button>
-                        <button onclick="scrollToSection('好市多', '嬰幼兒')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8">嬰幼兒系列</button>
+                        <button onclick="scrollToSection('日本日本好市多', '生活家電')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8 border-b border-gray-100">生活家電</button>
+                        <button onclick="scrollToSection('日本日本好市多', '美容藥品')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8 border-b border-gray-100">美容藥品</button>
+                        <button onclick="scrollToSection('日本日本好市多', '嬰幼兒')" class="block w-full text-left text-sm tracking-widest hover:text-red-800 transition py-4 pl-8">嬰幼兒系列</button>
                     </div>
                 </div>
 
-                <button onclick="filterCategory('3 coins')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 border-b border-gray-50 font-medium">3 Coins</button>
-                <button onclick="filterCategory('UNIQLO')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 border-b border-gray-50 font-medium">UNIQLO</button>
+                <button onclick="filterCategory('藥妝')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 border-b border-gray-50 font-medium">藥妝</button>
+                <button onclick="filterCategory('文具公仔')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 border-b border-gray-50 font-medium">文具公仔</button>
                 <button onclick="filterCategory('生活雜貨')" class="block w-full text-left text-base tracking-widest hover:text-red-800 transition py-4 border-b border-gray-50 font-medium">其他生活雜貨</button>
+
+                <!-- 側邊欄下方管理員上架入口 (預設隱藏) -->
+                <button id="sidebarAdminBtn" onclick="toggleAdminModal(); toggleSidebar();" class="hidden w-full text-left text-sm tracking-widest text-gray-500 hover:text-black transition py-4 mt-6 border-t border-gray-100 flex items-center justify-between">
+                    <span>⚙️ 商品上架與管理</span>
+                    <span class="text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-500">管理後台</span>
+                </button>
+                <button id="sidebarLogoutBtn" onclick="logoutAdmin()" class="hidden w-full text-left text-sm tracking-widest text-red-500 hover:text-red-700 transition py-4 border-b border-gray-100 flex items-center justify-between">
+                    <span>🚪 退出管理模式</span>
+                </button>
 
                 <!-- 側邊欄下方結帳 -->
                 <button onclick="jumpToCheckout()" class="block w-full text-left text-base tracking-widest text-red-800 hover:bg-red-50 transition py-6 mt-4 font-bold border-t border-gray-100 flex items-center justify-between group">
@@ -199,8 +209,15 @@
         </div>
     </button>
 
+    <!-- 浮動快速上架按鈕 (右側上方，預設隱藏) -->
+    <button id="floatingAdminBtn" onclick="toggleAdminModal()" class="hidden fixed right-4 top-4 z-40 bg-white/90 backdrop-blur-sm border border-gray-200 px-4 py-2.5 rounded-full shadow-lg hover:bg-red-50 hover:border-red-200 transition flex items-center space-x-2 text-xs md:text-sm font-bold text-gray-700">
+        <span>➕</span>
+        <span>上架商品</span>
+    </button>
+
     <header class="bg-white py-12 md:py-20 px-6 text-center border-b border-gray-50">
-        <h1 class="text-2xl md:text-4xl font-light tracking-[0.2em] mb-4 md:mb-6">艾米莉の日貨鋪</h1>
+        <!-- 加入暗號點擊事件 -->
+        <h1 onclick="handleSecretClick()" class="text-2xl md:text-4xl font-light tracking-[0.2em] mb-4 md:mb-6 cursor-pointer select-none transition hover:opacity-70" title="點擊此處">艾米莉の日貨鋪</h1>
         <p id="current-category-label" class="text-sm md:text-base text-red-800 tracking-widest font-bold uppercase">全部商品</p>
     </header>
 
@@ -214,16 +231,17 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </button>
                     <div class="nav-dropdown py-4 border-t-4 border-red-800">
-                        <button onclick="scrollToSection('好市多', '食品-食料品')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 食料品</button>
-                        <button onclick="scrollToSection('好市多', '食品-巧克力')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 巧克力</button>
-                        <button onclick="scrollToSection('好市多', '食品-餅乾曲奇米菓')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 餅乾曲奇米菓</button>
-                        <button onclick="scrollToSection('好市多', '食品-零食和下酒小點')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 零食和下酒小點</button>
-                        <button onclick="scrollToSection('好市多', '食品-咖啡和茶')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 咖啡和茶</button>
+                        <button onclick="scrollToSection('日本日本好市多', '食品-食料品')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 食料品</button>
+                        <button onclick="scrollToSection('日本日本好市多', '食品-巧克力')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 巧克力</button>
+                        <button onclick="scrollToSection('日本日本好市多', '食品-餅乾曲奇')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 餅乾曲奇</button>
+                        <button onclick="scrollToSection('日本日本好市多', '食品-米菓')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 米菓</button>
+                        <button onclick="scrollToSection('日本日本好市多', '食品-零食和下酒小點')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 零食和下酒小點</button>
+                        <button onclick="scrollToSection('日本日本好市多', '食品-咖啡和茶')" class="block w-full text-left px-8 py-3.5 hover:bg-gray-50 transition text-sm">· 咖啡和茶</button>
                     </div>
                 </div>
-                <button onclick="scrollToSection('好市多', '生活家電')" class="hover:text-red-800 transition">生活家電</button>
-                <button onclick="scrollToSection('好市多', '美容保健')" class="hover:text-red-800 transition">美容保健</button>
-                <button onclick="scrollToSection('好市多', '嬰幼兒')" class="hover:text-red-800 transition">嬰幼兒系列</button>
+                <button onclick="scrollToSection('日本日本好市多', '生活家電')" class="hover:text-red-800 transition">生活家電</button>
+                <button onclick="scrollToSection('日本日本好市多', '美容藥品')" class="hover:text-red-800 transition">美容藥品</button>
+                <button onclick="scrollToSection('日本日本好市多', '嬰幼兒')" class="hover:text-red-800 transition">嬰幼兒系列</button>
             </div>
         </div>
     </nav>
@@ -240,7 +258,7 @@
     </nav>
 
     <main class="max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-12">
-        <!-- 手機版改為雙欄 grid-cols-2 -->
+        <!-- 手機版雙欄 grid-cols-2 -->
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-14 mb-24"></div>
 
         <!-- 結帳區域 -->
@@ -320,6 +338,127 @@
         </div>
     </div>
 
+    <!-- 彈出通知 (取代原生 alert) -->
+    <div id="noticeToast" class="fixed top-6 left-1/2 -translate-x-1/2 z-[600] hidden bg-gray-900 text-white px-6 py-3 rounded-lg shadow-2xl text-sm md:text-base tracking-wider font-medium fade-in flex items-center space-x-2">
+        <span id="notice-text">訊息通知</span>
+    </div>
+
+    <!-- 🛠️ 商品上架與管理彈窗 (Admin Modal) -->
+    <div id="adminModal" class="fixed inset-0 z-[550] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 md:p-8 fade-in overflow-y-auto">
+        <div class="bg-white max-w-2xl w-full p-6 md:p-10 rounded-sm shadow-2xl border border-gray-100 my-auto max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b pb-4 mb-6">
+                <h3 class="text-xl md:text-2xl font-bold tracking-widest text-red-900">📦 商品快速上架與管理</h3>
+                <button onclick="toggleAdminModal()" class="text-gray-400 hover:text-black p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <form id="adminUploadForm" onsubmit="handleProductUpload(event)" class="space-y-6">
+                <!-- 基本屬性 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">商品編號 (如 M99, C99) *</label>
+                        <input type="text" id="new-prod-id" required placeholder="例：M32 或 C10" class="font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">所屬品牌 *</label>
+                        <select id="new-prod-brand" required onchange="handleBrandChange(this.value)" class="font-medium">
+                            <option value="茅乃舍">茅乃舍</option>
+                            <option value="日本日本好市多">日本日本好市多</option>
+                            <option value="藥妝">藥妝</option>
+                            <option value="文具公仔">文具公仔</option>
+                            <option value="生活雜貨">生活雜貨</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">所屬系列 / 子分類 *</label>
+                        <input type="text" id="new-prod-subcat" required list="subcat-suggestions" placeholder="例：經典高湯包系列" class="font-medium">
+                        <datalist id="subcat-suggestions">
+                            <option value="經典高湯包系列"></option>
+                            <option value="懶人即食系列"></option>
+                            <option value="靈魂醬料與調味系列"></option>
+                            <option value="嬰幼兒系列"></option>
+                            <option value="食品-食料品"></option>
+                            <option value="食品-巧克力"></option>
+                            <option value="食品-餅乾曲奇米菓"></option>
+                            <option value="食品-零食和下酒小點"></option>
+                            <option value="食品-咖啡和茶"></option>
+                            <option value="生活家電"></option>
+                            <option value="美容保健"></option>
+                        </datalist>
+                    </div>
+                </div>
+
+                <!-- 名稱與價格 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">商品名稱 *</label>
+                        <input type="text" id="new-prod-name" required placeholder="例：32.極上特濃豚骨湯底" class="font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">售價 (NT$) *</label>
+                        <input type="number" id="new-prod-price" required placeholder="例：650" min="1" class="font-bold">
+                    </div>
+                </div>
+
+                <!-- 銷售狀態 -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">銷售狀態</label>
+                    <select id="new-prod-status" class="font-medium">
+                        <option value="">正常供貨 (可選數量加入購物車)</option>
+                        <option value="sold_out">已售完 (顯示售完遮罩，鎖定數量)</option>
+                        <option value="discontinued">已停售 (顯示停售遮罩，鎖定數量)</option>
+                    </select>
+                </div>
+
+                <!-- 描述 -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">商品詳細介紹文字 (選填)</label>
+                    <textarea id="new-prod-desc" rows="3" placeholder="請輸入商品成分、產地或推薦吃法..." class="font-medium"></textarea>
+                </div>
+
+                <!-- 圖片上傳區塊 (本機選圖轉 Base64) -->
+                <div class="border-2 border-dashed border-gray-300 p-6 rounded-sm bg-gray-50/50 text-center space-y-4">
+                    <label class="cursor-pointer block">
+                        <div class="text-3xl mb-2">📸</div>
+                        <span class="text-sm font-bold text-red-900 tracking-wider">點此選取圖片 (可多選圖檔)</span>
+                        <p class="text-xs text-gray-400 mt-1">支援 JPG, PNG, WEBP 等格式，手機可直接拍照或選相簿</p>
+                        <input type="file" id="new-prod-file-input" multiple accept="image/*" onchange="handleImageSelection(event)" class="hidden">
+                    </label>
+
+                    <!-- 圖片預覽區 -->
+                    <div id="image-preview-container" class="flex flex-wrap gap-3 justify-center pt-2"></div>
+                </div>
+
+                <!-- 按鈕區 -->
+                <div class="pt-4 flex flex-col md:flex-row gap-3">
+                    <button type="submit" class="flex-1 py-4 bg-[#7F2122] text-white font-bold tracking-[0.2em] uppercase rounded-sm hover:opacity-90 transition shadow-md">
+                        🚀 立即上架 / 更新商品
+                    </button>
+                    <button type="button" id="adminDeleteBtn" onclick="handleProductDelete()" class="hidden py-4 px-6 bg-red-100 text-red-700 font-bold tracking-wider rounded-sm hover:bg-red-200 transition">
+                        🗑️ 刪除此商品
+                    </button>
+                    <button type="button" onclick="exportProductCode()" class="py-4 px-6 bg-gray-800 text-white font-bold tracking-wider rounded-sm hover:bg-gray-700 transition">
+                        📋 複製最新商品代碼
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 🔐 管理員登入彈窗 -->
+    <div id="passwordModal" class="fixed inset-0 z-[650] hidden bg-black/70 backdrop-blur-md flex items-center justify-center p-4 fade-in">
+        <div class="bg-white max-w-sm w-full p-8 rounded-sm shadow-2xl text-center border border-gray-100">
+            <h3 class="text-2xl font-bold tracking-widest text-red-900 mb-2 uppercase">管理員登入</h3>
+            <p class="text-xs text-gray-400 tracking-widest mb-8">請輸入密碼以啟用上架與狀態管理</p>
+            <input type="password" id="adminPasswordInput" placeholder="請輸入密碼" class="w-full text-center mb-8 border-b-2 border-gray-200 focus:border-red-800 outline-none p-3 text-xl tracking-widest font-bold" onkeypress="if(event.key === 'Enter') verifyAdminPassword()">
+            <div class="flex space-x-4">
+                <button onclick="closePasswordModal()" class="flex-1 py-3.5 bg-gray-100 text-gray-600 font-bold tracking-widest hover:bg-gray-200 transition rounded-sm">取消</button>
+                <button onclick="verifyAdminPassword()" class="flex-1 py-3.5 bg-red-800 text-white font-bold tracking-widest hover:bg-red-900 transition rounded-sm shadow-md">登入</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-fdbSXNOaInQkIR3e1dhGw0Ye4hAl2KUMHmTWDpT-mjAlyei95PSK-kpkAdAa9ls1WA/exec"; 
 
@@ -337,7 +476,7 @@
             "食品-巧克力": "網羅各國知名巧克力品牌，口感細膩香醇。"
         };
 
-        const allProducts = [
+        const defaultProducts = [
             // --- 茅乃舍 (M 系列) ---
             { id: "M01", brand: "茅乃舍", subcat: "經典高湯包系列", name: "01.茅乃舍經典高湯 (30入)", price: 727, desc: "鎮店之寶 No.1，由烤飛魚、鰹魚片等製成，層次豐富。", images: ["https://i.postimg.cc/Fz4L4NFN/m39.jpg","https://i.postimg.cc/vTt68kDm/M39_1.jpg","https://i.postimg.cc/yxyS6tWd/M39_2.jpg"] },
             { id: "M02", brand: "茅乃舍", subcat: "經典高湯包系列", name: "02.茅乃舍經典高湯 (5入)", price: 182, desc: "輕巧包裝，正宗日式職人高湯隨手可得。", images: ["https://i.postimg.cc/xCRthxYJ/53.jpg","https://i.postimg.cc/hjrp6yg0/53_1.jpg","https://i.postimg.cc/Px4293hb/53_2.jpg"] },
@@ -374,133 +513,187 @@
 
             // --- 茅乃舍：其他 (M35+) ---
             { id: "M36", brand: "茅乃舍", subcat: "靈魂醬料與調味系列", name: "36.低鹽高湯醬油 (200ml)", price: 383, desc: "採用低鹽的茅野屋高湯和天然釀造的醬油熬製而成，因此鹹味較淡。", images: ["https://i.postimg.cc/C1Wg10Pn/M36.png","https://i.postimg.cc/jCBdYNVC/M36-1.jpg","https://i.postimg.cc/fk1TQX4L/M36-2.jpg"] },
-            { id: "M36", brand: "茅乃舍", subcat: "靈魂醬料與調味系列", name: "37.手作胡麻醬", price: 380, desc: "濃郁芝麻香，提升料理層次的秘訣。", images: ["https://i.postimg.cc/KjZ4tTb2/M20.jpg"] },
+            { id: "M37", brand: "茅乃舍", subcat: "靈魂醬料與調味系列", name: "37.手作胡麻醬", price: 380, desc: "濃郁芝麻香，提升料理層次的秘訣。", images: ["https://i.postimg.cc/KjZ4tTb2/M20.jpg"] },
 
             { id: "M50", brand: "茅乃舍", subcat: "嬰幼兒系列", name: "50.洋風高湯包 (5入)", price: 209, desc: "配料僅包括國產洋蔥、南瓜、捲心菜和玉米，使其帶有淡淡的蔬菜甜味。適合5個月以上的嬰兒食用。", images: ["https://i.postimg.cc/9Mh1bNnT/M50.jpg"] },
             { id: "M51", brand: "茅乃舍", subcat: "嬰幼兒系列", name: "51.和風高湯包 (5入)", price: 209, desc: "選用國產鰹魚片、海帶、香菇和烤飛魚，口感溫和醇厚，適合7個月左右的嬰兒食用。", images: ["https://i.postimg.cc/RFBGdbDt/M51.jpg"] },            
 
-            // --- 日本好市多 (C 系列) ---
-            { id: "C01", brand: "好市多", subcat: "食品-零食和下酒小點", name: "北海道鮭魚乾", price: 702, desc: "選用北海道秋季鮭魚製成，極佳的下酒零食。", images: ["https://i.postimg.cc/VkKq4src/CF501.jpg"] },
-            { id: "C02", brand: "好市多", subcat: "食品-零食和下酒小點", name: "北海燒帆立貝", price: 365, desc: "調味過的整顆大粒干貝，包含干貝唇，為獨立分裝方便食用。", images: ["https://i.postimg.cc/ZqL1wdP6/CF502.webp"] },
-            { id: "C03", brand: "好市多", subcat: "食品-零食和下酒小點", name: "NUTS FIRST 控糖綜合堅果", price: 421, desc: "每袋包含14 小包，混和六種堅果與水果：杏仁、核桃、無花果、黑大豆、南瓜籽與蔓越莓。", images: ["https://i.postimg.cc/Dz5MrKFc/CF503.webp","https://i.postimg.cc/N0bz6wYk/CF503-1.webp"] },
-            { id: "C04", brand: "好市多", subcat: "食品-零食和下酒小點", name: "有鹽綜合堅果", price: 525, desc: "每袋包含25 小包，混和均衡混合了杏仁、腰果、花生、核桃，經過烘焙並添加適量鹽巴，提升風味。", images: ["https://i.postimg.cc/JhypkH60/CF504.webp","https://i.postimg.cc/Bv8mKPY6/CF504-1.webp"] },
-            { id: "C05", brand: "好市多", subcat: "食品-零食和下酒小點", name: "杏仁小魚乾 x 腰果", price: 580, desc: "口感酥脆不刺口，帶有微甜的醬油香氣，杏仁條、腰果，搭配鹹香的小魚乾，味道層次分明", images: ["https://i.postimg.cc/cL4g1r0V/CF506.webp","https://i.postimg.cc/bwNDYsp7/CF506-1.webp"] },
-            { id: "C06", brand: "好市多", subcat: "食品-零食和下酒小點", name: "熟成起司鱈魚條 & 燻製起司 8入", price: 485, desc: "一袋裡面包含了最經典的「鱈魚起司條」與香氣濃郁的「燻製起司」，交換著吃完全不會膩。", images: ["https://i.postimg.cc/XYp5cpmq/CF509.webp"] },
-            { id: "C07", brand: "好市多", subcat: "食品-零食和下酒小點", name: "紀州梅 x 枕崎柴魚 風味秋葵乾 11入", price: 550, desc: "採用日本最出名的 「紀州產梅子」 的酸甜，搭配「枕崎產柴魚」的鮮味。這種組合是純正的日本風味，層次感比一般市售秋葵乾高出一截。", images: ["https://i.postimg.cc/ZYvqJ228/C-IMG-2429.webp","https://i.postimg.cc/h4QGK668/C-IMG-2430.webp"] },
-            { id: "C08", brand: "好市多", subcat: "食品-零食和下酒小點", name: "雪國アグリ 4種水果高纖蒟蒻果凍", price: 825, desc: "蘋果、芒果、葡萄、水蜜桃 各20入，富含膳食纖維、使用果汁調配、常溫或冰鎮都超美味", images: ["https://i.postimg.cc/DwwXWW2s/0614-63.jpg","https://i.postimg.cc/Jzzkyy1X/0614-64.jpg"] },
-            { id: "C09", brand: "好市多", subcat: "食品-零食和下酒小點", name: "MATCH 果凍冰沙棒 18袋入", price: 930, desc: "柑橘果香風味，常溫/冷藏：滑順果凍感、強力推薦冷凍：變身爽脆冰沙口感", images: ["https://i.postimg.cc/L5gyFybG/0614-65.jpg","https://i.postimg.cc/Hn8S1SNW/0614-66.jpg"] },
-            { id: "C10", brand: "好市多", subcat: "食品-零食和下酒小點", name: "蒟蒻畑 雙口味機能蒟蒻飲 12包入", price: 980, desc: "葡萄風味6包+水蜜桃風味6包，1包僅 39 大卡，卻補充滿滿的膳食纖維，控卡時期的最佳解嘴饞神隊友。", images: ["https://i.postimg.cc/VNd1bwrC/0614-67.jpg","https://i.postimg.cc/zfV5RNb7/0614-68.jpg"] },
-            { id: "C11", brand: "好市多", subcat: "食品-零食和下酒小點", name: "烤玉米粒脆片 經典海鹽風味 21袋入", price: 755, desc: "小巧隨手包設計、攜帶方便不沾手、口感極致酥脆，成分：非基因改造玉米、葵花油、海鹽", images: ["https://i.postimg.cc/sg35z6BN/0614-69.jpg"] },
-            { id: "C12", brand: "好市多", subcat: "食品-零食和下酒小點", name: "蜂蜜奶油綜合堅果", price: 755, desc: "貼心夾鏈袋設計，四合一頂級堅果有杏仁、核桃、腰果、夏威夷豆，經典蜂蜜奶油風味、顆顆飽滿香脆", images: ["https://i.postimg.cc/sg6F9L7N/0614-71.jpg","https://i.postimg.cc/2ScpFtht/0614-70.jpg"] },
-            { id: "C13", brand: "好市多", subcat: "食品-零食和下酒小點", name: "別懶散鱈魚香絲 2大罐入", price: 645, desc: "異國風唐辛子風味，鱈魚魚漿的鮮甜，加上微微的酸度與唐辛子的激辛感，層次豐富，微酸微辣辣度很溫和超級開胃！", images: ["https://i.postimg.cc/d1MsP0nb/0614-72.jpg"] },
+            // --- 日本日本日本好市多 (C 系列) ---
+            { id: "C01", brand: "日本日本好市多", subcat: "食品-零食和下酒小點", name: "北海道鮭魚乾", price: 702, desc: "選用北海道秋季鮭魚製成，極佳的下酒零食。", images: ["https://i.postimg.cc/VkKq4src/CF501.jpg"] },
+            { id: "C02", brand: "日本日本好市多", subcat: "食品-零食和下酒小點", name: "北海燒帆立貝", price: 365, desc: "調味過的整顆大粒干貝，包含干貝唇，為獨立分裝方便食用。", images: ["https://i.postimg.cc/ZqL1wdP6/CF502.webp"] },
+            { id: "C03", brand: "日本日本好市多", subcat: "食品-零食和下酒小點", name: "NUTS FIRST 控糖綜合堅果", price: 421, desc: "每袋包含14 小包，混和六種堅果與水果：杏仁、核桃、無花果、黑大豆、南瓜籽與蔓越莓。", images: ["https://i.postimg.cc/Dz5MrKFc/CF503.webp","https://i.postimg.cc/N0bz6wYk/CF503-1.webp"] },
+            { id: "C04", brand: "日本日本好市多", subcat: "食品-零食和下酒小點", name: "有鹽綜合堅果", price: 525, desc: "每袋包含25 小包，混和均衡混合了杏仁、腰果、花生、核桃，經過烘焙並添加適量鹽巴，提升風味。", images: ["https://i.postimg.cc/JhypkH60/CF504.webp","https://i.postimg.cc/Bv8mKPY6/CF504-1.webp"] },
+            { id: "C05", brand: "日本日本好市多", subcat: "食品-零食和下酒小點", name: "杏仁小魚乾 x 腰果", price: 580, desc: "口感酥脆不刺口，帶有微甜的醬油香氣，杏仁條、腰果，搭配鹹香的小魚乾，味道層次分明", images: ["https://i.postimg.cc/cL4g1r0V/CF506.webp","https://i.postimg.cc/bwNDYsp7/CF506-1.webp"] },
+            { id: "C06", brand: "日本日本好市多", subcat: "食品-零食和下酒小點", name: "熟成起司鱈魚條 & 燻製起司 8入", price: 485, desc: "一袋裡面包含了最經典的「鱈魚起司條」與香氣濃郁的「燻製起司」，交換著吃完全不會膩。", images: ["https://i.postimg.cc/XYp5cpmq/CF509.webp"] },
+            { id: "C07", brand: "日本日本好市多", subcat: "食品-零食和下酒小點", name: "紀州梅 x 枕崎柴魚 風味秋葵乾 11入", price: 550, desc: "採用日本最出名的 「紀州產梅子」 的酸甜，搭配「枕崎產柴魚」的鮮味。這種組合是純正的日本風味，層次感比一般市售秋葵乾高出一截。", images: ["https://i.postimg.cc/ZYvqJ228/C-IMG-2429.webp","https://i.postimg.cc/h4QGK668/C-IMG-2430.webp"] },
+            { id: "C08", brand: "日本日本好市多", subcat: "食品-零食和下酒小點", name: "雪國アグリ 4種水果高纖蒟蒻果凍", price: 825, desc: "蘋果、芒果、葡萄、水蜜桃 各20入，富含膳食纖維、使用果汁調配、常溫或冰鎮都超美味", images: ["https://i.postimg.cc/DwwXWW2s/0614-63.jpg","https://i.postimg.cc/Jzzkyy1X/0614-64.jpg"] },
+            { id: "C09", brand: "日本日本好市多", subcat: "食品-零食和下酒小點", name: "MATCH 果凍冰沙棒 18袋入", price: 930, desc: "柑橘果香風味，常溫/冷藏：滑順果凍感、強力推薦冷凍：變身爽脆冰沙口感", images: ["https://i.postimg.cc/L5gyFybG/0614-65.jpg","https://i.postimg.cc/Hn8S1SNW/0614-66.jpg"] },
+            { id: "C10", brand: "日本日本好市多", subcat: "食品-零食和下酒小點", name: "蒟蒻畑 雙口味機能蒟蒻飲 12包入", price: 980, desc: "葡萄風味6包+水蜜桃風味6包，1包僅 39 大卡，卻補充滿滿的膳食纖維，控卡時期的最佳解嘴饞神隊友。", images: ["https://i.postimg.cc/VNd1bwrC/0614-67.jpg","https://i.postimg.cc/zfV5RNb7/0614-68.jpg"] },
+            { id: "C11", brand: "日本日本好市多", subcat: "食品-零食和下酒小點", name: "烤玉米粒脆片 經典海鹽風味 21袋入", price: 755, desc: "小巧隨手包設計、攜帶方便不沾手、口感極致酥脆，成分：非基因改造玉米、葵花油、海鹽", images: ["https://i.postimg.cc/sg35z6BN/0614-69.jpg"] },
+            { id: "C12", brand: "日本日本好市多", subcat: "食品-零食和下酒小點", name: "蜂蜜奶油綜合堅果", price: 755, desc: "貼心夾鏈袋設計，四合一頂級堅果有杏仁、核桃、腰果、夏威夷豆，經典蜂蜜奶油風味、顆顆飽滿香脆", images: ["https://i.postimg.cc/sg6F9L7N/0614-71.jpg","https://i.postimg.cc/2ScpFtht/0614-70.jpg"] },
+            { id: "C13", brand: "日本日本好市多", subcat: "食品-零食和下酒小點", name: "別懶散鱈魚香絲 2大罐入", price: 645, desc: "異國風唐辛子風味，鱈魚魚漿的鮮甜，加上微微的酸度與唐辛子的激辛感，層次豐富，微酸微辣辣度很溫和超級開胃！", images: ["https://i.postimg.cc/d1MsP0nb/0614-72.jpg"] },
 
+            { id: "C20", brand: "日本日本好市多", subcat: "食品-巧克力", name: "Hershey's 巴西莓夾餡巧克力", price: 992, desc: "滑順黑巧克力包覆酸甜巴西莓與藍莓果汁軟餡。", images: ["https://i.postimg.cc/D0Wp3CDg/C_IMG_2411.webp"] },
+            { id: "C21", brand: "日本日本好市多", subcat: "食品-巧克力", name: "巧克力次郎Choco Jiro 巧克力餅乾 27袋", price: 642, desc: "巧克力裡面竟然還有牛奶夾心，配上脆脆的餅乾底，甜而不膩。", images: ["https://i.postimg.cc/4Nq5K9Lt/0614-52.jpg","https://i.postimg.cc/vHkz1Vqn/0614-53.jpg"] },
 
+            { id: "C30", brand: "日本日本好市多", subcat: "食品-食料品", name: "洋蔥湯包(10入)", price: 563, desc: "使用三種處理方式的洋蔥（慢炒、脆炸、洋蔥醬），並添加法國發酵奶油及帕瑪森起司，沖泡熱水即可享用。", images: ["https://i.postimg.cc/pX1L7V4J/CF101.webp","https://i.postimg.cc/YqyCV2Zf/IMG-2463.webp"],status: "sold_out"},
+            { id: "C31", brand: "日本日本好市多", subcat: "食品-食料品", name: "HIKARI味噌6種春雨 (30入，6種口味各5入)", price: 645, desc: "內含 3 種口味，每種各 9 份", images: ["https://i.postimg.cc/XYRhzQFV/LINE-NOTE-260614-1.jpg","https://i.postimg.cc/cLpjbXYx/LINE-NOTE-260614-2.jpg"] },
+            { id: "C32", brand: "日本日本好市多", subcat: "食品-食料品", name: "日清 碗裝迷你拉麵綜合箱 27食入", price: 1005, desc: "內含3種口味，每種各9份，Cup Noodle 經典原味、柚子風味烏龍麵、元祖雞拉麵", images: ["https://i.postimg.cc/DwMRSz44/60614-1.jpg","https://i.postimg.cc/XYztrvBy/60614-3.jpg"] },
+            { id: "C33", brand: "日本日本好市多", subcat: "食品-食料品", name: "一蘭拉麵：Premium 雙口味 5食入/盒", price: 764, desc: "內含2種口味，經典博多細麵 (3入)+稀有「釜醬汁」風味 (2入)，內含： 麵塊、液體湯包、赤紅秘製粉。", images: ["https://i.postimg.cc/8s8jkGdr/260614-4.jpg","https://i.postimg.cc/Z0kCYmPd/60614-5.jpg","https://i.postimg.cc/0rgb5vGS/60614-6.jpg"] },
+            { id: "C34", brand: "日本日本好市多", subcat: "食品-食料品", name: "明太子老店限定-明太子美乃滋", price: 335, desc: "結合了美乃滋的香濃與明太子的微辣鮮甜，不管是沾、拌、烤，只要一秒鐘就能讓普通食材變身日本居酒屋料理。", images: ["https://i.postimg.cc/tC1MLjM9/260614-7.jpg","https://i.postimg.cc/yYwbKbw2/260614-8.jpg"] },
+            { id: "C35", brand: "日本日本好市多", subcat: "食品-食料品", name: "日清 歐風牛肉咖哩飯 6入", price: 718, desc: "只要加入熱水等待 5 分鐘，攪拌 30 秒，稀稀的湯就會瞬間變成濃稠、充滿香氣的美味咖哩飯！", images: ["https://i.postimg.cc/VLyhQTQn/260614-9.jpg","https://i.postimg.cc/Fst65q5S/60614-10.jpg","https://i.postimg.cc/RVrY585f/0614-11.jpg"] },
+            { id: "C36", brand: "日本日本好市多", subcat: "食品-食料品", name: "日本三陸產 頂級乾燥切片海帶芽", price: 685, desc: "純天然海鮮乾燥製成，切成一口大小，只要放入水中浸泡約 3~5 分鐘，體積會迅速膨脹約 10~12 倍，隨時都能變出一道菜。", images: ["https://i.postimg.cc/SKk3fCdg/C-IMG-2464.webp","https://i.postimg.cc/YSMZzYRs/IMG-2465.webp","https://i.postimg.cc/d0wpjr6H/IMG-2466.webp"] },
+            { id: "C37", brand: "日本日本好市多", subcat: "食品-食料品", name: "永谷園 經典松茸風味清湯 約50入", price: 359, desc: "淡淡的松茸香氣配上鰹魚底韻，每一包都附有海苔絲、日式麩以及乾三葉草，非常適合作為佐餐湯品", images: ["https://i.postimg.cc/VvqHtNM6/C-IMG-2468.webp","https://i.postimg.cc/gjVBh0Rj/IMG-2467.webp"] },
+            { id: "C38", brand: "日本日本好市多", subcat: "食品-食料品", name: "掘西辛香料調味粉 250g", price: 537, desc: "20種以上香料調和： 以鹽、大蒜、黑胡椒為基底，結合了陳皮、醬油粉、月桂葉、芫荽、羅勒等 20 多種辛香料與調味料，層次感豐富到不可思議。", images: ["https://i.postimg.cc/66S89rYR/0614-16.jpg","https://i.postimg.cc/3r6kKXnm/0614-17.jpg"] },
+            { id: "C39", brand: "日本日本好市多", subcat: "食品-食料品", name: "義大利岩底 歐風清湯萬能鹽 390g", price: 382, desc: "使用來自義大利西西里島的純淨岩鹽，鹹味溫潤不刺鼻，結合了番茄、洋蔥、胡蘿蔔等蔬菜粉末，加上奧勒岡、羅勒、黑胡椒等多種香料，味道帶有濃郁的 法式清湯香氣。", images: ["https://i.postimg.cc/jq4YdtxT/0614-18.jpg","https://i.postimg.cc/FFVXsNrm/0614-19.jpg","https://i.postimg.cc/kMvPXqJm/0614-20.jpg"] },
+            { id: "C40", brand: "日本日本好市多", subcat: "食品-食料品", name: "BLUE CHIP 5種野菜綜合乾燥蔬菜 350g", price: 389, desc: "採用特殊的乾燥技術，鎖住蔬菜的甜味與營養。內含高麗菜、洋蔥、青江菜、紅蘿蔔、青蔥。這五種蔬菜組合起來就是湯頭甜味的來源。", images:["https://i.postimg.cc/Gt2KCF3n/0614-21.jpg","https://i.postimg.cc/90MbhdX5/0614-22.jpg"] },
+            { id: "C41", brand: "日本日本好市多", subcat: "食品-食料品", name: "日本敘敘苑 特製燒肉醬 2瓶", price: 1156, desc: "日本必吃的敘敘苑，這瓶就是他們店裡的靈魂！不管是拌飯、炒肉、還是當沾醬，隨便淋上去就是高級感。", images:["https://i.postimg.cc/sgfVhMMG/0614-48.jpg"] },
+            { id: "C42", brand: "日本日本好市多", subcat: "食品-食料品", name: "永谷園 大人的香鬆", price: 420, desc: "5種口味各 20袋，鮭魚青菜、燒明太子、海苔雞蛋、芥末、經典柴魚，不管是做小飯糰帶便當、配粥、還是拌麵都超合適。", images:["https://i.postimg.cc/wTwBF58b/0614-54.jpg"] },
 
+            { id: "C50", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "關口釀造 醬油仙貝85枚入", price: 662, desc: "非硬梆梆的口感，而是酥脆感。表面刷上厚薄均勻的醬油，經過烘烤後產生微微的醬油香，鹹甜度適中", images: ["https://i.postimg.cc/CKXQbwpj/C-IMG-2452.webp","https://i.postimg.cc/YSZsQtBY/C-IMG-2453.webp"] },
+            { id: "C51", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "關口釀造 辛香咖哩仙貝 約20小袋 ", price: 510, desc: "打開袋子就能聞到濃郁的咖哩辛香。入口後，仙貝的米香先散開，接著是微微的辣度與咖哩的鹹香在舌尖引爆。", images: ["https://i.postimg.cc/Y9svqm1v/C-IMG-2449.webp","https://i.postimg.cc/Hxhrs7Qj/C-IMG-2450.webp"] },
+            { id: "C52", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "鹽奶油地瓜片 10袋入 ", price: 608, desc: "使用 100% 日本產地瓜直接切片，厚度比一般洋芋片厚，咬起來更有存在感且非常酥脆，口感層次分明。", images: ["https://i.postimg.cc/9MW3kxSs/C-IMG-2436.webp","https://i.postimg.cc/MTWkLs4N/C-IMG-2437.webp"] },
+            { id: "C53", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "天乃屋 歌舞伎揚 約15袋 ", price: 839, desc: "咬下去會有清脆的聲音，緊接著散發出濃濃的米香與秘製醬油的鮮甜。", images: ["https://i.postimg.cc/nL2vtk0t/C-IMG-2460.webp","https://i.postimg.cc/43PzT5Bg/C-IMG-2461.webp"] },
+            { id: "C54", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "旨鹽風味香脆蝦餅 2入", price: 477, desc: "使用沖繩特產的鹽調味，鹹甜比例恰到好處，襯托出濃郁的蝦子鮮甜，口感比一般的蝦條更紮實、更酥脆。", images: ["https://i.postimg.cc/MH0J3CZh/C-IMG-2444.webp"] },
+            { id: "C55", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "UHA味覺糖 鹽奶油地瓜棒 5袋", price: 622, desc: "奶油香味不是只灑在表面，而是感覺滲進了地瓜片的纖維裡，咬下去是那種扎實的「咔滋、咔滋」聲。", images: ["https://i.postimg.cc/LXNRxNdY/0614-31.jpg","https://i.postimg.cc/FRDmTDtJ/0614-33.jpg"] },
+            { id: "C56", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "天乃屋 糯麥高纖仙貝 72枚", price: 717, desc: "整顆穀物的顆粒感，可以看到整顆糯麥的形狀，咬起來非常有層次，越嚼越香，帶有日式醬油的清甜感。12枚 × 6袋", images: ["https://i.postimg.cc/JhCXbcCv/0614-36.jpg","https://i.postimg.cc/QMZ7pkZv/0614-37.jpg"] },
+            { id: "C57", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "萬歲山椒辣味仙貝 24袋", price: 780, desc: "添加了大量的山椒粉。吃下去第一口是鮮甜，隨之而來的是強烈且爽快的「麻感」", images: ["https://i.postimg.cc/V6dbw7q9/0614-38.jpg","https://i.postimg.cc/VsttLDVY/C-IMG-2451.webp"] },
+            { id: "C58", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "瀨戶內檸檬炸魷魚餅 20袋入", price: 773, desc: "清爽的檸檬香氣搭配酥脆魷魚，完全不油膩", images: ["https://i.postimg.cc/hvKY5dWQ/0614-49.jpg","https://i.postimg.cc/brq5BtcG/0614-50.jpg","https://i.postimg.cc/RhvYDH5n/0614-51.jpg"] },
+            { id: "C59", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "Calbee 薄鹽洋芋片", price: 369, desc: "嚴選日本優質馬鈴薯與優質海鹽、昆布調味，不死鹹、超刷嘴", images: ["https://i.postimg.cc/RVPnrctb/0614-73.jpg"] },
+            { id: "C60", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "Calbee 海苔鹽味洋芋片", price: 369, desc: "嚴選日本優質馬鈴薯搭配雙重海苔碎與獨門提香配方調味，不死鹹、超刷嘴", images: ["https://i.postimg.cc/mrDg4qQ5/0614-74.jpg"] },
+            { id: "C61", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "Calbee 法式清湯風味洋芋片", price: 369, desc: "融入了牛肉與雞肉的鮮美肉汁，再加上經長時間燉煮、飽含日曬精華的洋蔥、胡蘿蔔等蔬菜的天然甘甜。", images: ["https://i.postimg.cc/y8T2j8SH/0614-75.jpg"] },
+            { id: "C62", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "Calbee Jagabee加厚薯條 和牛紅酒燉牛肉風味", price: 675, desc: "1.2倍厚切極致口感Jagabee獨有的卡滋卡滋雙重層次，每一袋都是完美密封的獨立隨手包，完整鎖住和牛醬香與薯條的酥脆", images: ["https://i.postimg.cc/tJZHmGGJ/0614-76.jpg","https://i.postimg.cc/Gt81Snn2/0614-77.jpg"] },
+            { id: "C63", brand: "日本日本好市多", subcat: "食品-餅乾曲奇米菓", name: "Calbee Jagabee 經典薄鹽帶皮薯條", price: 675, desc: "1.2倍厚切極致口感Jagabee獨有的卡滋卡滋雙重層次，每一袋都是完美密封的獨立隨手包，完整鎖住和牛醬香與薯條的酥脆", images: ["https://i.postimg.cc/tJZHmGGJ/0614-76.jpg","https://i.postimg.cc/Gt81Snn2/0614-77.jpg"] },
 
+            { id: "C70", brand: "日本日本好市多", subcat: "食品-咖啡和茶", name: "日東紅茶 宇治抹茶歐蕾 60入", price: 725, desc: "即沖即飲，冷熱皆宜，粉末極細，不僅能熱沖，夏天直接加入冷牛奶或冰水攪拌也能輕鬆化開，隨時享用冰抹茶。", images: ["https://i.postimg.cc/mDv78jTK/0614-26.jpg","https://i.postimg.cc/76FSm9qp/0614-27.jpg"] },
+            { id: "C71", brand: "日本日本好市多", subcat: "食品-咖啡和茶", name: "雀巢 宇治抹茶濃縮液膠囊 50入", price: 556, desc: "使用 100% 宇治抹茶，味道香濃不苦澀。 1顆膠囊搭配 150ml牛奶，冰熱皆可！", images: ["https://i.postimg.cc/FzKMKLP6/0614-55.jpg","https://i.postimg.cc/PJqgqw6R/0614-56.jpg"],status: "sold_out" },
 
+            { id: "C80", brand: "日本日本好市多", subcat: "生活家電", name: "Toffy 微波專用多功能烤盤 2台/盒-綠色", price: 1550, desc: "「1 台 5 役」超強多功能： 妳只需要微波爐，就能完成：烤、蒸、煮、焙、加熱。", images: ["https://i.postimg.cc/qMpMXh9y/0614-28.jpg","https://i.postimg.cc/wT9TcySJ/0614-29.jpg"] },            
+            { id: "C81", brand: "日本日本好市多", subcat: "生活家電", name: "Toffy 微波專用多功能烤盤 2台/盒-粉色", price: 1550, desc: "「1 台 5 役」超強多功能： 妳只需要微波爐，就能完成：烤、蒸、煮、焙、加熱。", images: ["https://i.postimg.cc/SNmN72wZ/0614-30.jpg"] },
+            { id: "C82", brand: "日本日本好市多", subcat: "生活家電", name: "頂級食品級酒精除菌噴霧組 噴霧本體1瓶 + 補充瓶2瓶", price: 1085, desc: "雙手消毒、餐具廚具除菌、居家環境清潔防護、除臭", images: ["https://i.postimg.cc/d1b143Pp/0614-61.jpg","https://i.postimg.cc/rmBmQsX7/0614-62.jpg"] },
 
+            { id: "C100", brand: "日本日本好市多", subcat: "美容保健", name: "鐵&葉酸 補血美顏營養軟糖 110日份", price: 988, desc: "每日2粒，即可補充 12mg的鐵及 400μg的葉酸，採用濃郁的巴西莓風味，完全沒有一般鐵劑討厭的金屬鐵鏽味，口感Q彈。", images: ["https://i.postimg.cc/FKcZZFzx/0614-14.jpg","https://i.postimg.cc/nL7kkVrK/0614-15.jpg"] },
+            { id: "C101", brand: "日本日本好市多", subcat: "美容保健", name: "合利他命 EX PLUS：日本國民級強效活性 B群 270錠", price: 1799, desc: "結合了維生素 B1、B6、B12，專門針對末梢神經修復。添加維生素E，改善血液循環，幫助緊繃的肌肉放鬆。", images: ["https://i.postimg.cc/Mpj1ByWr/0614-23.jpg"] },
+            { id: "C102", brand: "日本日本好市多", subcat: "美容保健", name: "EVE A錠 90 錠", price: 380, desc: "針對生理痛、頭痛效果特別顯著，也能緩解牙痛、關節痛與感冒發燒。提醒對阿斯匹靈過敏者、氣喘病史者或是預產期 12 週內的孕婦應避免使用。", images: ["https://i.postimg.cc/1RVgJDnB/0614-24.jpg"] },
+            { id: "C103", brand: "日本日本好市多", subcat: "美容保健", name: "The Guard整腸錠 alpha 3+ 550 錠", price: 1157, desc: "「胃 + 腸」的全方位保健，改善脹氣、軟便與便秘： 專門針對容易腹脹、消化不良或排便不順，能有效抑制腸道內異常發酵產生的氣體。", images: ["https://i.postimg.cc/sgLd6GZy/0614-25.jpg"] },
+            { id: "C104", brand: "日本日本好市多", subcat: "美容保健", name: "維他命 C 營養補充軟糖 100日份", price: 988, desc: "外層有酸甜的檸檬粉，口感Ｑ彈有勁，完全沒有維他命錠劑的藥味。10小袋 獨立包裝", images: ["https://i.postimg.cc/VNvxWM97/0614-34.jpg","https://i.postimg.cc/KYj6DL7D/0614-35.jpg"] },
+            { id: "C105", brand: "日本日本好市多", subcat: "美容保健", name: "Suisai 酵素洗顏粉 黃金版", price: 1619, desc: "對乾性肌開發的高級版，添加了金黃美容油（向日葵油與酪梨油）。洗完臉不會繃，反而有種潤澤感。", images: ["https://i.postimg.cc/Gh53wcMX/0614-44.jpg"] },
+            { id: "C106", brand: "日本日本好市多", subcat: "美容保健", name: "Suisai酵素洗顏粉 經典藍 74顆入", price: 1382, desc: "基礎熱銷款。主打蛋白質分解酵素，能洗掉毛孔裡的髒汙。", images: ["https://i.postimg.cc/X7zNSV2z/0614-45.jpg"] },
+            { id: "C107", brand: "日本日本好市多", subcat: "美容保健", name: "Suisai酵素洗顏粉 酷黑版 74顆入", price: 1382, desc: "加入了「炭」與「泥」成分。比起經典藍，吸附油脂的能力更強，洗完會有明顯的清爽感。", images: ["https://i.postimg.cc/QxyNGX64/0614-46.jpg"] },
+            { id: "C108", brand: "日本日本好市多", subcat: "美容保健", name: "花王Megrhythm 蒸氣溫熱眼罩 36枚入", price: 1127, desc: "三款味道各12枚， 戴上後會迅速產生約 40°C 的微細蒸氣，持續約20分鐘，溫熱感能放鬆眼周肌肉", images: ["https://i.postimg.cc/xCpjfnfT/0614-47.jpg"] },
 
-
-            { id: "C20", brand: "好市多", subcat: "食品-巧克力", name: "Hershey's 巴西莓夾餡巧克力", price: 992, desc: "滑順黑巧克力包覆酸甜巴西莓與藍莓果汁軟餡。", images: ["https://i.postimg.cc/D0Wp3CDg/C_IMG_2411.webp"] },
-            { id: "C20", brand: "好市多", subcat: "食品-巧克力", name: "巧克力次郎Choco Jiro 巧克力餅乾 27袋", price: 642, desc: "巧克力裡面竟然還有牛奶夾心，配上脆脆的餅乾底，甜而不膩。", images: ["https://i.postimg.cc/4Nq5K9Lt/0614-52.jpg","https://i.postimg.cc/vHkz1Vqn/0614-53.jpg"] },
-
-
-
-
-
-            { id: "C30", brand: "好市多", subcat: "食品-食料品", name: "洋蔥湯包(10入)", price: 563, desc: "使用三種處理方式的洋蔥（慢炒、脆炸、洋蔥醬），並添加法國發酵奶油及帕瑪森起司，沖泡熱水即可享用。", images: ["https://i.postimg.cc/pX1L7V4J/CF101.webp","https://i.postimg.cc/YqyCV2Zf/IMG-2463.webp"],status: "sold_out"},
-            { id: "C31", brand: "好市多", subcat: "食品-食料品", name: "HIKARI味噌6種春雨 (30入，6種口味各5入)", price: 645, desc: "內含 3 種口味，每種各 9 份", images: ["https://i.postimg.cc/XYRhzQFV/LINE-NOTE-260614-1.jpg","https://i.postimg.cc/cLpjbXYx/LINE-NOTE-260614-2.jpg"] },
-            { id: "C32", brand: "好市多", subcat: "食品-食料品", name: "日清 碗裝迷你拉麵綜合箱 27食入", price: 1005, desc: "內含3種口味，每種各9份，Cup Noodle 經典原味、柚子風味烏龍麵、元祖雞拉麵", images: ["https://i.postimg.cc/DwMRSz44/60614-1.jpg","https://i.postimg.cc/XYztrvBy/60614-3.jpg"] },
-            { id: "C33", brand: "好市多", subcat: "食品-食料品", name: "一蘭拉麵：Premium 雙口味 5食入/盒", price: 764, desc: "內含2種口味，經典博多細麵 (3入)+稀有「釜醬汁」風味 (2入)，內含： 麵塊、液體湯包、赤紅秘製粉。", images: ["https://i.postimg.cc/8s8jkGdr/260614-4.jpg","https://i.postimg.cc/Z0kCYmPd/60614-5.jpg","https://i.postimg.cc/0rgb5vGS/60614-6.jpg"] },
-            { id: "C34", brand: "好市多", subcat: "食品-食料品", name: "明太子老店限定-明太子美乃滋", price: 335, desc: "結合了美乃滋的香濃與明太子的微辣鮮甜，不管是沾、拌、烤，只要一秒鐘就能讓普通食材變身日本居酒屋料理。", images: ["https://i.postimg.cc/tC1MLjM9/260614-7.jpg","https://i.postimg.cc/yYwbKbw2/260614-8.jpg"] },
-            { id: "C35", brand: "好市多", subcat: "食品-食料品", name: "日清 歐風牛肉咖哩飯 6入", price: 718, desc: "只要加入熱水等待 5 分鐘，攪拌 30 秒，稀稀的湯就會瞬間變成濃稠、充滿香氣的美味咖哩飯！", images: ["https://i.postimg.cc/VLyhQTQn/260614-9.jpg","https://i.postimg.cc/Fst65q5S/60614-10.jpg","https://i.postimg.cc/RVrY585f/0614-11.jpg"] },
-            { id: "C36", brand: "好市多", subcat: "食品-食料品", name: "日本三陸產 頂級乾燥切片海帶芽", price: 685, desc: "純天然海鮮乾燥製成，切成一口大小，只要放入水中浸泡約 3~5 分鐘，體積會迅速膨脹約 10~12 倍，隨時都能變出一道菜。", images: ["https://i.postimg.cc/SKk3fCdg/C-IMG-2464.webp","https://i.postimg.cc/YSMZzYRs/IMG-2465.webp","https://i.postimg.cc/d0wpjr6H/IMG-2466.webp"] },
-            { id: "C37", brand: "好市多", subcat: "食品-食料品", name: "永谷園 經典松茸風味清湯 約50入", price: 359, desc: "淡淡的松茸香氣配上鰹魚底韻，每一包都附有海苔絲、日式麩以及乾三葉草，非常適合作為佐餐湯品", images: ["https://i.postimg.cc/VvqHtNM6/C-IMG-2468.webp","https://i.postimg.cc/gjVBh0Rj/IMG-2467.webp"] },
-            { id: "C38", brand: "好市多", subcat: "食品-食料品", name: "掘西辛香料調味粉 250g", price: 537, desc: "20種以上香料調和： 以鹽、大蒜、黑胡椒為基底，結合了陳皮、醬油粉、月桂葉、芫荽、羅勒等 20 多種辛香料與調味料，層次感豐富到不可思議。", images: ["https://i.postimg.cc/66S89rYR/0614-16.jpg","https://i.postimg.cc/3r6kKXnm/0614-17.jpg"] },
-            { id: "C39", brand: "好市多", subcat: "食品-食料品", name: "義大利岩底 歐風清湯萬能鹽 390g", price: 382, desc: "使用來自義大利西西里島的純淨岩鹽，鹹味溫潤不刺鼻，結合了番茄、洋蔥、胡蘿蔔等蔬菜粉末，加上奧勒岡、羅勒、黑胡椒等多種香料，味道帶有濃郁的 法式清湯香氣。", images: ["https://i.postimg.cc/jq4YdtxT/0614-18.jpg","https://i.postimg.cc/FFVXsNrm/0614-19.jpg","https://i.postimg.cc/kMvPXqJm/0614-20.jpg"] },
-            { id: "C40", brand: "好市多", subcat: "食品-食料品", name: "BLUE CHIP 5種野菜綜合乾燥蔬菜 350g", price: 389, desc: "採用特殊的乾燥技術，鎖住蔬菜的甜味與營養。內含高麗菜、洋蔥、青江菜、紅蘿蔔、青蔥。這五種蔬菜組合起來就是湯頭甜味的來源。", images:["https://i.postimg.cc/Gt2KCF3n/0614-21.jpg","https://i.postimg.cc/90MbhdX5/0614-22.jpg"] },
-            { id: "C41", brand: "好市多", subcat: "食品-食料品", name: "日本敘敘苑 特製燒肉醬 2瓶", price: 1156, desc: "日本必吃的敘敘苑，這瓶就是他們店裡的靈魂！不管是拌飯、炒肉、還是當沾醬，隨便淋上去就是高級感。", images:["https://i.postimg.cc/sgfVhMMG/0614-48.jpg"] },
-            { id: "C41", brand: "好市多", subcat: "食品-食料品", name: "永谷園 大人的香鬆", price: 420, desc: "5種口味各 20袋，鮭魚青菜、燒明太子、海苔雞蛋、芥末、經典柴魚，不管是做小飯糰帶便當、配粥、還是拌麵都超合適。", images:["https://i.postimg.cc/wTwBF58b/0614-54.jpg"] },
-
-
-
-            { id: "C50", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "關口釀造 醬油仙貝85枚入", price: 662, desc: "非硬梆梆的口感，而是酥脆感。表面刷上厚薄均勻的醬油，經過烘烤後產生微微的醬油香，鹹甜度適中", images: ["https://i.postimg.cc/CKXQbwpj/C-IMG-2452.webp","https://i.postimg.cc/YSZsQtBY/C-IMG-2453.webp"] },
-            { id: "C51", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "關口釀造 辛香咖哩仙貝 約20小袋 ", price: 510, desc: "打開袋子就能聞到濃郁的咖哩辛香。入口後，仙貝的米香先散開，接著是微微的辣度與咖哩的鹹香在舌尖引爆。", images: ["https://i.postimg.cc/Y9svqm1v/C-IMG-2449.webp","https://i.postimg.cc/Hxhrs7Qj/C-IMG-2450.webp"] },
-            { id: "C52", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "鹽奶油地瓜片 10袋入 ", price: 608, desc: "使用 100% 日本產地瓜直接切片，厚度比一般洋芋片厚，咬起來更有存在感且非常酥脆，口感層次分明。", images: ["https://i.postimg.cc/9MW3kxSs/C-IMG-2436.webp","https://i.postimg.cc/MTWkLs4N/C-IMG-2437.webp"] },
-            { id: "C53", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "天乃屋 歌舞伎揚 約15袋 ", price: 839, desc: "咬下去會有清脆的聲音，緊接著散發出濃濃的米香與秘製醬油的鮮甜。", images: ["https://i.postimg.cc/nL2vtk0t/C-IMG-2460.webp","https://i.postimg.cc/43PzT5Bg/C-IMG-2461.webp"] },
-            { id: "C54", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "旨鹽風味香脆蝦餅 2入", price: 477, desc: "使用沖繩特產的鹽調味，鹹甜比例恰到好處，襯托出濃郁的蝦子鮮甜，口感比一般的蝦條更紮實、更酥脆。", images: ["https://i.postimg.cc/MH0J3CZh/C-IMG-2444.webp"] },
-            { id: "C55", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "UHA味覺糖 鹽奶油地瓜棒 5袋", price: 622, desc: "奶油香味不是只灑在表面，而是感覺滲進了地瓜片的纖維裡，咬下去是那種扎實的「咔滋、咔滋」聲。", images: ["https://i.postimg.cc/LXNRxNdY/0614-31.jpg","https://i.postimg.cc/FRDmTDtJ/0614-33.jpg"] },
-            { id: "C56", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "天乃屋 糯麥高纖仙貝 72枚", price: 717, desc: "整顆穀物的顆粒感，可以看到整顆糯麥的形狀，咬起來非常有層次，越嚼越香，帶有日式醬油的清甜感。12枚 × 6袋", images: ["https://i.postimg.cc/JhCXbcCv/0614-36.jpg","https://i.postimg.cc/QMZ7pkZv/0614-37.jpg"] },
-            { id: "C57", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "萬歲山椒辣味仙貝 24袋", price: 780, desc: "添加了大量的山椒粉。吃下去第一口是鮮甜，隨之而來的是強烈且爽快的「麻感」", images: ["https://i.postimg.cc/V6dbw7q9/0614-38.jpg","https://i.postimg.cc/VsttLDVY/C-IMG-2451.webp"] },
-            { id: "C58", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "瀨戶內檸檬炸魷魚餅 20袋入", price: 773, desc: "清爽的檸檬香氣搭配酥脆魷魚，完全不油膩", images: ["https://i.postimg.cc/hvKY5dWQ/0614-49.jpg","https://i.postimg.cc/brq5BtcG/0614-50.jpg","https://i.postimg.cc/RhvYDH5n/0614-51.jpg"] },
-            { id: "C59", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "Calbee 薄鹽洋芋片", price: 369, desc: "嚴選日本優質馬鈴薯與優質海鹽、昆布調味，不死鹹、超刷嘴", images: ["https://i.postimg.cc/RVPnrctb/0614-73.jpg"] },
-            { id: "C60", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "Calbee 海苔鹽味洋芋片", price: 369, desc: "嚴選日本優質馬鈴薯搭配雙重海苔碎與獨門提香配方調味，不死鹹、超刷嘴", images: ["https://i.postimg.cc/mrDg4qQ5/0614-74.jpg"] },
-            { id: "C61", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "Calbee 法式清湯風味洋芋片", price: 369, desc: "融入了牛肉與雞肉的鮮美肉汁，再加上經長時間燉煮、飽含日曬精華的洋蔥、胡蘿蔔等蔬菜的天然甘甜。", images: ["https://i.postimg.cc/y8T2j8SH/0614-75.jpg"] },
-            { id: "C62", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "Calbee Jagabee加厚薯條 和牛紅酒燉牛肉風味", price: 675, desc: "1.2倍厚切極致口感Jagabee獨有的卡滋卡滋雙重層次，每一袋都是完美密封的獨立隨手包，完整鎖住和牛醬香與薯條的酥脆", images: ["https://i.postimg.cc/tJZHmGGJ/0614-76.jpg","https://i.postimg.cc/Gt81Snn2/0614-77.jpg"] },
-            { id: "C63", brand: "好市多", subcat: "食品-餅乾曲奇米菓", name: "Calbee Jagabee 經典薄鹽帶皮薯條", price: 675, desc: "1.2倍厚切極致口感Jagabee獨有的卡滋卡滋雙重層次，每一袋都是完美密封的獨立隨手包，完整鎖住和牛醬香與薯條的酥脆", images: ["https://i.postimg.cc/tJZHmGGJ/0614-76.jpg","https://i.postimg.cc/Gt81Snn2/0614-77.jpg"] },
-
-
-
-
-
-
-
-            { id: "C70", brand: "好市多", subcat: "食品-咖啡和茶", name: "日東紅茶 宇治抹茶歐蕾 60入", price: 725, desc: "即沖即飲，冷熱皆宜，粉末極細，不僅能熱沖，夏天直接加入冷牛奶或冰水攪拌也能輕鬆化開，隨時享用冰抹茶。", images: ["https://i.postimg.cc/mDv78jTK/0614-26.jpg","https://i.postimg.cc/76FSm9qp/0614-27.jpg"] },
-            { id: "C71", brand: "好市多", subcat: "食品-咖啡和茶", name: "雀巢 宇治抹茶濃縮液膠囊 50入", price: 556, desc: "使用 100% 宇治抹茶，味道香濃不苦澀。 1顆膠囊搭配 150ml牛奶，冰熱皆可！", images: ["https://i.postimg.cc/FzKMKLP6/0614-55.jpg","https://i.postimg.cc/PJqgqw6R/0614-56.jpg"],status: "sold_out" },
-
-
-
-
-
-
-            { id: "C80", brand: "好市多", subcat: "生活家電", name: "Toffy 微波專用多功能烤盤 2台/盒-綠色", price: 1550, desc: "「1 台 5 役」超強多功能： 妳只需要微波爐，就能完成：烤、蒸、煮、焙、加熱。", images: ["https://i.postimg.cc/qMpMXh9y/0614-28.jpg","https://i.postimg.cc/wT9TcySJ/0614-29.jpg"] },            
-            { id: "C81", brand: "好市多", subcat: "生活家電", name: "Toffy 微波專用多功能烤盤 2台/盒-粉色", price: 1550, desc: "「1 台 5 役」超強多功能： 妳只需要微波爐，就能完成：烤、蒸、煮、焙、加熱。", images: ["https://i.postimg.cc/SNmN72wZ/0614-30.jpg"] },
-            { id: "C82", brand: "好市多", subcat: "生活家電", name: "頂級食品級酒精除菌噴霧組 噴霧本體1瓶 + 補充瓶2瓶", price: 1085, desc: "雙手消毒、餐具廚具除菌、居家環境清潔防護、除臭", images: ["https://i.postimg.cc/d1b143Pp/0614-61.jpg","https://i.postimg.cc/rmBmQsX7/0614-62.jpg"] },
-
-
-
-
-            { id: "C100", brand: "好市多", subcat: "美容保健", name: "鐵&葉酸 補血美顏營養軟糖 110日份", price: 988, desc: "每日2粒，即可補充 12mg的鐵及 400μg的葉酸，採用濃郁的巴西莓風味，完全沒有一般鐵劑討厭的金屬鐵鏽味，口感Q彈。", images: ["https://i.postimg.cc/FKcZZFzx/0614-14.jpg","https://i.postimg.cc/nL7kkVrK/0614-15.jpg"] },
-            { id: "C101", brand: "好市多", subcat: "美容保健", name: "合利他命 EX PLUS：日本國民級強效活性 B群 270錠", price: 1799, desc: "結合了維生素 B1、B6、B12，專門針對末梢神經修復。添加維生素E，改善血液循環，幫助緊繃的肌肉放鬆。", images: ["https://i.postimg.cc/Mpj1ByWr/0614-23.jpg"] },
-            { id: "C102", brand: "好市多", subcat: "美容保健", name: "EVE A錠 90 錠", price: 380, desc: "針對生理痛、頭痛效果特別顯著，也能緩解牙痛、關節痛與感冒發燒。提醒對阿斯匹靈過敏者、氣喘病史者或是預產期 12 週內的孕婦應避免使用。", images: ["https://i.postimg.cc/1RVgJDnB/0614-24.jpg"] },
-            { id: "C103", brand: "好市多", subcat: "美容保健", name: "The Guard整腸錠 alpha 3+ 550 錠", price: 1157, desc: "「胃 + 腸」的全方位保健，改善脹氣、軟便與便秘： 專門針對容易腹脹、消化不良或排便不順，能有效抑制腸道內異常發酵產生的氣體。", images: ["https://i.postimg.cc/sgLd6GZy/0614-25.jpg"] },
-            { id: "C104", brand: "好市多", subcat: "美容保健", name: "維他命 C 營養補充軟糖 100日份", price: 988, desc: "外層有酸甜的檸檬粉，口感Ｑ彈有勁，完全沒有維他命錠劑的藥味。10小袋 獨立包裝", images: ["https://i.postimg.cc/VNvxWM97/0614-34.jpg","https://i.postimg.cc/KYj6DL7D/0614-35.jpg"] },
-            { id: "C105", brand: "好市多", subcat: "美容保健", name: "Suisai 酵素洗顏粉 黃金版", price: 1619, desc: "對乾性肌開發的高級版，添加了金黃美容油（向日葵油與酪梨油）。洗完臉不會繃，反而有種潤澤感。", images: ["https://i.postimg.cc/Gh53wcMX/0614-44.jpg"] },
-            { id: "C106", brand: "好市多", subcat: "美容保健", name: "Suisai酵素洗顏粉 經典藍 74顆入", price: 1382, desc: "基礎熱銷款。主打蛋白質分解酵素，能洗掉毛孔裡的髒汙。", images: ["https://i.postimg.cc/X7zNSV2z/0614-45.jpg"] },
-            { id: "C107", brand: "好市多", subcat: "美容保健", name: "Suisai酵素洗顏粉 酷黑版 74顆入", price: 1382, desc: "加入了「炭」與「泥」成分。比起經典藍，吸附油脂的能力更強，洗完會有明顯的清爽感。", images: ["https://i.postimg.cc/QxyNGX64/0614-46.jpg"] },
-            { id: "C108", brand: "好市多", subcat: "美容保健", name: "花王Megrhythm 蒸氣溫熱眼罩 36枚入", price: 1127, desc: "三款味道各12枚， 戴上後會迅速產生約 40°C 的微細蒸氣，持續約20分鐘，溫熱感能放鬆眼周肌肉", images: ["https://i.postimg.cc/xCpjfnfT/0614-47.jpg"] },
-
-
-
-
-
-
-
-            { id: "C120", brand: "好市多", subcat: "嬰幼兒", name: "兒童電動牙刷-庫洛米", price: 375, desc: " 每分鐘 7,000 次的細微震動，能比手動牙刷更有效地清除牙垢，同時保護小朋友的牙齦", images: ["https://i.postimg.cc/MTf8tQV2/0614-12.jpg"] },
-            { id: "C121", brand: "好市多", subcat: "嬰幼兒", name: "兒童電動牙刷-動物方城市", price: 375, desc: " 每分鐘 7,000 次的細微震動，能比手動牙刷更有效地清除牙垢，同時保護小朋友的牙齦", images: ["https://i.postimg.cc/vBxdXV9J/0614-13.jpg"] },
-            { id: "C122", brand: "好市多", subcat: "嬰幼兒", name: "Calbee：1歲以上零食 蔬菜口味小薯條 ", price: 790, desc: "12串組/共48小袋，非油炸、低負擔： 採用特殊的烘烤技術，完全不使用油，且鹽分極低，非常適合牙齒與腸胃還在發育階段的小朋友。", images: ["https://i.postimg.cc/sf6xxBh4/C-IMG-2401.webp","https://i.postimg.cc/VsGvvSCF/C-IMG-2402.webp"] },
-            { id: "C123", brand: "好市多", subcat: "嬰幼兒", name: "櫻花牌 15色消光水彩組", price: 378, desc: "採用軟管設計，力氣較小的幼兒也能輕鬆擠出，且蓋子好開好扣，顯色飽滿、不反光", images: ["https://i.postimg.cc/VL1LBGS8/0614-39.jpg","https://i.postimg.cc/65w5Lj7J/0614-40.jpg","https://i.postimg.cc/TYGYq7yv/0614-41.jpg"] },
-            { id: "C124", brand: "好市多", subcat: "嬰幼兒", name: "櫻花牌 24色粗軸粉蠟筆", price: 250, desc: "筆身較厚實，小朋友練習抓握，不容易折斷，耐用度極高。兼具蠟筆的定型力與粉彩的混色效果。顏色非常滑順，不需要費力就能畫出鮮艷色彩。", images: ["https://i.postimg.cc/qB1Zjgqk/0614-42.jpg","https://i.postimg.cc/J7pdPt0z/0614-43.jpg"] },
-            { id: "C125", brand: "好市多", subcat: "嬰幼兒", name: "迪士尼公主 夢幻波士頓包 × 豪華美妝組 冰雪奇緣", price: 1504, desc: "內容物超豐富，從水性指甲油、護唇膏到可愛髮飾通通有。", images: ["https://i.postimg.cc/t4LntdW2/0614-57.jpg","https://i.postimg.cc/QdRKkg1S/0614-60.jpg"] },
-            { id: "C126", brand: "好市多", subcat: "嬰幼兒", name: "迪士尼公主 夢幻波士頓包 × 豪華美妝組 小美人魚", price: 1504, desc: "內容物超豐富，從水性指甲油、護唇膏到可愛髮飾通通有。", images: ["https://i.postimg.cc/t4LntdW2/0614-57.jpg","https://i.postimg.cc/jSGnQ6Pc/0614-59.jpg"] },            
-            { id: "C127", brand: "好市多", subcat: "嬰幼兒", name: "迪士尼公主 夢幻波士頓包 × 豪華美妝組 長髮公主", price: 1504, desc: "內容物超豐富，從水性指甲油、護唇膏到可愛髮飾通通有。", images: ["https://i.postimg.cc/t4LntdW2/0614-57.jpg","https://i.postimg.cc/g2fLqy8D/0614-58.jpg"] },
-
-
-
-
-
-
+            { id: "C120", brand: "日本日本好市多", subcat: "嬰幼兒", name: "兒童電動牙刷-庫洛米", price: 375, desc: " 每分鐘 7,000 次的細微震動，能比手動牙刷更有效地清除牙垢，同時保護小朋友的牙齦", images: ["https://i.postimg.cc/MTf8tQV2/0614-12.jpg"] },
+            { id: "C121", brand: "日本日本好市多", subcat: "嬰幼兒", name: "兒童電動牙刷-動物方城市", price: 375, desc: " 每分鐘 7,000 次的細微震動，能比手動牙刷更有效地清除牙垢，同時保護小朋友的牙齦", images: ["https://i.postimg.cc/vBxdXV9J/0614-13.jpg"] },
+            { id: "C122", brand: "日本日本好市多", subcat: "嬰幼兒", name: "Calbee：1歲以上零食 蔬菜口味小薯條 ", price: 790, desc: "12串組/共48小袋，非油炸、低負擔： 採用特殊的烘烤技術，完全不使用油，且鹽分極低，非常適合牙齒與腸胃還在發育階段的小朋友。", images: ["https://i.postimg.cc/sf6xxBh4/C-IMG-2401.webp","https://i.postimg.cc/VsGvvSCF/C-IMG-2402.webp"] },
+            { id: "C123", brand: "日本日本好市多", subcat: "嬰幼兒", name: "櫻花牌 15色消光水彩組", price: 378, desc: "採用軟管設計，力氣較小的幼兒也能輕鬆擠出，且蓋子好開好扣，顯色飽滿、不反光", images: ["https://i.postimg.cc/VL1LBGS8/0614-39.jpg","https://i.postimg.cc/65w5Lj7J/0614-40.jpg","https://i.postimg.cc/TYGYq7yv/0614-41.jpg"] },
+            { id: "C124", brand: "日本日本好市多", subcat: "嬰幼兒", name: "櫻花牌 24色粗軸粉蠟筆", price: 250, desc: "筆身較厚實，小朋友練習抓握，不容易折斷，耐用度極高。兼具蠟筆的定型力與粉彩的混色效果。顏色非常滑順，不需要費力就能畫出鮮艷色彩。", images: ["https://i.postimg.cc/qB1Zjgqk/0614-42.jpg","https://i.postimg.cc/J7pdPt0z/0614-43.jpg"] },
+            { id: "C125", brand: "日本日本好市多", subcat: "嬰幼兒", name: "迪士尼公主 夢幻波士頓包 × 豪華美妝組 冰雪奇緣", price: 1504, desc: "內容物超豐富，從水性指甲油、護唇膏到可愛髮飾通通有。", images: ["https://i.postimg.cc/t4LntdW2/0614-57.jpg","https://i.postimg.cc/QdRKkg1S/0614-60.jpg"] },
+            { id: "C126", brand: "日本日本好市多", subcat: "嬰幼兒", name: "迪士尼公主 夢幻波士頓包 × 豪華美妝組 小美人魚", price: 1504, desc: "內容物超豐富，從水性指甲油、護唇膏到可愛髮飾通通有。", images: ["https://i.postimg.cc/t4LntdW2/0614-57.jpg","https://i.postimg.cc/jSGnQ6Pc/0614-59.jpg"] },            
+            { id: "C127", brand: "日本日本好市多", subcat: "嬰幼兒", name: "迪士尼公主 夢幻波士頓包 × 豪華美妝組 長髮公主", price: 1504, desc: "內容物超豐富，從水性指甲油、護唇膏到可愛髮飾通通有。", images: ["https://i.postimg.cc/t4LntdW2/0614-57.jpg","https://i.postimg.cc/g2fLqy8D/0614-58.jpg"] }
         ];
-        let cart = {}; let productImgMap = {}; let currentFilter = "全部";
+
+        // 讀取 LocalStorage 或預設清單
+        let allProducts = [];
+        try {
+            const stored = localStorage.getItem('emily_custom_products');
+            if (stored) {
+                allProducts = JSON.parse(stored);
+            } else {
+                allProducts = defaultProducts;
+            }
+        } catch (e) {
+            allProducts = defaultProducts;
+        }
+
+        let cart = {}; 
+        let productImgMap = {}; 
+        let currentFilter = "全部";
+        let uploadedBase64Images = [];
+
+        // 管理員彩蛋計數器
+        let secretClickCount = 0;
+        let secretClickTimer = null;
 
         window.onload = () => {
-            allProducts.forEach(p => productImgMap[p.id] = 0);
+            initProductImageMap();
             renderProducts();
             document.querySelectorAll('.terms-checkbox, .validate-input').forEach(el => {
                 el.addEventListener('change', updateSummary);
                 el.addEventListener('input', updateSummary);
             });
+            checkAdminMode(); // 載入時檢查是否已是管理員
         };
+
+        // --- 🕵️‍♀️ 隱藏入口與密碼驗證邏輯 ---
+        function handleSecretClick() {
+            secretClickCount++;
+            if (secretClickCount === 1) {
+                secretClickTimer = setTimeout(() => { secretClickCount = 0; }, 3000);
+            }
+            if (secretClickCount >= 5) {
+                clearTimeout(secretClickTimer);
+                secretClickCount = 0;
+                document.getElementById('passwordModal').classList.remove('hidden');
+                setTimeout(() => document.getElementById('adminPasswordInput').focus(), 100);
+            }
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.add('hidden');
+            document.getElementById('adminPasswordInput').value = '';
+        }
+
+        function verifyAdminPassword() {
+            const pwd = document.getElementById('adminPasswordInput').value;
+            if (pwd === 'emily888') { // 預設密碼設定於此
+                localStorage.setItem('emily_admin_mode', 'true');
+                closePasswordModal();
+                checkAdminMode();
+                showNotice("🔓 管理員模式已啟用！");
+            } else {
+                showNotice("❌ 密碼錯誤！");
+                document.getElementById('adminPasswordInput').value = '';
+            }
+        }
+
+        function checkAdminMode() {
+            const isAdmin = localStorage.getItem('emily_admin_mode') === 'true';
+            const floatingBtn = document.getElementById('floatingAdminBtn');
+            const sidebarBtn = document.getElementById('sidebarAdminBtn');
+            const sidebarLogout = document.getElementById('sidebarLogoutBtn');
+            
+            if (floatingBtn) floatingBtn.classList.toggle('hidden', !isAdmin);
+            if (sidebarBtn) sidebarBtn.classList.toggle('hidden', !isAdmin);
+            if (sidebarLogout) sidebarLogout.classList.toggle('hidden', !isAdmin);
+            
+            // 重新渲染商品卡片以顯示/隱藏管理員編輯按鈕
+            renderProducts();
+        }
+
+        function logoutAdmin() {
+            localStorage.removeItem('emily_admin_mode');
+            checkAdminMode();
+            showNotice("🔒 已退出管理員模式");
+            toggleSidebar();
+        }
+
+        function initProductImageMap() {
+            allProducts.forEach(p => {
+                if (productImgMap[p.id] === undefined) {
+                    productImgMap[p.id] = 0;
+                }
+            });
+        }
+
+        function showNotice(text) {
+            const toast = document.getElementById('noticeToast');
+            const toastText = document.getElementById('notice-text');
+            if (toast && toastText) {
+                toastText.textContent = text;
+                toast.classList.remove('hidden');
+                setTimeout(() => { toast.classList.add('hidden'); }, 3000);
+            }
+        }
 
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('sidebar-closed'); }
         
@@ -515,7 +708,7 @@
         function filterCategory(cat) {
             currentFilter = cat; 
             document.getElementById('current-category-label').textContent = cat;
-            document.getElementById('costco-quick-nav').classList.toggle('hidden', cat !== '好市多');
+            document.getElementById('costco-quick-nav').classList.toggle('hidden', cat !== '日本日本好市多');
             document.getElementById('kayanoya-quick-nav').classList.toggle('hidden', cat !== '茅乃舍');
             renderProducts(); 
             toggleSidebar(); 
@@ -545,16 +738,26 @@
         }
 
         function renderProducts() {
-            const grid = document.getElementById('product-grid'); grid.innerHTML = '';
-            if (currentFilter === "茅乃舍" || currentFilter === "好市多") {
+            const grid = document.getElementById('product-grid'); 
+            grid.innerHTML = '';
+            
+            if (currentFilter === "茅乃舍" || currentFilter === "日本日本好市多") {
                 const cats = currentFilter === "茅乃舍" ? KAYANOYA_CATEGORIES : COSTCO_CATEGORIES;
                 const descs = currentFilter === "茅乃舍" ? KAYANOYA_DESCRIPTIONS : COSTCO_DESCRIPTIONS;
-                cats.forEach(sub => {
+                
+                // 找出既有分類與使用者自訂子分類
+                const existingSubcats = [...new Set(allProducts.filter(p => p.brand === currentFilter).map(p => p.subcat))];
+                const allDisplayCats = [...new Set([...cats, ...existingSubcats])];
+
+                allDisplayCats.forEach(sub => {
                     const prods = allProducts.filter(p => p.brand === currentFilter && p.subcat === sub);
                     if (prods.length > 0) {
-                        const header = document.createElement('div'); header.id = `section-${sub}`; header.className = 'brand-section-header fade-in';
+                        const header = document.createElement('div'); 
+                        header.id = `section-${sub}`; 
+                        header.className = 'brand-section-header fade-in';
                         header.innerHTML = `<h2 class="brand-section-title uppercase font-bold text-gray-800">${sub}</h2>` + (descs[sub] ? `<p class="brand-section-desc">${descs[sub]}</p>` : '');
-                        grid.appendChild(header); prods.forEach(p => grid.appendChild(createProductCard(p)));
+                        grid.appendChild(header); 
+                        prods.forEach(p => grid.appendChild(createProductCard(p)));
                     }
                 });
             } else {
@@ -563,10 +766,15 @@
             }
         }
 
-function createProductCard(p) {
+        // 修改後的商品卡片渲染邏輯：支援狀態遮罩、數量選單置換與管理員編輯按鈕
+        function createProductCard(p) {
             const card = document.createElement('div'); 
             card.className = 'product-card p-3 md:p-10 border border-transparent hover:border-gray-100 rounded-sm fade-in shadow-sm relative';
-            const currentQty = cart[p.id] || 0; const currentImgIdx = productImgMap[p.id]; const hasMultipleImages = p.images.length > 1;
+            const currentQty = cart[p.id] || 0; 
+            const currentImgIdx = productImgMap[p.id] || 0; 
+            const hasMultipleImages = p.images && p.images.length > 1;
+            const imgSrc = (p.images && p.images.length > 0) ? p.images[currentImgIdx] : 'https://placehold.co/400x400/F7F2ED/7F2122?text=Emily+Store';
+            const isAdmin = localStorage.getItem('emily_admin_mode') === 'true';
             
             // 銷售狀態半透明遮罩
             const statusOverlay = p.status ? `
@@ -589,9 +797,20 @@ function createProductCard(p) {
                 </select>
             `;
 
-            card.innerHTML = `<div class="aspect-square bg-gray-50 mb-4 md:mb-8 overflow-hidden relative group">
-                <img id="img-${p.id}" src="${p.images[currentImgIdx]}" class="w-full h-full object-cover transition-opacity duration-200">
+            // 管理員快速編輯按鈕
+            const adminEditBtn = isAdmin ? `
+                <button onclick="openEditModal('${p.id}')" class="absolute bottom-2 right-2 z-20 bg-black/75 hover:bg-red-800 text-white text-[10px] md:text-xs px-2.5 py-1 rounded-sm shadow-md transition flex items-center space-x-1">
+                    <span>✏️</span>
+                    <span>編輯狀態</span>
+                </button>
+            ` : '';
+
+            card.innerHTML = `
+            <div class="aspect-square bg-gray-50 mb-4 md:mb-8 overflow-hidden relative group">
+                <img id="img-${p.id}" src="${imgSrc}" class="w-full h-full object-cover transition-opacity duration-200" onerror="this.src='https://placehold.co/400x400/F7F2ED/7F2122?text=No+Image'">
                 <div class="absolute top-2 left-2 md:top-4 md:left-4 bg-white/80 px-2 py-1 text-[8px] md:text-xs tracking-widest text-gray-500 font-bold uppercase shadow-sm">${p.brand}</div>
+                <div class="absolute top-2 right-2 md:top-4 md:right-4 bg-black/50 text-white px-1.5 py-0.5 text-[8px] md:text-[10px] tracking-widest uppercase rounded-sm">${p.id}</div>
+                ${adminEditBtn}
                 ${statusOverlay}
                 ${hasMultipleImages && !p.status ? `
                     <button onclick="switchCardImage('${p.id}', -1)" class="img-nav-btn absolute left-0 top-0 bottom-0 px-2 bg-black/5 text-white flex items-center z-20"><svg class="w-6 h-6 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg></button>
@@ -601,7 +820,7 @@ function createProductCard(p) {
             </div>
             <div class="space-y-2 md:space-y-4">
                 <h4 class="text-xs md:text-xl font-bold tracking-wide text-gray-800 line-clamp-2 min-h-[2.8em]">${p.name}</h4>
-                <p class="hidden md:block text-sm text-[#778899] font-medium leading-relaxed line-clamp-2">${p.desc}</p>
+                <p class="hidden md:block text-sm text-[#778899] font-medium leading-relaxed line-clamp-2">${p.desc || '由艾米莉為您嚴選的日本質感好物。'}</p>
                 <div class="flex flex-col md:flex-row md:justify-between md:items-center pt-2 md:pt-8 border-t border-gray-100 space-y-3 md:space-y-0">
                     <span class="text-sm md:text-2xl font-bold text-red-900">NT$ ${p.price.toLocaleString()}</span>
                     ${quantityAction}
@@ -610,15 +829,102 @@ function createProductCard(p) {
             return card;
         }
 
+        // 開啟指定商品的編輯視窗
+        function openEditModal(productId) {
+            const p = allProducts.find(item => item.id === productId);
+            if (!p) return;
+
+            document.getElementById('new-prod-id').value = p.id;
+            document.getElementById('new-prod-brand').value = p.brand;
+            document.getElementById('new-prod-subcat').value = p.subcat || '';
+            document.getElementById('new-prod-name').value = p.name;
+            document.getElementById('new-prod-price').value = p.price;
+            document.getElementById('new-prod-desc').value = p.desc || '';
+            document.getElementById('new-prod-status').value = p.status || '';
+
+            // 顯示刪除按鈕
+            const delBtn = document.getElementById('adminDeleteBtn');
+            if (delBtn) delBtn.classList.remove('hidden');
+
+            // 顯示目前已有圖片預覽
+            const previewContainer = document.getElementById('image-preview-container');
+            previewContainer.innerHTML = '';
+            uploadedBase64Images = p.images ? [...p.images] : [];
+
+            uploadedBase64Images.forEach((src, idx) => {
+                const imgWrap = document.createElement('div');
+                imgWrap.className = 'relative w-20 h-20 border border-gray-200 rounded overflow-hidden shadow-sm inline-block';
+                imgWrap.innerHTML = `
+                    <img src="${src}" class="w-full h-full object-cover">
+                    <span class="absolute bottom-0 right-0 bg-black/70 text-white text-[9px] px-1">${idx + 1}</span>
+                `;
+                previewContainer.appendChild(imgWrap);
+            });
+
+            toggleAdminModal();
+        }
+
+        function toggleAdminModal() {
+            const modal = document.getElementById('adminModal');
+            modal.classList.toggle('hidden');
+            if (modal.classList.contains('hidden')) {
+                const delBtn = document.getElementById('adminDeleteBtn');
+                if (delBtn) delBtn.classList.add('hidden');
+            }
+        }
+
+        function handleProductDelete() {
+            const id = document.getElementById('new-prod-id').value.trim();
+            const name = document.getElementById('new-prod-name').value.trim();
+            if (!id) return;
+
+            // 進行刪除確認
+            const index = allProducts.findIndex(p => p.id === id);
+            if (index === -1) {
+                showNotice("找不到此商品！");
+                return;
+            }
+
+            allProducts.splice(index, 1);
+            if (cart[id]) {
+                delete cart[id];
+                updateSummary();
+            }
+
+            // 更新 LocalStorage
+            try {
+                localStorage.setItem('emily_custom_products', JSON.stringify(allProducts));
+            } catch (err) {
+                console.warn("LocalStorage save error");
+            }
+
+            renderProducts();
+            toggleAdminModal();
+            document.getElementById('adminUploadForm').reset();
+            document.getElementById('image-preview-container').innerHTML = '';
+            uploadedBase64Images = [];
+            showNotice(`🗑️ 商品「${name}」(${id}) 已成功刪除！`);
+        }
+
         function switchCardImage(productId, direction) {
-            const product = allProducts.find(p => p.id === productId); const max = product.images.length;
-            let newIdx = (productImgMap[productId] + direction + max) % max; productImgMap[productId] = newIdx;
-            const img = document.getElementById(`img-${productId}`); if (img) { img.style.opacity = '0.5'; setTimeout(() => { img.src = product.images[newIdx]; img.style.opacity = '1'; }, 100); }
-            const dots = document.getElementById(`dots-${productId}`); if (dots) { [...dots.children].forEach((dot, i) => dot.className = `dot w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-full ${i === newIdx ? 'bg-white' : 'bg-white/40'}`); }
+            const product = allProducts.find(p => p.id === productId); 
+            if (!product || !product.images) return;
+            const max = product.images.length;
+            let newIdx = ((productImgMap[productId] || 0) + direction + max) % max; 
+            productImgMap[productId] = newIdx;
+            
+            const img = document.getElementById(`img-${productId}`); 
+            if (img) { 
+                img.style.opacity = '0.5'; 
+                setTimeout(() => { img.src = product.images[newIdx]; img.style.opacity = '1'; }, 100); 
+            }
+            const dots = document.getElementById(`dots-${productId}`); 
+            if (dots) { 
+                [...dots.children].forEach((dot, i) => dot.className = `dot w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-full ${i === newIdx ? 'bg-white' : 'bg-white/40'}`); 
+            }
         }
 
         function updateCart(id, qty) { cart[id] = parseInt(qty); if (cart[id] === 0) delete cart[id]; updateSummary(); }
-
 
         function updateSummary() {
             const sum = document.getElementById('cart-summary'), list = document.getElementById('cart-items'), totalDisplay = document.getElementById('grand-total'), bottomTotal = document.getElementById('bottom-total-display'), bottomBar = document.getElementById('bottom-bar'), submitBtn = document.getElementById('submitBtn'), tip = document.getElementById('empty-cart-tip');
@@ -638,12 +944,133 @@ function createProductCard(p) {
             totalDisplay.textContent = `NT$ ${total.toLocaleString()}`; bottomTotal.textContent = `NT$ ${total.toLocaleString()}`;
         }
 
+        function toggleAdminModal() {
+            const modal = document.getElementById('adminModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function handleBrandChange(brand) {
+            const subcatInput = document.getElementById('new-prod-subcat');
+            if (brand === '茅乃舍') subcatInput.value = '經典高湯包系列';
+            else if (brand === '日本日本好市多') subcatInput.value = '食品-零食和下酒小點';
+            else subcatInput.value = '一般';
+        }
+
+        function handleImageSelection(event) {
+            const files = Array.from(event.target.files);
+            const previewContainer = document.getElementById('image-preview-container');
+            previewContainer.innerHTML = '';
+            uploadedBase64Images = [];
+
+            if (files.length === 0) return;
+
+            files.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const base64Str = e.target.result;
+                    uploadedBase64Images.push(base64Str);
+
+                    const imgWrap = document.createElement('div');
+                    imgWrap.className = 'relative w-20 h-20 border border-gray-200 rounded overflow-hidden shadow-sm inline-block';
+                    imgWrap.innerHTML = `
+                        <img src="${base64Str}" class="w-full h-full object-cover">
+                        <span class="absolute bottom-0 right-0 bg-black/70 text-white text-[9px] px-1">${index + 1}</span>
+                    `;
+                    previewContainer.appendChild(imgWrap);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function handleProductUpload(e) {
+            e.preventDefault();
+            const id = document.getElementById('new-prod-id').value.trim();
+            const brand = document.getElementById('new-prod-brand').value.trim();
+            const subcat = document.getElementById('new-prod-subcat').value.trim();
+            const name = document.getElementById('new-prod-name').value.trim();
+            const price = parseInt(document.getElementById('new-prod-price').value, 10);
+            const desc = document.getElementById('new-prod-desc').value.trim();
+            const status = document.getElementById('new-prod-status').value.trim();
+
+            if (!id || !name || isNaN(price)) {
+                showNotice("請填妥商品編號、名稱與價格！");
+                return;
+            }
+
+            // 檢查 ID 是否重複
+            const exists = allProducts.findIndex(p => p.id === id);
+            
+            const newProduct = {
+                id,
+                brand,
+                subcat: subcat || "一般",
+                name,
+                price,
+                desc: desc || "嚴選日本商品",
+                images: uploadedBase64Images.length > 0 ? uploadedBase64Images : ["https://placehold.co/400x400/F7F2ED/7F2122?text=" + encodeURIComponent(name)]
+            };
+            if (status) newProduct.status = status;
+
+            if (exists >= 0) {
+                allProducts[exists] = newProduct;
+                showNotice(`商品編號 ${id} 已更新！`);
+            } else {
+                allProducts.unshift(newProduct);
+                showNotice(`🎉 商品「${name}」已成功上架！`);
+            }
+
+            // 儲存至本機 LocalStorage
+            try {
+                localStorage.setItem('emily_custom_products', JSON.stringify(allProducts));
+            } catch (err) {
+                console.warn("LocalStorage quota full or disabled");
+            }
+
+            initProductImageMap();
+            renderProducts();
+            toggleAdminModal();
+            document.getElementById('adminUploadForm').reset();
+            document.getElementById('image-preview-container').innerHTML = '';
+            uploadedBase64Images = [];
+
+            // 同步上傳到 Google 試算表 / 雲端硬碟 (若有配置)
+            if (SCRIPT_URL) {
+                try {
+                    fetch(SCRIPT_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        body: JSON.stringify({
+                            action: "addProduct",
+                            product: newProduct
+                        })
+                    });
+                } catch (err) {
+                    console.log("Background sync to Sheet dispatched");
+                }
+            }
+        }
+
+        function exportProductCode() {
+            const cleanProducts = allProducts.map(p => {
+                const copy = { ...p };
+                return copy;
+            });
+            const codeStr = JSON.stringify(cleanProducts, null, 4);
+            const tempArea = document.createElement("textarea");
+            tempArea.value = `const allProducts = ${codeStr};`;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempArea);
+            showNotice("已將最新全商品資料代碼複製到剪貼簿！");
+        }
+
         document.getElementById('orderForm').onsubmit = async function(e) {
             e.preventDefault();
             const orderId = "EM" + Date.now(); 
             document.getElementById('loadingOverlay').style.display = 'flex';
             let itemsStr = ""; for (let id in cart) { const p = allProducts.find(item => item.id == id); itemsStr += `${p.name} x ${cart[id]}\n`; }
-            const data = { orderId, name: document.getElementById('input-name').value, lineId: document.getElementById('input-line').value, email: document.getElementById('input-email').value, shipping: document.getElementById('input-shipping').value, notes: document.getElementById('input-notes').value, orderItems: itemsStr, total: document.getElementById('grand-total').textContent };
+            const data = { action: "createOrder", orderId, name: document.getElementById('input-name').value, lineId: document.getElementById('input-line').value, email: document.getElementById('input-email').value, shipping: document.getElementById('input-shipping').value, notes: document.getElementById('input-notes').value, orderItems: itemsStr, total: document.getElementById('grand-total').textContent };
             try {
                 await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", cache: "no-cache", body: JSON.stringify(data) });
                 document.getElementById('display-order-id').textContent = orderId;
